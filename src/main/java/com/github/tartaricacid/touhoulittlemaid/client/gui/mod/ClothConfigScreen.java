@@ -26,6 +26,10 @@ public class ClothConfigScreen extends Screen {
         this.lastScreen = lastScreen;
     }
 
+    public static void open() {
+        Minecraft.getInstance().setScreen(new ClothConfigScreen(Minecraft.getInstance().screen));
+    }
+
     public static void registerNoClothConfigPage() {
         if (!ModList.get().isLoaded(CompatRegistry.CLOTH_CONFIG)) {
             ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class, () ->
