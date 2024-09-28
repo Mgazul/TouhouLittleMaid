@@ -623,7 +623,7 @@ public abstract class AbstractMaidContainerGui<T extends AbstractMaidContainer> 
     @SuppressWarnings("unchecked")
     private void addSideTabsButton() {
         MaidSideTabs<T> maidTabs = new MaidSideTabs<>(maid.getId(), leftPos + 251, topPos + 28 + 9);
-        MaidSideTabButton[] tabs = maidTabs.getTabs(this);
+        MaidSideTabButton[] tabs = maidTabs.getTabs(this, this::renderComponentTooltip);
         for (MaidSideTabButton button : tabs) {
             this.addRenderableWidget(button);
         }
@@ -634,5 +634,9 @@ public abstract class AbstractMaidContainerGui<T extends AbstractMaidContainer> 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, SIDE);
         blit(poseStack, leftPos + 251 + 5, topPos + 28 + 9, 235, 107, 21, 99);
+    }
+
+    public interface TooltipRender {
+        void renderToolTip(PoseStack poseStack, List<Component> tooltips, int mouseX, int mouseY);
     }
 }

@@ -12,8 +12,8 @@ import com.github.tartaricacid.touhoulittlemaid.init.registry.CompatRegistry;
 import com.github.tartaricacid.touhoulittlemaid.inventory.container.AbstractMaidContainer;
 import com.github.tartaricacid.touhoulittlemaid.network.NetworkHandler;
 import com.github.tartaricacid.touhoulittlemaid.network.message.ToggleSideTabMessage;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.network.chat.Component;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.ModList;
 
@@ -33,14 +33,14 @@ public class MaidSideTabs<T extends AbstractMaidContainer> {
         this.topPos = topPos;
     }
 
-    public MaidSideTabButton[] getTabs(AbstractMaidContainerGui<T> screen) {
+    public MaidSideTabButton[] getTabs(AbstractMaidContainerGui<T> screen, AbstractMaidContainerGui.TooltipRender pOnTooltip) {
         // 任务配置界面按钮
         MaidSideTabButton taskConfig = genSideTabButton(SideTab.TASK_CONFIG, b -> {
             EntityMaid maid = screen.getMaid();
             if (maid != null) {
                 NetworkHandler.CHANNEL.sendToServer(new ToggleSideTabMessage(entityId, SideTab.TASK_CONFIG.getIndex(), maid.getTask().getUid()));
             }
-        });
+        }, pOnTooltip);
         if (screen instanceof MaidTaskConfigGui<?>) {
             taskConfig.active = false;
         }
@@ -55,12 +55,12 @@ public class MaidSideTabs<T extends AbstractMaidContainer> {
             } else {
                 PatchouliWarningScreen.open();
             }
-        });
+        }, pOnTooltip);
 
         // TODO: 未完成信息界面内容
         // 任务信息界面按钮
         MaidSideTabButton taskInfo = genSideTabButton(SideTab.TASK_INFO, (b) -> {
-        });
+        }, pOnTooltip);
 
         // 跳转全局配置按钮
         MaidSideTabButton globalConfig = genSideTabButton(SideTab.GLOBAL_CONFIG, (b) -> {
@@ -69,17 +69,17 @@ public class MaidSideTabs<T extends AbstractMaidContainer> {
             } else {
                 ClothConfigScreen.open();
             }
-        });
+        }, pOnTooltip);
 
         return new MaidSideTabButton[]{taskConfig, taskBook, taskInfo, globalConfig};
     }
 
-    private MaidSideTabButton genSideTabButton(SideTab sideTab, Button.OnPress onPressIn) {
+    private MaidSideTabButton genSideTabButton(SideTab sideTab, Button.OnPress onPressIn, AbstractMaidContainerGui.TooltipRender pOnTooltip) {
         String name = sideTab.name().toLowerCase(Locale.ENGLISH);
         String titleLangKey = String.format("gui.touhou_little_maid.button.%s", name);
         String descLangKey = String.format("gui.touhou_little_maid.button.%s.desc", name);
 
         return new MaidSideTabButton(rightPos, topPos + sideTab.getIndex() * SPACING, sideTab.getIndex() * SPACING, onPressIn,
-                List.of(Component.translatable(titleLangKey), Component.translatable(descLangKey)));
+                List.of(TComponent.translatable(titleLangKey), TComponent.translatable(descLangKey)), pOnTooltip);
     }
 }
