@@ -1207,6 +1207,14 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     }
 
     @Override
+    public void setItemSlot(EquipmentSlot slot, ItemStack stack) {
+        super.setItemSlot(slot, stack);
+        if (!this.level.isClientSide) {
+            MinecraftForge.EVENT_BUS.post(new MaidEquipEvent(this, slot, stack));
+        }
+    }
+
+    @Override
     public void playSound(SoundEvent soundEvent, float volume, float pitch) {
         if (soundEvent.getLocation().getPath().startsWith("maid") && !level.isClientSide) {
             NetworkHandler.sendToNearby(this, new PlayMaidSoundMessage(soundEvent.getLocation(), this.getSoundPackId(), this.getId()), 16);
@@ -1667,7 +1675,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     }
 
     public void setTaskData(CompoundTag compoundTag) {
-        this.entityData.set(TASK_DATA_INFO, compoundTag, true);
+        this.entityData.set(TASK_DATA_INFO, compoundTag);
     }
 
     public List<SendEffectMessage.EffectData> getEffects() {
