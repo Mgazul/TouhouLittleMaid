@@ -161,7 +161,7 @@ public final class MaidBrain {
         if (task.enableLookAndRandomWalk(maid)) {
             pairMaidList.add(Pair.of(20, getLook()));
         }
-        brain.addActivity(InitEntities.RIDE_WORK.get(), ImmutableList.of(updateActivity));
+        brain.addActivity(InitEntities.RIDE_WORK.get(), ImmutableList.copyOf(pairMaidList));
     }
 
     private static void registerRideRestGoals(Brain<EntityMaid> brain) {
