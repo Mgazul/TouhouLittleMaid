@@ -72,10 +72,10 @@ public class TaskDanmakuAttack implements IRangedAttackTask {
     }
 
     @Override
-    public List<Pair<Integer, BehaviorControl<? super EntityMaid>>> createRideBrainTasks(EntityMaid maid) {
-        BehaviorControl<EntityMaid> supplementedTask = StartAttacking.create(this::hasGohei, IAttackTask::findFirstValidAttackTarget);
-        BehaviorControl<EntityMaid> findTargetTask = StopAttackingIfTargetInvalid.create((target) -> !hasGohei(maid) || farAway(target, maid));
-        BehaviorControl<EntityMaid> shootTargetTask = new MaidShootTargetTask(2);
+    public List<Pair<Integer, Behavior<? super EntityMaid>>> createRideBrainTasks(EntityMaid maid) {
+        Behavior<EntityMaid> supplementedTask = new StartAttacking<>(this::hasGohei, IAttackTask::findFirstValidAttackTarget);
+        Behavior<EntityMaid> findTargetTask = new  StopAttackingIfTargetInvalid<>((target) -> !hasGohei(maid) || farAway(target, maid));
+        Behavior<EntityMaid> shootTargetTask = new MaidShootTargetTask(2);
 
         return Lists.newArrayList(
                 Pair.of(5, supplementedTask),

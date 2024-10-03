@@ -63,10 +63,10 @@ public class TaskCrossBowAttack implements IRangedAttackTask {
     }
 
     @Override
-    public List<Pair<Integer, BehaviorControl<? super EntityMaid>>> createRideBrainTasks(EntityMaid maid) {
-        BehaviorControl<EntityMaid> supplementedTask = StartAttacking.create(entityMaid -> hasCrossBow(entityMaid) && hasAmmunition(entityMaid), IAttackTask::findFirstValidAttackTarget);
-        BehaviorControl<EntityMaid> findTargetTask = StopAttackingIfTargetInvalid.create((target) -> !hasCrossBow(maid) || !hasAmmunition(maid) || farAway(target, maid));
-        BehaviorControl<EntityMaid> shootTargetTask = new CrossbowAttack<>();
+    public List<Pair<Integer, Behavior<? super EntityMaid>>> createRideBrainTasks(EntityMaid maid) {
+        Behavior<EntityMaid> supplementedTask = new StartAttacking<>(entityMaid -> hasCrossBow(entityMaid) && hasAmmunition(entityMaid), IAttackTask::findFirstValidAttackTarget);
+        Behavior<EntityMaid> findTargetTask = new StopAttackingIfTargetInvalid<>((target) -> !hasCrossBow(maid) || !hasAmmunition(maid) || farAway(target, maid));
+        Behavior<EntityMaid> shootTargetTask = new CrossbowAttack<>();
 
         return Lists.newArrayList(
                 Pair.of(5, supplementedTask),

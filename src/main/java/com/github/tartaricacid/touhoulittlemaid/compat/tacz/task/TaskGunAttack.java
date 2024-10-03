@@ -73,10 +73,10 @@ public class TaskGunAttack implements IAttackTask {
     }
 
     @Override
-    public List<Pair<Integer, BehaviorControl<? super EntityMaid>>> createRideBrainTasks(EntityMaid maid) {
-        BehaviorControl<EntityMaid> supplementedTask = StartAttacking.create(this::mainhandHoldGun, GunBehaviorUtils::findFirstValidAttackTarget);
-        BehaviorControl<EntityMaid> findTargetTask = StopAttackingIfTargetInvalid.create(target -> !mainhandHoldGun(maid) || farAway(target, maid));
-        BehaviorControl<EntityMaid> gunShootTargetTask = new GunShootTargetTask();
+    public List<Pair<Integer, Behavior<? super EntityMaid>>> createRideBrainTasks(EntityMaid maid) {
+        Behavior<EntityMaid> supplementedTask = new StartAttacking<>(this::mainhandHoldGun, GunBehaviorUtils::findFirstValidAttackTarget);
+        Behavior<EntityMaid> findTargetTask = new StopAttackingIfTargetInvalid<>(target -> !mainhandHoldGun(maid) || farAway(target, maid));
+        Behavior<EntityMaid> gunShootTargetTask = new GunShootTargetTask();
 
         return Lists.newArrayList(
                 Pair.of(5, supplementedTask),
