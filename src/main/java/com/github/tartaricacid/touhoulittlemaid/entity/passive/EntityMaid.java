@@ -28,6 +28,7 @@ import com.github.tartaricacid.touhoulittlemaid.entity.favorability.Type;
 import com.github.tartaricacid.touhoulittlemaid.entity.info.ServerCustomPackLoader;
 import com.github.tartaricacid.touhoulittlemaid.entity.item.EntityPowerPoint;
 import com.github.tartaricacid.touhoulittlemaid.entity.item.EntityTombstone;
+import com.github.tartaricacid.touhoulittlemaid.entity.projectile.MaidFishingHook;
 import com.github.tartaricacid.touhoulittlemaid.entity.task.TaskIdle;
 import com.github.tartaricacid.touhoulittlemaid.entity.task.TaskManager;
 import com.github.tartaricacid.touhoulittlemaid.init.InitEntities;
@@ -199,6 +200,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     private final MaidScriptBookManager scriptBookManager;
     private final SchedulePos schedulePos;
     public boolean guiOpening = false;
+    public MaidFishingHook fishing = null;
 
     private List<SendEffectMessage.EffectData> effects = Lists.newArrayList();
     private IMaidTask task = TaskManager.getIdleTask();
@@ -220,7 +222,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     }
 
     public static AttributeSupplier.Builder createAttributes() {
-        return LivingEntity.createLivingAttributes().add(Attributes.FOLLOW_RANGE, 64).add(Attributes.ATTACK_KNOCKBACK).add(Attributes.ATTACK_DAMAGE);
+        return LivingEntity.createLivingAttributes().add(Attributes.FOLLOW_RANGE, 64).add(Attributes.ATTACK_KNOCKBACK).add(Attributes.ATTACK_DAMAGE).add(Attributes.LUCK);
     }
 
     public static boolean canInsertItem(ItemStack stack) {
@@ -339,8 +341,8 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         super.rideTick();
         if (this.getVehicle() != null) {
             Entity vehicle = this.getVehicle();
-            this.setYHeadRot(vehicle.getYRot());
-            this.setYBodyRot(vehicle.getYRot());
+            //this.setYHeadRot(vehicle.getYRot());
+            //this.setYBodyRot(vehicle.getYRot());
         }
     }
 
@@ -1702,6 +1704,10 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     //找不着这个方法
     public void setTaskData(CompoundTag compoundTag) {
         this.entityData.set(TASK_DATA_INFO, compoundTag);
+    }
+
+    public float getLuck() {
+        return (float) this.getAttributeValue(Attributes.LUCK);
     }
 
     public List<SendEffectMessage.EffectData> getEffects() {
