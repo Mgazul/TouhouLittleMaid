@@ -9,8 +9,7 @@
     "MixinArrowEntity"
   ],
   "client": [
-    "client.HumanoidModelMixin",
-    "client.LanguageMixin",
+    "client.HumanoidModelMixin", "client.ItemPropertiesMixin", "client.LanguageMixin",
     "client.LivingEntityRendererMixin"
   ],
   "injectors": {
