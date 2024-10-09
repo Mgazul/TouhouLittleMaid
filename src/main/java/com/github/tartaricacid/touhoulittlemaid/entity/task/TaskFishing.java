@@ -51,6 +51,9 @@ public class TaskFishing implements IMaidTask {
 
     @Override
     public List<Pair<String, Predicate<EntityMaid>>> getConditionDescription(EntityMaid maid) {
-        return Collections.singletonList(Pair.of("has_fishing_rod", e -> e.getMainHandItem().canPerformAction(ToolActions.FISHING_ROD_CAST)));
+        //todo check
+        //来自FishingHook.shouldStopFishing
+        //要不要换成类型判断?
+        return Collections.singletonList(Pair.of("has_fishing_rod", e -> e.getMainHandItem().is(Items.FISHING_ROD)));
     }
 }

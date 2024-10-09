@@ -10,6 +10,7 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
@@ -87,8 +88,11 @@ public class MaidRideFindWaterTask extends MaidCheckRateTask {
     }
 
     private boolean hasFishingRod(EntityMaid entityMaid) {
+        //todo check
+        //来自FishingHook.shouldStopFishing
+        //要不要换成类型判断?
         ItemStack mainHandItem = entityMaid.getMainHandItem();
-        return mainHandItem.canPerformAction(ToolActions.FISHING_ROD_CAST);
+        return mainHandItem.is(Items.FISHING_ROD);
     }
 
     private boolean isWater(ServerLevel worldIn, BlockPos basePos) {
