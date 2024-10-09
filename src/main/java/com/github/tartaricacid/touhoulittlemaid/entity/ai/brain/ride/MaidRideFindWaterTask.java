@@ -1,6 +1,7 @@
 package com.github.tartaricacid.touhoulittlemaid.entity.ai.brain.ride;
 
 import com.github.tartaricacid.touhoulittlemaid.entity.ai.brain.task.MaidCheckRateTask;
+import com.github.tartaricacid.touhoulittlemaid.entity.ai.fishing.FishingTypeManager;
 import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
 import com.github.tartaricacid.touhoulittlemaid.entity.projectile.MaidFishingHook;
 import com.google.common.collect.ImmutableMap;
@@ -53,9 +54,8 @@ public class MaidRideFindWaterTask extends MaidCheckRateTask {
                 ItemStack mainHandItem = maid.getMainHandItem();
                 Vec3 centerPos = Vec3.atCenterOf(this.waterPos);
 
-                int lureSpeedBonus = EnchantmentHelper.getFishingSpeedBonus(mainHandItem);
-                int luckBonus = EnchantmentHelper.getFishingLuckBonus(mainHandItem);
-                worldIn.addFreshEntity(new MaidFishingHook(maid, worldIn, luckBonus, lureSpeedBonus, centerPos));
+                MaidFishingHook fishingHook = FishingTypeManager.getFishingTypes(maid, worldIn, mainHandItem, centerPos);
+                worldIn.addFreshEntity(fishingHook);
 
                 worldIn.playSound(null, maid.getX(), maid.getY(), maid.getZ(), SoundEvents.FISHING_BOBBER_THROW, SoundSource.NEUTRAL, 0.5F, 0.4F / (worldIn.getRandom().nextFloat() * 0.4F + 0.8F));
                 maid.swing(InteractionHand.MAIN_HAND);

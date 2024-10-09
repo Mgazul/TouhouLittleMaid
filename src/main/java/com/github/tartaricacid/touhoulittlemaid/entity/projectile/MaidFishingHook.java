@@ -40,6 +40,7 @@ import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.ForgeEventFactory;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -64,7 +65,7 @@ public class MaidFishingHook extends Projectile {
     private float fishAngle;
     private MaidFishingHook.FishHookState currentState = MaidFishingHook.FishHookState.FLYING;
 
-    private MaidFishingHook(EntityType<MaidFishingHook> entityType, Level level, int luck, int lureSpeed) {
+    protected MaidFishingHook(EntityType<? extends MaidFishingHook> entityType, Level level, int luck, int lureSpeed) {
         super(entityType, level);
         this.noCulling = true;
         this.luck = Math.max(0, luck);
@@ -214,7 +215,7 @@ public class MaidFishingHook extends Projectile {
             if (this.nibble <= retrieveTime && maid != null) {
                 ItemStack rodItem = maid.getMainHandItem();
                 int rodDamage = this.retrieve(rodItem);
-                rodItem.hurtAndBreak(rodDamage, maid, m -> maid.sendItemBreakMessage(rodItem));
+                this.hurtRod(maid, rodItem, rodDamage);
                 maid.swing(InteractionHand.MAIN_HAND);
                 level.playSound(null, maid.getX(), maid.getY(), maid.getZ(), SoundEvents.FISHING_BOBBER_RETRIEVE, SoundSource.NEUTRAL, 1.0F, 0.4F / (level.getRandom().nextFloat() * 0.4F + 0.8F));
             }
@@ -312,6 +313,9 @@ public class MaidFishingHook extends Projectile {
                 LootTable lootTable = server.getLootTables().get(BuiltInLootTables.FISHING);
                 List<ItemStack> randomItems = lootTable.getRandomItems(lootParams);
 
+                // 添加额外的物品
+                this.addExtraLoot(randomItems);
+
                 event = new MaidFishedEvent(randomItems, this.onGround ? 2 : 1, this);
                 MinecraftForge.EVENT_BUS.post(event);
                 if (event.isCanceled()) {
@@ -319,12 +323,10 @@ public class MaidFishingHook extends Projectile {
                     return event.getRodDamage();
                 }
 
-                for (ItemStack result : randomItems) {
-                    ItemEntity itemEntity = new ItemEntity(this.level, maid.getX(), maid.getY() + 0.5, maid.getZ(), result);
-                    itemEntity.setDeltaMovement(0, 0.1, 0);
-                    this.level.addFreshEntity(itemEntity);
-                    this.level.addFreshEntity(new ExperienceOrb(maid.level, maid.getX(), maid.getY() + 0.5, maid.getZ(), this.random.nextInt(6) + 1));
-                }
+                this.spawnLoot(randomItems, maid);
+                // 用于在钓到鱼后施加特殊功能
+                this.afterFishing();
+
                 rodDamage = 1;
             }
             if (this.onGround) {
@@ -335,6 +337,31 @@ public class MaidFishingHook extends Projectile {
         } else {
             return 0;
         }
+    }
+
+    @NotNull
+    protected List<ItemStack> getLoot(MinecraftServer server, LootContext lootParams) {
+        LootTable lootTable = server.getLootTables().get(BuiltInLootTables.FISHING);
+        return lootTable.getRandomItems(lootParams);
+    }
+
+    protected void spawnLoot(List<ItemStack> randomItems, EntityMaid maid) {
+        for (ItemStack result : randomItems) {
+            ItemEntity itemEntity = new ItemEntity(this.level, maid.getX(), maid.getY() + 0.5, maid.getZ(), result);
+            itemEntity.setDeltaMovement(0, 0.1, 0);
+            this.level.addFreshEntity(itemEntity);
+            this.level.addFreshEntity(new ExperienceOrb(maid.level, maid.getX(), maid.getY() + 0.5, maid.getZ(), this.random.nextInt(6) + 1));
+        }
+    }
+
+    protected void addExtraLoot(List<ItemStack> randomItems) {
+    }
+
+    protected void afterFishing() {
+    }
+
+    protected void hurtRod(EntityMaid maid, ItemStack rodItem, int rodDamage) {
+        rodItem.hurtAndBreak(rodDamage, maid, m -> maid.sendItemBreakMessage(rodItem));
     }
 
     @Override
@@ -392,6 +419,7 @@ public class MaidFishingHook extends Projectile {
     // todo: check
     private void checkCollision() {
 //        HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
+//        HitResult hitResult = ProjectileUtil.get(this, this::canHitEntity);
 //        if (hitResult.getType() == HitResult.Type.MISS || !ForgeEventFactory.onProjectileImpact(this, hitResult)) {
 //            this.onHit(hitResult);
 //        }
