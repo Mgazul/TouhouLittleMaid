@@ -31,7 +31,7 @@ import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.storage.loot.BuiltInLootTables;
-import net.minecraft.world.level.storage.loot.LootParams;
+import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.LootTable;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParams;
@@ -121,7 +121,7 @@ public class MaidFishingHook extends Projectile {
         else if (this.level.isClientSide || !this.shouldStopFishing(maid)) {
             maid.getLookControl().setLookAt(this);
             // 如果钓钩在地面，最多存在 100 tick 就消失
-            if (this.onGround()) {
+            if (this.onGround) {
                 ++this.life;
                 if (this.life >= 100) {
                     this.discard();
@@ -136,7 +136,7 @@ public class MaidFishingHook extends Projectile {
             BlockPos blockPos = this.blockPosition();
             FluidState fluidState = this.level.getFluidState(blockPos);
             if (fluidState.is(FluidTags.WATER)) {
-                fluidHeight = fluidState.getHeight(this.level(), blockPos);
+                fluidHeight = fluidState.getHeight(this.level, blockPos);
             }
 
             boolean onWaterSurface = fluidHeight > 0;
@@ -184,7 +184,7 @@ public class MaidFishingHook extends Projectile {
             // 运动相关更新
             this.move(MoverType.SELF, this.getDeltaMovement());
             this.updateRotation();
-            if (this.currentState == MaidFishingHook.FishHookState.FLYING && (this.onGround() || this.horizontalCollision)) {
+            if (this.currentState == MaidFishingHook.FishHookState.FLYING && (this.onGround || this.horizontalCollision)) {
                 this.setDeltaMovement(Vec3.ZERO);
             }
             this.setDeltaMovement(this.getDeltaMovement().scale(0.92));
@@ -232,7 +232,7 @@ public class MaidFishingHook extends Projectile {
                 double y = Mth.floor(this.getY()) + 1.0;
                 double z = this.getZ() + cos * this.timeUntilHooked * 0.1;
                 // 随机给予钓鱼时出现的水花粒子
-                BlockState blockState = level.getBlockState(BlockPos.containing(x, y - 1.0, z));
+                BlockState blockState = level.getBlockState(new BlockPos.MutableBlockPos(x, y - 1.0, z));
                 if (blockState.is(Blocks.WATER)) {
                     if (this.random.nextFloat() < 0.15F) {
                         level.sendParticles(ParticleTypes.BUBBLE, x, y - 0.1, z, 1, sin, 0.1D, cos, 0.0D);
@@ -272,7 +272,7 @@ public class MaidFishingHook extends Projectile {
                 double x = this.getX() + Mth.sin(randomRot) * randomNum * 0.1;
                 double y = Mth.floor(this.getY()) + 1.0;
                 double z = this.getZ() + Mth.cos(randomRot) * randomNum * 0.1;
-                BlockState blockState = level.getBlockState(BlockPos.containing(x, y - 1.0, z));
+                BlockState blockState = level.getBlockState(new BlockPos.MutableBlockPos(x, y - 1.0, z));
                 if (blockState.is(Blocks.WATER)) {
                     level.sendParticles(ParticleTypes.SPLASH, x, y, z, 2 + this.random.nextInt(2), 0.1F, 0.0D, 0.1F, 0.0D);
                 }
@@ -298,17 +298,17 @@ public class MaidFishingHook extends Projectile {
             // 如果是咬钩时间
             if (this.nibble > 0 && server != null) {
                 ServerLevel serverLevel = (ServerLevel) this.level;
-                LootParams lootParams = new LootParams.Builder(serverLevel)
+                LootContext lootParams = new LootContext.Builder(serverLevel)
                         .withParameter(LootContextParams.ORIGIN, this.position())
                         .withParameter(LootContextParams.TOOL, stack)
                         .withParameter(LootContextParams.THIS_ENTITY, this)
                         .withParameter(LootContextParams.KILLER_ENTITY, maid)
                         .withLuck(this.luck + maid.getLuck())
                         .create(LootContextParamSets.FISHING);
-                LootTable lootTable = server.getLootData().getLootTable(BuiltInLootTables.FISHING);
+                LootTable lootTable = server.getLootTables().get(BuiltInLootTables.FISHING);
                 List<ItemStack> randomItems = lootTable.getRandomItems(lootParams);
 
-                event = new MaidFishedEvent(randomItems, this.onGround() ? 2 : 1, this);
+                event = new MaidFishedEvent(randomItems, this.onGround ? 2 : 1, this);
                 MinecraftForge.EVENT_BUS.post(event);
                 if (event.isCanceled()) {
                     this.discard();
@@ -316,14 +316,14 @@ public class MaidFishingHook extends Projectile {
                 }
 
                 for (ItemStack result : randomItems) {
-                    ItemEntity itemEntity = new ItemEntity(this.level(), maid.getX(), maid.getY() + 0.5, maid.getZ(), result);
+                    ItemEntity itemEntity = new ItemEntity(this.level, maid.getX(), maid.getY() + 0.5, maid.getZ(), result);
                     itemEntity.setDeltaMovement(0, 0.1, 0);
                     this.level.addFreshEntity(itemEntity);
-                    this.level.addFreshEntity(new ExperienceOrb(maid.level(), maid.getX(), maid.getY() + 0.5, maid.getZ(), this.random.nextInt(6) + 1));
+                    this.level.addFreshEntity(new ExperienceOrb(maid.level, maid.getX(), maid.getY() + 0.5, maid.getZ(), this.random.nextInt(6) + 1));
                 }
                 rodDamage = 1;
             }
-            if (this.onGround()) {
+            if (this.onGround) {
                 rodDamage = 2;
             }
             this.discard();
@@ -381,11 +381,12 @@ public class MaidFishingHook extends Projectile {
         }
     }
 
+    // todo: check
     private void checkCollision() {
-        HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
-        if (hitResult.getType() == HitResult.Type.MISS || !ForgeEventFactory.onProjectileImpact(this, hitResult)) {
-            this.onHit(hitResult);
-        }
+//        HitResult hitResult = ProjectileUtil.getHitResultOnMoveVector(this, this::canHitEntity);
+//        if (hitResult.getType() == HitResult.Type.MISS || !ForgeEventFactory.onProjectileImpact(this, hitResult)) {
+//            this.onHit(hitResult);
+//        }
     }
 
     @Override
