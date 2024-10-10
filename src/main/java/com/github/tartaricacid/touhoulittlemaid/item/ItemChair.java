@@ -21,8 +21,11 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -84,17 +87,11 @@ public class ItemChair extends Item {
             AABB boundingBox = EntityChair.TYPE.getDimensions().makeBoundingBox(Vec3.atBottomCenterOf(clickedPos));
             if (world.noCollision(boundingBox) && world.getEntities(null, boundingBox).isEmpty()) {
                 ItemStack stack = context.getItemInHand();
-                if (world instanceof ServerLevel) {
-                    ServerLevel serverWorld = (ServerLevel) world;
-                    Component customName = null;
-                    if (stack.hasCustomHoverName()) {
-                        customName = stack.getDisplayName();
-                    }
-                    EntityChair chair = EntityChair.TYPE.create(serverWorld, stack.getTag(), customName, context.getPlayer(), clickedPos, MobSpawnType.SPAWN_EGG, true, true);
+                if (world instanceof ServerLevel serverWorld) {
+                    EntityChair chair = getSpawnChair(serverWorld, context.getPlayer(), stack, context.getClickedPos(), context.getRotation());
                     if (chair == null) {
                         return InteractionResult.FAIL;
                     }
-                    addExtraData(context, stack, chair);
                     world.addFreshEntity(chair);
                     world.playSound(null, chair.getX(), chair.getY(), chair.getZ(), SoundEvents.WOOL_PLACE, SoundSource.BLOCKS, 0.75F, 0.8F);
                 }
@@ -105,14 +102,33 @@ public class ItemChair extends Item {
         return InteractionResult.FAIL;
     }
 
-    private void addExtraData(UseOnContext context, ItemStack stack, EntityChair chair) {
+    @Nullable
+    public static EntityChair getSpawnChair(ServerLevel serverWorld, @Nullable Player player, ItemStack stack, BlockPos pos, float rotation) {
+        Component customName = null;
+        if (stack.hasCustomHoverName()) {
+            customName = stack.getDisplayName();
+        }
+        EntityChair chair = EntityChair.TYPE.create(serverWorld, stack.getTag(), customName, player, pos, MobSpawnType.SPAWN_EGG, true, true);
+
+        if (chair != null) {
+            addExtraData(player, stack, chair, rotation);
+        }
+        return chair;
+    }
+
+    @Override
+    public InteractionResult interactLivingEntity(ItemStack pStack, Player pPlayer, LivingEntity pInteractionTarget, InteractionHand pUsedHand) {
+        return super.interactLivingEntity(pStack, pPlayer, pInteractionTarget, pUsedHand);
+    }
+
+    private static void addExtraData(@Nullable Player player, ItemStack stack, EntityChair chair, float rotation) {
         Data data = Data.deserialization(stack.getOrCreateTag());
         chair.setModelId(data.getModelId());
         chair.setMountedHeight(data.getHeight());
         chair.setTameableCanRide(data.isCanRide());
         chair.setNoGravity(data.isNoGravity());
-        chair.setOwner(context.getPlayer());
-        float yaw = (float) Mth.floor((Mth.wrapDegrees(context.getRotation() - 180) + 22.5F) / 45.0F) * 45.0F;
+        chair.setOwner(player);
+        float yaw = (float) Mth.floor((Mth.wrapDegrees(rotation - 180) + 22.5F) / 45.0F) * 45.0F;
         chair.moveTo(chair.getX(), chair.getY(), chair.getZ(), yaw, 0.0F);
         chair.setYBodyRot(yaw);
         chair.setYHeadRot(yaw);
