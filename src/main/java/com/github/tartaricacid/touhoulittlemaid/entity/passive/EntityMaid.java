@@ -1,5 +1,6 @@
 package com.github.tartaricacid.touhoulittlemaid.entity.passive;
 
+import com.github.tartaricacid.touhoulittlemaid.advancements.maid.MaidEvent;
 import com.github.tartaricacid.touhoulittlemaid.api.backpack.IBackpackData;
 import com.github.tartaricacid.touhoulittlemaid.api.backpack.IMaidBackpack;
 import com.github.tartaricacid.touhoulittlemaid.api.entity.IMaid;
@@ -35,6 +36,7 @@ import com.github.tartaricacid.touhoulittlemaid.entity.task.TaskIdle;
 import com.github.tartaricacid.touhoulittlemaid.entity.task.TaskManager;
 import com.github.tartaricacid.touhoulittlemaid.init.InitEntities;
 import com.github.tartaricacid.touhoulittlemaid.init.InitSounds;
+import com.github.tartaricacid.touhoulittlemaid.init.InitTrigger;
 import com.github.tartaricacid.touhoulittlemaid.inventory.container.config.MaidConfigContainer;
 import com.github.tartaricacid.touhoulittlemaid.inventory.container.config.MaidConfigContainer;
 import com.github.tartaricacid.touhoulittlemaid.inventory.handler.BaubleItemHandler;
@@ -450,6 +452,9 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
                     this.brain.eraseMemory(MemoryModuleType.ATTACK_TARGET);
                     this.level.broadcastEntityEvent(this, (byte) 7);
                     this.playSound(InitSounds.MAID_TAMED.get(), 1, 1);
+                    if (player instanceof ServerPlayer serverPlayer) {
+                        InitTrigger.MAID_EVENT.trigger(serverPlayer, MaidEvent.TAMED_MAID);
+                    }
                     return InteractionResult.SUCCESS;
                 }
             } else {
@@ -767,6 +772,9 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     @Override
     public void die(DamageSource cause) {
         if (!MinecraftForge.EVENT_BUS.post(new MaidDeathEvent(this, cause))) {
+            if (this.getOwner() instanceof ServerPlayer serverPlayer) {
+                InitTrigger.MAID_EVENT.trigger(serverPlayer, MaidEvent.MAID_DEATH);
+            }
             super.die(cause);
         }
     }
@@ -853,6 +861,9 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
             double beforeMaxHealth = this.getAttributeBaseValue(Attributes.MAX_HEALTH);
             Objects.requireNonNull(this.getAttribute(Attributes.MAX_HEALTH)).setBaseValue(beforeMaxHealth + 20);
             setStruckByLightning(true);
+            if (this.getOwner() instanceof ServerPlayer serverPlayer) {
+                InitTrigger.MAID_EVENT.trigger(serverPlayer, MaidEvent.LIGHTNING_BOLT);
+            }
         }
     }
 
@@ -1365,6 +1376,9 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         super.startSleeping(pPos);
         this.setHealth(this.getMaxHealth());
         this.favorabilityManager.apply(Type.SLEEP);
+        if (this.getOwner() instanceof ServerPlayer serverPlayer) {
+            InitTrigger.MAID_EVENT.trigger(serverPlayer, MaidEvent.MAID_SLEEP);
+        }
     }
 
     public void setBackpackDelay() {
