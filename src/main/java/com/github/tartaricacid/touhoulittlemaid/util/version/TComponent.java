@@ -1,6 +1,7 @@
 package com.github.tartaricacid.touhoulittlemaid.util.version;
 
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 
@@ -14,12 +15,12 @@ public final class TComponent {
         return EMPTY;
     }
 
-    public static Component translatable(String key) {
+    public static MutableComponent translatable(String key) {
         return new TranslatableComponent(key);
     }
 
 
-    public static Component literal(String string) {
+    public static MutableComponent literal(String string) {
         return new TextComponent(string);
     }
 }

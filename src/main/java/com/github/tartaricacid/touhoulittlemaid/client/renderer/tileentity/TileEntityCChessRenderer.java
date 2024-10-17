@@ -7,6 +7,7 @@ import com.github.tartaricacid.touhoulittlemaid.client.model.CChessModel;
 import com.github.tartaricacid.touhoulittlemaid.client.model.CChessPiecesModel;
 import com.github.tartaricacid.touhoulittlemaid.tileentity.TileEntityCChess;
 import com.github.tartaricacid.touhoulittlemaid.util.CChessUtil;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import com.mojang.math.Axis;
@@ -37,8 +38,8 @@ public class TileEntityCChessRenderer implements BlockEntityRenderer<TileEntityC
 
     public TileEntityCChessRenderer(BlockEntityRendererProvider.Context context) {
         chessModel = new CChessModel(context.bakeLayer(CChessModel.LAYER));
-        chessPiecesModels = CChessPiecesModel.initModel(context);
-        selectedModels = CChessPiecesModel.getSelectedModel(context);
+        chessPiecesModels = CChessPiecesModel.initModel();
+        selectedModels = CChessPiecesModel.getSelectedModel();
         dispatcher = context.getBlockEntityRenderDispatcher();
         font = context.getFont();
     }
@@ -55,15 +56,15 @@ public class TileEntityCChessRenderer implements BlockEntityRenderer<TileEntityC
         if (chess.isCheckmate() && inRenderDistance(chess, TIPS_RENDER_DISTANCE)) {
             Camera camera = this.dispatcher.camera;
             MutableComponent loseTips;
-            MutableComponent resetTips = Component.translatable("message.touhou_little_maid.gomoku.reset").withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.AQUA);
-            MutableComponent roundText = Component.translatable("message.touhou_little_maid.gomoku.round", chess.getChessCounter()).withStyle(ChatFormatting.WHITE);
-            MutableComponent preRoundIcon = Component.literal("⏹ ").withStyle(ChatFormatting.GREEN);
-            MutableComponent postRoundIcon = Component.literal(" ⏹").withStyle(ChatFormatting.GREEN);
+            MutableComponent resetTips = TComponent.translatable("message.touhou_little_maid.cchess.reset").withStyle(ChatFormatting.UNDERLINE).withStyle(ChatFormatting.AQUA);
+            MutableComponent roundText = TComponent.translatable("message.touhou_little_maid.gomoku.round", chess.getChessCounter()).withStyle(ChatFormatting.WHITE);
+            MutableComponent preRoundIcon = TComponent.literal("⏹ ").withStyle(ChatFormatting.GREEN);
+            MutableComponent postRoundIcon = TComponent.literal(" ⏹").withStyle(ChatFormatting.GREEN);
             MutableComponent roundTips = preRoundIcon.append(roundText).append(postRoundIcon);
             if (!chess.isPlayerTurn()) {
-                loseTips = Component.translatable("message.touhou_little_maid.gomoku.win").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_PURPLE);
+                loseTips = TComponent.translatable("message.touhou_little_maid.gomoku.win").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_PURPLE);
             } else {
-                loseTips = Component.translatable("message.touhou_little_maid.gomoku.lose").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_PURPLE);
+                loseTips = TComponent.translatable("message.touhou_little_maid.gomoku.lose").withStyle(ChatFormatting.BOLD).withStyle(ChatFormatting.DARK_PURPLE);
             }
             float loseTipsWidth = (float) (-this.font.width(loseTips) / 2);
             float resetTipsWidth = (float) (-this.font.width(resetTips) / 2);

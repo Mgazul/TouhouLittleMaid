@@ -49,87 +49,87 @@ public class MaidConfigContainerGui extends AbstractMaidContainerGui<MaidConfigC
         int buttonTop = topPos + 52;
 
         this.addRenderableWidget(new MaidConfigButton(buttonLeft, buttonTop,
-                Component.translatable("gui.touhou_little_maid.maid_config.show_backpack"),
-                Component.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showBackpack()),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.show_backpack"),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showBackpack()),
                 button -> {
                     this.syncNetwork.setShowBackpack(!this.syncNetwork.showBackpack());
-                    button.setValue(Component.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showBackpack()));
+                    button.setValue(TComponent.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showBackpack()));
                 }
         ));
         buttonTop += 13;
 
         this.addRenderableWidget(new MaidConfigButton(buttonLeft, buttonTop,
-                Component.translatable("gui.touhou_little_maid.maid_config.show_back_item"),
-                Component.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showBackItem()),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.show_back_item"),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showBackItem()),
                 button -> {
                     this.syncNetwork.setShowBackItem(!this.syncNetwork.showBackItem());
-                    button.setValue(Component.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showBackItem()));
+                    button.setValue(TComponent.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showBackItem()));
                 }
         ));
         buttonTop += 13;
 
         this.addRenderableWidget(new MaidConfigButton(buttonLeft, buttonTop,
-                Component.translatable("gui.touhou_little_maid.maid_config.show_chat_bubble"),
-                Component.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showChatBubble()),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.show_chat_bubble"),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showChatBubble()),
                 button -> {
                     this.syncNetwork.setShowChatBubble(!this.syncNetwork.showChatBubble());
-                    button.setValue(Component.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showChatBubble()));
+                    button.setValue(TComponent.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.showChatBubble()));
                 }
         ));
         buttonTop += 13;
 
 
         this.addRenderableWidget(new MaidConfigButton(buttonLeft, buttonTop,
-                Component.translatable("gui.touhou_little_maid.maid_config.sound_frequency"),
-                Component.literal(Math.round(this.syncNetwork.soundFreq() * 100) + "%").withStyle(ChatFormatting.YELLOW),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.sound_frequency"),
+                TComponent.literal(Math.round(this.syncNetwork.soundFreq() * 100) + "%").withStyle(ChatFormatting.YELLOW),
                 button -> {
                     this.syncNetwork.setSoundFreq(this.syncNetwork.soundFreq() - 0.1f);
-                    button.setValue(Component.literal(Math.round(this.syncNetwork.soundFreq() * 100) + "%").withStyle(ChatFormatting.YELLOW));
+                    button.setValue(TComponent.literal(Math.round(this.syncNetwork.soundFreq() * 100) + "%").withStyle(ChatFormatting.YELLOW));
                 },
                 button -> {
                     this.syncNetwork.setSoundFreq(this.syncNetwork.soundFreq() + 0.1f);
-                    button.setValue(Component.literal(Math.round(this.syncNetwork.soundFreq() * 100) + "%").withStyle(ChatFormatting.YELLOW));
+                    button.setValue(TComponent.literal(Math.round(this.syncNetwork.soundFreq() * 100) + "%").withStyle(ChatFormatting.YELLOW));
                 }
         ));
         buttonTop += 13;
 
         this.addRenderableWidget(new MaidConfigButton(buttonLeft, buttonTop,
-                Component.translatable("gui.touhou_little_maid.maid_config.pick_type"),
-                Component.translatable(PickType.getTransKey(this.syncNetwork.pickType())).withStyle(ChatFormatting.DARK_RED),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.pick_type"),
+                TComponent.translatable(PickType.getTransKey(this.syncNetwork.pickType())).withStyle(ChatFormatting.DARK_RED),
                 button -> {
                     this.syncNetwork.setPickType(PickType.getPreviousPickType(this.syncNetwork.pickType()));
-                    button.setValue(Component.translatable(PickType.getTransKey(this.syncNetwork.pickType())).withStyle(ChatFormatting.DARK_RED));
+                    button.setValue(TComponent.translatable(PickType.getTransKey(this.syncNetwork.pickType())).withStyle(ChatFormatting.DARK_RED));
                 },
                 button -> {
                     this.syncNetwork.setPickType(PickType.getNextPickType(this.syncNetwork.pickType()));
-                    button.setValue(Component.translatable(PickType.getTransKey(this.syncNetwork.pickType())).withStyle(ChatFormatting.DARK_RED));
+                    button.setValue(TComponent.translatable(PickType.getTransKey(this.syncNetwork.pickType())).withStyle(ChatFormatting.DARK_RED));
                 }
         ));
         buttonTop += 13;
 
         this.addRenderableWidget(new MaidConfigButton(buttonLeft, buttonTop,
-                Component.translatable("gui.touhou_little_maid.maid_config.open_door"),
-                Component.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.openDoor()),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.open_door"),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.openDoor()),
                 button -> {
                     this.syncNetwork.setOpenDoor(!this.syncNetwork.openDoor());
-                    button.setValue(Component.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.openDoor()));
+                    button.setValue(TComponent.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.openDoor()));
                 }
         ));
         buttonTop += 13;
 
         this.addRenderableWidget(new MaidConfigButton(buttonLeft, buttonTop,
-                Component.translatable("gui.touhou_little_maid.maid_config.open_fence_gate"),
-                Component.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.openFenceGate()),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.open_fence_gate"),
+                TComponent.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.openFenceGate()),
                 button -> {
                     this.syncNetwork.setOpenFenceGate(!this.syncNetwork.openFenceGate());
-                    button.setValue(Component.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.openFenceGate()));
+                    button.setValue(TComponent.translatable("gui.touhou_little_maid.maid_config.value." + this.syncNetwork.openFenceGate()));
                 }
         ));
     }
 
     @Override
     protected void renderAddition(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        drawString(poseStack, font, Component.translatable("gui.touhou_little_maid.button.maid_config"), leftPos + 140, topPos + 41, 0xFFFFFF);
+        drawString(poseStack, font, TComponent.translatable("gui.touhou_little_maid.button.maid_config"), leftPos + 140, topPos + 41, 0xFFFFFF);
     }
 
     @Override

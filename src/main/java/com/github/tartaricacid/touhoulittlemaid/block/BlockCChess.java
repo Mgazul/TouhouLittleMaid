@@ -199,12 +199,12 @@ public class BlockCChess extends BlockJoy implements IBoardGameBlock {
             // 检查女仆
             Entity sitEntity = serverLevel.getEntity(chess.getSitId());
             if (sitEntity == null || !sitEntity.isAlive() || !(sitEntity.getFirstPassenger() instanceof EntityMaid maid)) {
-                player.sendSystemMessage(Component.translatable("message.touhou_little_maid.gomoku.no_maid"));
+                player.sendSystemMessage(TComponent.translatable("message.touhou_little_maid.gomoku.no_maid"));
                 return InteractionResult.FAIL;
             }
             // 检查是不是自己的女仆
             if (MaidConfig.MAID_GOMOKU_OWNER_LIMIT.get() && !maid.isOwnedBy(player)) {
-                player.sendSystemMessage(Component.translatable("message.touhou_little_maid.gomoku.not_owner"));
+                player.sendSystemMessage(TComponent.translatable("message.touhou_little_maid.gomoku.not_owner"));
                 return InteractionResult.FAIL;
             }
 
@@ -276,7 +276,7 @@ public class BlockCChess extends BlockJoy implements IBoardGameBlock {
             }
 
             // 如果将军，那么给予提示
-            player.sendSystemMessage(Component.translatable("message.touhou_little_maid.cchess.check"));
+            player.sendSystemMessage(TComponent.translatable("message.touhou_little_maid.cchess.check"));
             level.playSound(null, pos, SoundEvents.NOTE_BLOCK_BELL.get(), SoundSource.BLOCKS, 1.0f, 0.8F + level.random.nextFloat() * 0.4F);
             return InteractionResult.FAIL;
         }

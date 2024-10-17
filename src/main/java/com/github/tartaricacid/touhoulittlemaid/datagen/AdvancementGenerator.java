@@ -7,6 +7,7 @@ import com.github.tartaricacid.touhoulittlemaid.advancements.maid.MaidEvent;
 import com.github.tartaricacid.touhoulittlemaid.advancements.maid.MaidEventTrigger;
 import com.github.tartaricacid.touhoulittlemaid.init.InitEntities;
 import com.github.tartaricacid.touhoulittlemaid.init.InitItems;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
@@ -124,8 +125,8 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
     }
 
     public static Advancement.Builder altar(ItemLike item, String key) {
-        MutableComponent title = Component.translatable(String.format("advancements.touhou_little_maid.altar.%s.title", key));
-        MutableComponent desc = Component.translatable(String.format("advancements.touhou_little_maid.altar.%s.description", key));
+        MutableComponent title = TComponent.translatable(String.format("advancements.touhou_little_maid.altar.%s.title", key));
+        MutableComponent desc = TComponent.translatable(String.format("advancements.touhou_little_maid.altar.%s.description", key));
 
         return Advancement.Builder.advancement().display(item, title, desc,
                 new ResourceLocation(TouhouLittleMaid.MOD_ID, "textures/advancements/backgrounds/stone.png"),
@@ -133,8 +134,8 @@ public class AdvancementGenerator implements ForgeAdvancementProvider.Advancemen
     }
 
     public static Advancement.Builder maid(ItemLike item, String key) {
-        MutableComponent title = Component.translatable(String.format("advancements.touhou_little_maid.maid.%s.title", key));
-        MutableComponent desc = Component.translatable(String.format("advancements.touhou_little_maid.maid.%s.description", key));
+        MutableComponent title = TComponent.translatable(String.format("advancements.touhou_little_maid.maid.%s.title", key));
+        MutableComponent desc = TComponent.translatable(String.format("advancements.touhou_little_maid.maid.%s.description", key));
 
         return Advancement.Builder.advancement().display(item, title, desc,
                 new ResourceLocation(TouhouLittleMaid.MOD_ID, "textures/advancements/backgrounds/stone.png"),
