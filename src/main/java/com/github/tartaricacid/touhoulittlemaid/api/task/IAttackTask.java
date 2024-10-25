@@ -1,6 +1,7 @@
 package com.github.tartaricacid.touhoulittlemaid.api.task;
 
 import com.github.tartaricacid.touhoulittlemaid.config.subconfig.MaidConfig;
+import com.github.tartaricacid.touhoulittlemaid.entity.item.AbstractEntityFromItem;
 import com.github.tartaricacid.touhoulittlemaid.entity.misc.DefaultMonsterType;
 import com.github.tartaricacid.touhoulittlemaid.entity.misc.MonsterType;
 import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
@@ -13,6 +14,7 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
+import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -46,8 +48,8 @@ public interface IAttackTask extends IMaidTask {
         }
         String id = location.toString();
 
-        // 模组自身强制指定的
-        if (target instanceof Player) {
+        // 排除一些盔甲架，还有本模组的实体，以及玩家
+        if (target instanceof ArmorStand || target instanceof AbstractEntityFromItem || target instanceof Player) {
             return false;
         }
         // 有主的宠物也不攻击

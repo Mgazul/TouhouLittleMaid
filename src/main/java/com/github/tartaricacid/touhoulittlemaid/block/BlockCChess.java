@@ -58,7 +58,7 @@ public class BlockCChess extends BlockJoy implements IBoardGameBlock {
     public static final VoxelShape AABB = Block.box(0, 0, 0, 16, 2, 16);
 
     public BlockCChess() {
-        super(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).noOcclusion());
+        super(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).forceSolidOn().noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, GomokuPart.CENTER).setValue(FACING, Direction.NORTH));
     }
 
