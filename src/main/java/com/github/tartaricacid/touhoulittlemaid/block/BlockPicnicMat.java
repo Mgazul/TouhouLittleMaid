@@ -49,6 +49,8 @@ public class BlockPicnicMat extends Block implements EntityBlock {
     public static final VoxelShape AABB = Block.box(0, 0, 0, 16, 1, 16);
 
     public BlockPicnicMat() {
+        // todo
+        // .forceSolidOn().noOcclusion());
         super(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH).setValue(PART, PicnicMatPart.CENTER));
     }
