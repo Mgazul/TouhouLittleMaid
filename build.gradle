@@ -168,7 +168,7 @@ dependencies {
     // EMI
     compileOnly "maven.modrinth:emi:${emi_version}"
     implementation "maven.modrinth:jade:${jade_version}"
-    implementation "maven.modrinth:the-one-probe:${top_version}"
+    compileOnly "maven.modrinth:the-one-probe:${top_version}"
     implementation "maven.modrinth:cloth-config:${cloth_config_version}"
     implementation "maven.modrinth:iron-chests:${iron_chests_version}"
     implementation "maven.modrinth:carry-on:${carry_on_version}"

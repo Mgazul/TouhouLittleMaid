@@ -71,7 +71,7 @@ public class BlockGomoku extends BlockJoy implements IBoardGameBlock {
     public static final VoxelShape RIGHT_DOWN_WITH_BOX = Shapes.or(RIGHT_DOWN, Block.box(0, 0, 9, 5, 4, 14));
 
     public BlockGomoku() {
-        super(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).noOcclusion());
+        super(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).forceSolidOn().noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, GomokuPart.CENTER).setValue(FACING, Direction.NORTH));
     }
 
