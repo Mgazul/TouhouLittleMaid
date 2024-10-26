@@ -9,6 +9,7 @@ import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.AnimatableEntity;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.controller.AnimationController;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.event.predicate.AnimationEvent;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.molang.MolangParser;
+import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.molang.context.AnimationContext;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.processor.IBone;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.geo.animated.AnimatedGeoModel;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.model.provider.data.EntityModelData;
@@ -83,12 +84,12 @@ public class GeckoMaidEntity<T extends Mob> extends AnimatableEntity<T> {
 
     @Override
     @SuppressWarnings("all")
-    public boolean setCustomAnimations(@NotNull AnimationEvent animationEvent) {
+    public boolean setCustomAnimations(AnimationContext context, @NotNull AnimationEvent animationEvent) {
         List extraData = animationEvent.getExtraData();
         MolangParser parser = GeckoLibCache.getInstance().parser;
         if (!Minecraft.getInstance().isPaused() && extraData.size() == 1 && extraData.get(0) instanceof EntityModelData data) {
-            AnimationRegister.setParserValue(animationEvent, parser, data, this.maid);
-            var update = super.setCustomAnimations(animationEvent);
+            //AnimationRegister.setParserValue(animationEvent, parser, data, this.maid);
+            var update = super.setCustomAnimations(context, animationEvent);
             AnimatedGeoModel currentModel = this.getCurrentModel();
             if (currentModel != null && currentModel.head() != null) {
                 IBone head = currentModel.head();
@@ -100,7 +101,7 @@ public class GeckoMaidEntity<T extends Mob> extends AnimatableEntity<T> {
             }
             return update;
         } else {
-            return super.setCustomAnimations(animationEvent);
+            return super.setCustomAnimations(context, animationEvent);
         }
     }
 
