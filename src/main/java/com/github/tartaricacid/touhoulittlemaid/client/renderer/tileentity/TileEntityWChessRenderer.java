@@ -37,8 +37,8 @@ public class TileEntityWChessRenderer implements BlockEntityRenderer<TileEntityW
 
     public TileEntityWChessRenderer(BlockEntityRendererProvider.Context context) {
         chessModel = new WChessModel(context.bakeLayer(WChessModel.LAYER));
-        chessPiecesModels = WChessPiecesModel.initModel(context.bakeLayer(WChessPiecesModel.LAYER));
-        selectedModels = WChessPiecesModel.getSelectedModel(context.bakeLayer(WChessPiecesModel.LAYER));
+        chessPiecesModels = WChessPiecesModel.initModel();
+        selectedModels = WChessPiecesModel.getSelectedModel();
         dispatcher = context.getBlockEntityRenderDispatcher();
         font = context.getFont();
     }
