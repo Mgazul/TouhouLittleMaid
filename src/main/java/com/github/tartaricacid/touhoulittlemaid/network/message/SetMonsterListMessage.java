@@ -1,13 +1,10 @@
 package com.github.tartaricacid.touhoulittlemaid.network.message;
 
 import com.github.tartaricacid.touhoulittlemaid.entity.misc.MonsterType;
-import com.github.tartaricacid.touhoulittlemaid.init.InitItems;
-import com.github.tartaricacid.touhoulittlemaid.item.ItemMonsterList;
 import com.google.common.collect.Maps;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerPlayer;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.network.NetworkEvent;
 
 import java.util.Map;
@@ -52,9 +49,6 @@ public class SetMonsterListMessage {
         if (sender == null) {
             return;
         }
-        ItemStack item = sender.getMainHandItem();
-        if (item.is(InitItems.MONSTER_LIST.get())) {
-            ItemMonsterList.addMonster(item, message.monsterList);
-        }
+        // TODO: 需要修改
     }
 }

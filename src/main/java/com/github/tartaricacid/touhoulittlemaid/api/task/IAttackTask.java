@@ -5,10 +5,6 @@ import com.github.tartaricacid.touhoulittlemaid.entity.item.AbstractEntityFromIt
 import com.github.tartaricacid.touhoulittlemaid.entity.misc.DefaultMonsterType;
 import com.github.tartaricacid.touhoulittlemaid.entity.misc.MonsterType;
 import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
-import com.github.tartaricacid.touhoulittlemaid.init.InitItems;
-import com.github.tartaricacid.touhoulittlemaid.item.ItemMonsterList;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -16,7 +12,6 @@ import net.minecraft.world.entity.TamableAnimal;
 import net.minecraft.world.entity.ai.memory.MemoryModuleType;
 import net.minecraft.world.entity.decoration.ArmorStand;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Optional;
@@ -62,19 +57,11 @@ public interface IAttackTask extends IMaidTask {
             return false;
         }
 
-        // 获取女仆副手是否有妖怪名单
-        ItemStack offhandItem = maid.getOffhandItem();
-        if (offhandItem.is(InitItems.MONSTER_LIST.get())) {
-            CompoundTag monsterList = ItemMonsterList.getMonsterList(offhandItem);
-            if (monsterList.contains(id, Tag.TAG_INT)) {
-                int index = monsterList.getInt(id);
-                MonsterType monsterType = MonsterType.getTypeByIndex(index);
-                return DefaultMonsterType.canAttack(maid, target, monsterType);
-            }
-        }
+        // TODO 获取女仆 Task Data
+
 
         // 那如果没有呢？走默认配置
-        MonsterType monsterType = DefaultMonsterType.getMonsterType(target.getType());
+        MonsterType monsterType = DefaultMonsterType.getMonsterType(target);
         return DefaultMonsterType.canAttack(maid, target, monsterType);
     }
 
@@ -83,6 +70,11 @@ public interface IAttackTask extends IMaidTask {
     }
 
     default boolean doExtraAttack(EntityMaid maid, Entity target) {
+        return false;
+    }
+
+    @Override
+    default boolean enablePanic(EntityMaid maid) {
         return false;
     }
 }
