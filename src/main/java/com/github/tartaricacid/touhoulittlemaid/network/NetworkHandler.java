@@ -45,7 +45,7 @@ public class NetworkHandler {
         registrar.playToClient(CheckSchedulePosPacket.TYPE, CheckSchedulePosPacket.STREAM_CODEC, CheckSchedulePosPacket::handle);
         registrar.playToClient(SyncMaidAreaPackage.TYPE, SyncMaidAreaPackage.STREAM_CODEC, SyncMaidAreaPackage::handle);
         registrar.playToServer(ServantBellSetPackage.TYPE, ServantBellSetPackage.STREAM_CODEC, ServantBellSetPackage::handle);
-        registrar.playToServer(SetMonsterListMessage.TYPE, SetMonsterListMessage.STREAM_CODEC, SetMonsterListMessage::handle);
+        registrar.playToServer(SetAttackListPackage.TYPE, SetAttackListPackage.STREAM_CODEC, SetAttackListPackage::handle);
         registrar.playToServer(RefreshMaidBrainPackage.TYPE, RefreshMaidBrainPackage.STREAM_CODEC, RefreshMaidBrainPackage::handle);
         registrar.playToServer(MaidSubConfigPackage.TYPE, MaidSubConfigPackage.STREAM_CODEC, MaidSubConfigPackage::handle);
         registrar.playToClient(CChessToClientPackage.TYPE, CChessToClientPackage.STREAM_CODEC, CChessToClientPackage::handle);

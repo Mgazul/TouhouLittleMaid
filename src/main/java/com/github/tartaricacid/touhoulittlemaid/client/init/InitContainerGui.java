@@ -2,6 +2,7 @@ package com.github.tartaricacid.touhoulittlemaid.client.init;
 
 import com.github.tartaricacid.touhoulittlemaid.client.gui.entity.maid.backpack.*;
 import com.github.tartaricacid.touhoulittlemaid.client.gui.entity.maid.config.MaidConfigContainerGui;
+import com.github.tartaricacid.touhoulittlemaid.client.gui.entity.maid.task.AttackTaskConfigGui;
 import com.github.tartaricacid.touhoulittlemaid.client.gui.entity.maid.task.DefaultMaidTaskConfigGui;
 import com.github.tartaricacid.touhoulittlemaid.client.gui.item.PicnicBasketContainerScreen;
 import com.github.tartaricacid.touhoulittlemaid.client.gui.item.WirelessIOContainerGui;
@@ -29,5 +30,6 @@ public final class InitContainerGui {
         event.register(InitContainer.PICNIC_BASKET_CONTAINER.get(), PicnicBasketContainerScreen::new);
 
         event.register(InitContainer.DEFAULT_MAIK_TASK_CONFIG.get(), DefaultMaidTaskConfigGui::new);
+        event.register(InitContainer.ATTACK_TASK_CONFIG.get(), AttackTaskConfigGui::new);
     }
 }
