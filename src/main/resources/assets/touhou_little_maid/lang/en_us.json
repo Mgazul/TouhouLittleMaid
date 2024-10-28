@@ -399,6 +399,7 @@
   "gui.touhou_little_maid.monster_type.hostile": "§cHostile",
   "gui.touhou_little_maid.monster_type.title": "Maid Attack List",
   "gui.touhou_little_maid.monster_type.add": "Add",
+  "gui.touhou_little_maid.default_task_config.title": "Current task does not have any config...",
   "chat_bubble.touhou_little_maid.inner.feed_animal.max_number": "So many animals... I don't feed them anymore!",
   "chat_bubble.touhou_little_maid.inner.home_meal.two_hand_is_full": "My hands were full of items... I couldn't eat!",
   "chat_bubble.touhou_little_maid.inner.home_meal.meal_is_empty": "Hurry up, Hurry up, I don't have anything to eat!",
