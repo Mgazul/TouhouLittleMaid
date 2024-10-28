@@ -84,7 +84,7 @@ public final class NetworkHandler {
                 Optional.of(NetworkDirection.PLAY_TO_CLIENT));
         CHANNEL.registerMessage(29, ServantBellSetMessage.class, ServantBellSetMessage::encode, ServantBellSetMessage::decode, ServantBellSetMessage::handle,
                 Optional.of(NetworkDirection.PLAY_TO_SERVER));
-        CHANNEL.registerMessage(30, SetMonsterListMessage.class, SetMonsterListMessage::encode, SetMonsterListMessage::decode, SetMonsterListMessage::handle,
+        CHANNEL.registerMessage(30, SetAttackListMessage.class, SetAttackListMessage::encode, SetAttackListMessage::decode, SetAttackListMessage::handle,
                 Optional.of(NetworkDirection.PLAY_TO_SERVER));
         CHANNEL.registerMessage(31, MaidSubConfigMessage.class, MaidSubConfigMessage::encode, MaidSubConfigMessage::decode, MaidSubConfigMessage::handle,
                 Optional.of(NetworkDirection.PLAY_TO_SERVER));
