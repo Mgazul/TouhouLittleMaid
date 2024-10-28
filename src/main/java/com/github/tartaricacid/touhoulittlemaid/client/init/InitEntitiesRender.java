@@ -72,7 +72,6 @@ public final class InitEntitiesRender {
         event.registerLayerDefinition(CChessModel.LAYER, CChessModel::createBodyLayer);
         event.registerLayerDefinition(WChessModel.LAYER, WChessModel::createBodyLayer);
         event.registerLayerDefinition(PieceModel.LAYER, PieceModel::createBodyLayer);
-        event.registerLayerDefinition(WChessPiecesModel.LAYER, WChessPiecesModel::createBodyLayer);
         event.registerLayerDefinition(CraftingTableBackpackModel.LAYER, CraftingTableBackpackModel::createBodyLayer);
         event.registerLayerDefinition(EnderChestBackpackModel.LAYER, EnderChestBackpackModel::createBodyLayer);
         event.registerLayerDefinition(FurnaceBackpackModel.LAYER, FurnaceBackpackModel::createBodyLayer);
