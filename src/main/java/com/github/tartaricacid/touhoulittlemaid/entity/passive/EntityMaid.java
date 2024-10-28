@@ -314,14 +314,14 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     /**
      * 设置数据
      */
-    public <T> void setData(TaskDataKey<?> dataKey, T value) {
+    public <T> void setData(TaskDataKey<T> dataKey, T value) {
         this.taskDataMaps.setData(dataKey, value);
     }
 
     /**
      * 设置数据，并将其同步到客户端
      */
-    public <T> void setAndSyncData(TaskDataKey<?> dataKey, T value) {
+    public <T> void setAndSyncData(TaskDataKey<T> dataKey, T value) {
         this.setData(dataKey, value);
         this.syncTaskDataMaps = true;
     }
