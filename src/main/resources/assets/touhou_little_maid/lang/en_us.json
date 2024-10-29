@@ -461,7 +461,7 @@
   "message.touhou_little_maid.cchess.move_limit": "Draw by 60-Move Rule!",
   "message.touhou_little_maid.cchess.reset": "Right click on the right black area to reset",
   "message.touhou_little_maid.wchess.move_limit": "Draw by 50-Move Rule!",
-  "message.touhou_little_maid.wchess.reset": "Right click on the red area on either side to reset",
+  "message.touhou_little_maid.wchess.reset": "Right click on the light yellow area on either side to reset",
   "commands.touhou_little_maid.pack.reload.info": "All model pack have been reloaded!",
   "commands.touhou_little_maid.power.handle.info": "%d players's power point is changed",
   "commands.touhou_little_maid.maid_num.handle.info": "%d players's maid num is changed",

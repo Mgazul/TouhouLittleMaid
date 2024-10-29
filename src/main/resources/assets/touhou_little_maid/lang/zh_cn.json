@@ -461,7 +461,7 @@
   "message.touhou_little_maid.cchess.move_limit": "六十回合自然限着！",
   "message.touhou_little_maid.cchess.reset": "右击棋盘右侧黑色区域重置",
   "message.touhou_little_maid.wchess.move_limit": "五十回合限制！",
-  "message.touhou_little_maid.wchess.reset": "右击任意一侧的红色区域进行重置",
+  "message.touhou_little_maid.wchess.reset": "右击任意一侧的淡黄色区域进行重置",
   "commands.touhou_little_maid.pack.reload.info": "所有的模型包已经重载！",
   "commands.touhou_little_maid.power.handle.info": "修改了 %d 位玩家的 P 点",
   "commands.touhou_little_maid.maid_num.handle.info": "修改了 %d 位玩家的女仆数量",
