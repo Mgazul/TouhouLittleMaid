@@ -59,8 +59,8 @@ public class WChessPiecesModel {
 
     public void renderToBuffer(PoseStack poseStack, VertexConsumer vertexConsumer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         poseStack.pushPose();
-        poseStack.scale(0.5f, 0.5f, 0.5f);
-        poseStack.translate(0, 1.5, 0);
+        poseStack.scale(0.9f, 0.9f, 0.9f);
+        poseStack.translate(0, 0.175, 0);
         main.render(poseStack, vertexConsumer, packedLight, packedOverlay, red, green, blue, alpha);
         poseStack.popPose();
     }
