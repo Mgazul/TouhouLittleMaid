@@ -1,5 +1,6 @@
 package com.github.tartaricacid.touhoulittlemaid.client.renderer.sections;
 
+import com.github.tartaricacid.touhoulittlemaid.client.event.ClientRenderTypeEvents;
 import com.github.tartaricacid.touhoulittlemaid.client.renderer.sections.cache.CachedEntityModel;
 import com.github.tartaricacid.touhoulittlemaid.client.renderer.sections.cache.RendererBakedModelsCache;
 import com.github.tartaricacid.touhoulittlemaid.client.renderer.sections.dynamic.DynamicChunkBuffers;
@@ -10,7 +11,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.LightTexture;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.Sheets;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.BlockPos;
@@ -180,7 +180,7 @@ public class LightAwareSectionGeometryRenderContext implements SectionGeometryRe
 
     @Override
     public MultiBufferSource getUncachedItemBufferSource() {
-        return SodiumCompat.isInstalled() ? pRenderType -> new QuadLighterVertexConsumer(context, pos) : ignored -> new TransformingVertexPipeline(context.getOrCreateChunkBuffer(Sheets.translucentItemSheet()), transformation);
+        return SodiumCompat.isInstalled() ? pRenderType -> new QuadLighterVertexConsumer(context, pos) : ignored -> new TransformingVertexPipeline(context.getOrCreateChunkBuffer(ClientRenderTypeEvents.get()), transformation);
     }
 
     @Override
