@@ -17,7 +17,7 @@ import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 import java.util.concurrent.CompletableFuture;
 
-import static com.github.tartaricacid.touhoulittlemaid.util.ResourceLoactionUtil.getResourceLocation;
+import static com.github.tartaricacid.touhoulittlemaid.util.ResourceLocationUtil.getResourceLocation;
 
 public record CChessToClientPackage(BlockPos pos, String fenData) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<CChessToClientPackage> TYPE = new CustomPacketPayload.Type<>(getResourceLocation("cchess_to_client"));

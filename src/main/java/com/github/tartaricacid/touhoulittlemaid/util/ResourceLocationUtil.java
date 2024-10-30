@@ -7,7 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import static net.minecraft.resources.ResourceLocation.isValidNamespace;
 import static net.minecraft.resources.ResourceLocation.isValidPath;
 
-public class ResourceLoactionUtil {
+public class ResourceLocationUtil {
     public static boolean isValidResourceLocation(String pLocation) {
         String[] astring = decompose(pLocation, ':');
         return isValidNamespace(StringUtils.isEmpty(astring[0]) ? "minecraft" : astring[0]) && isValidPath(astring[1]);

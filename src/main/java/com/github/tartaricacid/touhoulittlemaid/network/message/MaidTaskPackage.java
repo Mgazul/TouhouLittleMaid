@@ -16,7 +16,7 @@ import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
-import static com.github.tartaricacid.touhoulittlemaid.util.ResourceLoactionUtil.getResourceLocation;
+import static com.github.tartaricacid.touhoulittlemaid.util.ResourceLocationUtil.getResourceLocation;
 
 public record MaidTaskPackage(int id, ResourceLocation uid) implements CustomPacketPayload {
     public static final CustomPacketPayload.Type<MaidTaskPackage> TYPE = new CustomPacketPayload.Type<>(getResourceLocation("maid_task"));

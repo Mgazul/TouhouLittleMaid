@@ -3,6 +3,7 @@ package com.github.tartaricacid.touhoulittlemaid.client.animation.gecko;
 import com.github.tartaricacid.touhoulittlemaid.api.entity.IMaid;
 import com.github.tartaricacid.touhoulittlemaid.client.animation.gecko.condition.*;
 import com.github.tartaricacid.touhoulittlemaid.client.entity.GeckoMaidEntity;
+import com.github.tartaricacid.touhoulittlemaid.entity.item.EntityChair;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.PlayState;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.builder.AnimationBuilder;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.builder.ILoopType;
@@ -274,6 +275,19 @@ public final class AnimationManager {
             return null;
         }
         ResourceLocation id = event.getAnimatableEntity().getAnimationFileLocation();
+
+        // 如果是坐垫
+        if (vehicle instanceof EntityChair) {
+            ConditionalChair conditionalChair = ConditionManager.getChair(id);
+            if (conditionalChair != null) {
+                String name = conditionalChair.doTest(mob);
+                if (StringUtils.isNoneBlank(name)) {
+                    return playAnimation(event, name, ILoopType.EDefaultLoopTypes.LOOP);
+                }
+            }
+        }
+
+        // 其他情况
         ConditionalVehicle vehicleCondition = ConditionManager.getVehicle(id);
         if (vehicleCondition != null) {
             String name = vehicleCondition.doTest(mob);
