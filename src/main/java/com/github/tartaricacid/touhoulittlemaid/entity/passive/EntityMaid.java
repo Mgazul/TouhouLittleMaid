@@ -166,7 +166,10 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     private static final EntityDataAccessor<String> BACKPACK_TYPE = SynchedEntityData.defineId(EntityMaid.class, EntityDataSerializers.STRING);
     private static final EntityDataAccessor<ItemStack> BACKPACK_ITEM_SHOW = SynchedEntityData.defineId(EntityMaid.class, EntityDataSerializers.ITEM_STACK);
     private static final EntityDataAccessor<String> BACKPACK_FLUID = SynchedEntityData.defineId(EntityMaid.class, EntityDataSerializers.STRING);
-    private static final EntityDataAccessor<CompoundTag> GAME_SKILL = SynchedEntityData.defineId(EntityMaid.class, EntityDataSerializers.COMPOUND_TAG);
+
+    // 游戏数据记录，包括赢棋次数和赢棋状态
+    static final EntityDataAccessor<CompoundTag> GAME_SKILL = SynchedEntityData.defineId(EntityMaid.class, EntityDataSerializers.COMPOUND_TAG);
+    static final EntityDataAccessor<Byte> GAME_STATUE = SynchedEntityData.defineId(EntityMaid.class, EntityDataSerializers.BYTE);
 
     // 给 MaidConfigManager 用的，必须在这里声明，避免 ID 不同步
     static final EntityDataAccessor<Boolean> DATA_PICKUP = SynchedEntityData.defineId(EntityMaid.class, EntityDataSerializers.BOOLEAN);
@@ -191,7 +194,6 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     private static final String FAVORABILITY_TAG = "MaidFavorability";
     private static final String SCHEDULE_MODE_TAG = "MaidScheduleMode";
     private static final String BACKPACK_DATA_TAG = "MaidBackpackData";
-    private static final String GAME_SKILL_TAG = "MaidGameSkillData";
     private static final String STRUCTURE_SPAWN_TAG = "StructureSpawn";
     @Deprecated
     private static final String BACKPACK_LEVEL_TAG = "MaidBackpackLevel";
@@ -223,6 +225,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     private IBackpackData backpackData = null;
     private boolean syncTaskDataMaps = false;
     private MaidConfigManager configManager = new MaidConfigManager(this.entityData);
+    private MaidGameRecordManager gameRecordManager = new MaidGameRecordManager(this);
 
     /**
      * 女仆现在可以在前哨站生成，那么会打上这个标签
@@ -273,7 +276,6 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         this.entityData.define(BACKPACK_TYPE, EmptyBackpack.ID.toString());
         this.entityData.define(BACKPACK_ITEM_SHOW, ItemStack.EMPTY);
         this.entityData.define(BACKPACK_FLUID, StringUtils.EMPTY);
-        this.entityData.define(GAME_SKILL, new CompoundTag());
         this.entityData.define(TASK_DATA_SYNC, new CompoundTag());
 
         // 父类构造方法调用此类，就会出现这种初始化混乱的问题
@@ -281,6 +283,10 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
             this.configManager = new MaidConfigManager(this.entityData);
         }
         this.configManager.defineSynchedData();
+        if (this.gameRecordManager == null) {
+            this.gameRecordManager = new MaidGameRecordManager(this);
+        }
+        this.gameRecordManager.defineSynchedData();
     }
 
     @Override
@@ -385,6 +391,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         this.randomRestoreHealth();
         this.onMaidSleep();
         this.syncData();
+        this.gameRecordManager.tick();
     }
 
     @Override
@@ -1057,9 +1064,9 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         compound.putInt(EXPERIENCE_TAG, getExperience());
         compound.putString(SCHEDULE_MODE_TAG, getSchedule().name());
         compound.putString(MAID_BACKPACK_TYPE, getMaidBackpackType().getId().toString());
-        compound.put(GAME_SKILL_TAG, getGameSkill());
         compound.putBoolean(STRUCTURE_SPAWN_TAG, this.structureSpawn);
         this.configManager.addAdditionalSaveData(compound);
+        this.gameRecordManager.addAdditionalSaveData(compound);
         this.favorabilityManager.addAdditionalSaveData(compound);
         this.scriptBookManager.addAdditionalSaveData(compound);
         this.schedulePos.save(compound);
@@ -1128,9 +1135,6 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         if (compound.contains(EXPERIENCE_TAG, Tag.TAG_INT)) {
             setExperience(compound.getInt(EXPERIENCE_TAG));
         }
-        if (compound.contains(GAME_SKILL_TAG, Tag.TAG_COMPOUND)) {
-            setGameSkill(compound.getCompound(GAME_SKILL_TAG));
-        }
         if (compound.contains(STRUCTURE_SPAWN_TAG, Tag.TAG_BYTE)) {
             this.structureSpawn = compound.getBoolean(STRUCTURE_SPAWN_TAG);
         }
@@ -1149,6 +1153,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
             }
         }
         this.configManager.readAdditionalSaveData(compound);
+        this.gameRecordManager.readAdditionalSaveData(compound);
         this.favorabilityManager.readAdditionalSaveData(compound);
         this.scriptBookManager.readAdditionalSaveData(compound);
         this.schedulePos.load(compound, this);
@@ -1771,6 +1776,8 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         this.forceSyncData(GAME_SKILL, gameSkill, true);
     }
 
+    // todo check
+    // 这个版本没有这个方法,所以将1201的搬了过来
     public <T> void forceSyncData(EntityDataAccessor<T> key, T value, boolean force) {
         SynchedEntityData.DataItem<T> dataItem = this.entityData.getItem(key);
         if (force || ObjectUtils.notEqual(value, dataItem.getValue())) {
@@ -1779,6 +1786,11 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
             dataItem.setDirty(true);
             this.entityData.isDirty = true;
         }
+    }
+
+
+    public MaidGameRecordManager getGameRecordManager() {
+        return gameRecordManager;
     }
 
     private CompoundTag getSyncTaskData() {
