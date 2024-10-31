@@ -165,6 +165,11 @@ public interface IMaidTask {
             public AbstractMaidContainer createMenu(int index, Inventory playerInventory, Player player) {
                 return new DefaultMaidTaskConfigContainer(index, playerInventory, entityId);
             }
+
+            @Override
+            public boolean shouldTriggerClientSideContainerClosingOnOpen() {
+                return false;
+            }
         };
     }
 

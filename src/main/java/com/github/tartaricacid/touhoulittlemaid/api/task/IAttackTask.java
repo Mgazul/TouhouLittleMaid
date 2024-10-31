@@ -85,6 +85,11 @@ public interface IAttackTask extends IMaidTask {
             public AbstractMaidContainer createMenu(int index, Inventory playerInventory, Player player) {
                 return new AttackTaskConfigContainer(index, playerInventory, entityId);
             }
+
+            @Override
+            public boolean shouldTriggerClientSideContainerClosingOnOpen() {
+                return false;
+            }
         };
     }
 

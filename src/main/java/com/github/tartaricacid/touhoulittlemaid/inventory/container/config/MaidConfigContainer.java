@@ -30,6 +30,11 @@ public class MaidConfigContainer extends AbstractMaidContainer {
             public AbstractContainerMenu createMenu(int index, Inventory playerInventory, Player player) {
                 return new MaidConfigContainer(index, playerInventory, entityId);
             }
+
+            @Override
+            public boolean shouldTriggerClientSideContainerClosingOnOpen() {
+                return false;
+            }
         };
     }
 
