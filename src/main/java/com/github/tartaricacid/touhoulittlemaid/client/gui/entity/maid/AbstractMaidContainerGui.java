@@ -465,7 +465,7 @@ public abstract class AbstractMaidContainerGui<T extends AbstractMaidContainer> 
             list.add(Component.literal(prefix).withStyle(ChatFormatting.WHITE)
                     .append(Component.translatable("block.touhou_little_maid.gomoku")
                             .append(": ").withStyle(ChatFormatting.AQUA))
-                    .append(Component.translatable("tooltips.touhou_little_maid.info.game_skill.gomoku", MaidGomokuAI.getMaidCount(maid), MaidGomokuAI.getRank(maid))));
+                    .append(Component.translatable("tooltips.touhou_little_maid.info.game_skill.gomoku", maid.getGameRecordManager().getGomokuWinCount(), MaidGomokuAI.getRank(maid))));
 
             graphics.renderComponentTooltip(font, list, mouseX, mouseY);
         }

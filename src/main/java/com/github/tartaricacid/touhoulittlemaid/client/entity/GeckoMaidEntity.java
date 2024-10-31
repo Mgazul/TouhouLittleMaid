@@ -3,7 +3,6 @@ package com.github.tartaricacid.touhoulittlemaid.client.entity;
 import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import com.github.tartaricacid.touhoulittlemaid.api.entity.IMaid;
 import com.github.tartaricacid.touhoulittlemaid.client.animation.gecko.AnimationManager;
-import com.github.tartaricacid.touhoulittlemaid.client.animation.gecko.AnimationRegister;
 import com.github.tartaricacid.touhoulittlemaid.client.resource.pojo.MaidModelInfo;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.AnimatableEntity;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.controller.AnimationController;
@@ -67,7 +66,7 @@ public class GeckoMaidEntity<T extends Mob> extends AnimatableEntity<T> {
         addAnimationController(new AnimationController<>(this, "hold_mainhand", 0, manager::predicateMainhandHold));
         addAnimationController(new AnimationController<>(this, "swing", 2, manager::predicateSwing));
         addAnimationController(new AnimationController<>(this, "use", 2, manager::predicateUse));
-        addAnimationController(new AnimationController<>(this, "beg", 2, manager::predicateBeg));
+        addAnimationController(new AnimationController<>(this, "misc", 2, manager::predicateMisc));
         addAnimationController(new AnimationController<>(this, "passenger", 2, manager::predicatePassengerAnimation));
         for (int i = 0; i < 8; i++) {
             String controllerName = String.format("parallel_%d_controller", i);
