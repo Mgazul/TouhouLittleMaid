@@ -19,6 +19,7 @@ import com.github.tartaricacid.touhoulittlemaid.network.message.MaidTaskMessage;
 import com.github.tartaricacid.touhoulittlemaid.network.message.RequestEffectMessage;
 import com.github.tartaricacid.touhoulittlemaid.network.message.SendEffectMessage;
 import com.github.tartaricacid.touhoulittlemaid.util.ParseI18n;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -478,7 +479,7 @@ public abstract class AbstractMaidContainerGui<T extends AbstractMaidContainer> 
             list.add(new TextComponent(prefix).withStyle(ChatFormatting.WHITE)
                     .append(new TranslatableComponent("block.touhou_little_maid.gomoku")
                             .append(":\u0020").withStyle(ChatFormatting.AQUA))
-                    .append(new TranslatableComponent("tooltips.touhou_little_maid.info.game_skill.gomoku", MaidGomokuAI.getMaidCount(maid), MaidGomokuAI.getRank(maid))));
+                    .append(TComponent.translatable("tooltips.touhou_little_maid.info.game_skill.gomoku", maid.getGameRecordManager().getGomokuWinCount(), MaidGomokuAI.getRank(maid))));
 
             renderComponentTooltip(poseStack, list, mouseX, mouseY);
         }

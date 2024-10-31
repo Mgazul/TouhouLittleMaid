@@ -5,6 +5,9 @@ import com.github.tartaricacid.touhoulittlemaid.client.animation.gecko.condition
 import com.github.tartaricacid.touhoulittlemaid.client.entity.GeckoMaidEntity;
 import com.github.tartaricacid.touhoulittlemaid.compat.tacz.TacCompat;
 import com.github.tartaricacid.touhoulittlemaid.entity.item.EntityChair;
+import com.github.tartaricacid.touhoulittlemaid.entity.item.EntitySit;
+import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
+import com.github.tartaricacid.touhoulittlemaid.entity.passive.MaidGameRecordManager;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.PlayState;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.builder.AnimationBuilder;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.builder.ILoopType;
@@ -233,11 +236,22 @@ public final class AnimationManager {
         return PlayState.STOP;
     }
 
-    public PlayState predicateBeg(AnimationEvent<GeckoMaidEntity<?>> event) {
+    public PlayState predicateMisc(AnimationEvent<GeckoMaidEntity<?>> event) {
         IMaid maid = event.getAnimatableEntity().getMaid();
         if (maid == null) {
             return PlayState.STOP;
         }
+        // 赢棋输棋优先
+        if (maid instanceof EntityMaid entityMaid && entityMaid.getVehicle() instanceof EntitySit) {
+            MaidGameRecordManager manager = entityMaid.getGameRecordManager();
+            if (manager.isWin()) {
+                return playAnimation(event, "game_win", ILoopType.EDefaultLoopTypes.LOOP);
+            }
+            if (manager.isLost()) {
+                return playAnimation(event, "game_lost", ILoopType.EDefaultLoopTypes.LOOP);
+            }
+        }
+        // 祈求动画
         if (maid.isBegging()) {
             return playAnimation(event, "beg", ILoopType.EDefaultLoopTypes.LOOP);
         }
