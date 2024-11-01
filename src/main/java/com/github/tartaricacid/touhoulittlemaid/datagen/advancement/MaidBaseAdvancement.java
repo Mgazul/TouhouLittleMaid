@@ -7,12 +7,12 @@ import com.github.tartaricacid.touhoulittlemaid.advancements.maid.TriggerType;
 import com.github.tartaricacid.touhoulittlemaid.datagen.LanguageGenerator;
 import com.github.tartaricacid.touhoulittlemaid.init.InitItems;
 import com.github.tartaricacid.touhoulittlemaid.item.ItemEntityPlaceholder;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
+import net.minecraft.advancements.critereon.ItemPickedUpByEntityTrigger;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.advancements.critereon.PickedUpItemTrigger;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
@@ -136,10 +136,10 @@ public class MaidBaseAdvancement {
                 .save(saver, id("maid_base/chisel_statue"), existingFileHelper);
 
         make(InitItems.GARAGE_KIT.get(), "pickup_garage_kit").parent(statue)
-                .addCriterion("pickup_item", PickedUpItemTrigger.TriggerInstance.thrownItemPickedUpByPlayer(
-                        ContextAwarePredicate.ANY,
-                        ItemPredicate.Builder.item().of(InitItems.GARAGE_KIT.get()).build(),
-                        ContextAwarePredicate.ANY))
+                .addCriterion("pickup_item", ItemPickedUpByEntityTrigger.TriggerInstance.itemPickedUpByEntity(
+                        EntityPredicate.Composite.ANY,
+                        ItemPredicate.Builder.item().of(InitItems.GARAGE_KIT.get()),
+                        EntityPredicate.Composite.ANY))
                 .save(saver, id("maid_base/pickup_garage_kit"), existingFileHelper);
     }
 
@@ -155,8 +155,8 @@ public class MaidBaseAdvancement {
     }
 
     private static Advancement.Builder make(ItemLike item, String key) {
-        MutableComponent title = Component.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.title", key));
-        MutableComponent desc = Component.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.description", key));
+        MutableComponent title = TComponent.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.title", key));
+        MutableComponent desc = TComponent.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.description", key));
 
         LanguageGenerator.addLanguage(title);
         LanguageGenerator.addLanguage(desc);
@@ -167,8 +167,8 @@ public class MaidBaseAdvancement {
     }
 
     private static Advancement.Builder make(ItemStack item, String key) {
-        MutableComponent title = Component.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.title", key));
-        MutableComponent desc = Component.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.description", key));
+        MutableComponent title = TComponent.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.title", key));
+        MutableComponent desc = TComponent.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.description", key));
 
         LanguageGenerator.addLanguage(title);
         LanguageGenerator.addLanguage(desc);
@@ -179,8 +179,8 @@ public class MaidBaseAdvancement {
     }
 
     private static Advancement.Builder makeGoal(ItemLike item, String key) {
-        MutableComponent title = Component.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.title", key));
-        MutableComponent desc = Component.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.description", key));
+        MutableComponent title = TComponent.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.title", key));
+        MutableComponent desc = TComponent.translatable(String.format("advancements.touhou_little_maid.maid_base.%s.description", key));
 
         LanguageGenerator.addLanguage(title);
         LanguageGenerator.addLanguage(desc);

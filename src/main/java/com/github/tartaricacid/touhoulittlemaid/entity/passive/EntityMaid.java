@@ -1284,36 +1284,36 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         }
     }
 
-    @Override
-    public void onEquipItem(EquipmentSlot slot, ItemStack oldItem, ItemStack newItem) {
-        super.onEquipItem(slot, oldItem, newItem);
-        if (newItem.isEmpty() || this.firstTick || !slot.isArmor()) {
-            return;
-        }
-
-        // 触发成就
-        if (this.getOwner() instanceof ServerPlayer serverPlayer) {
-            InitTrigger.MAID_EVENT.trigger(serverPlayer, TriggerType.ANY_EQUIPMENT);
-        }
-
-        // 如果是下界合金
-        if (isNetheriteArmor(newItem)) {
-            // 检查全身装备
-            for (EquipmentSlot slotIn : EquipmentSlot.values()) {
-                if (!slotIn.isArmor() || slotIn == slot) {
-                    continue;
-                }
-                ItemStack itemBySlot = getItemBySlot(slotIn);
-                if (!isNetheriteArmor(itemBySlot)) {
-                    return;
-                }
-            }
-            // 触发事件
-            if (this.getOwner() instanceof ServerPlayer serverPlayer) {
-                InitTrigger.MAID_EVENT.trigger(serverPlayer, TriggerType.ALL_NETHERITE_EQUIPMENT);
-            }
-        }
-    }
+//    @Override
+//    public void onEquipItem(EquipmentSlot slot, ItemStack oldItem, ItemStack newItem) {
+//        super.onEquipItem(slot, oldItem, newItem);
+//        if (newItem.isEmpty() || this.firstTick || slot.getType() != EquipmentSlot.Type.ARMOR) {
+//            return;
+//        }
+//
+//        // 触发成就
+//        if (this.getOwner() instanceof ServerPlayer serverPlayer) {
+//            InitTrigger.MAID_EVENT.trigger(serverPlayer, TriggerType.ANY_EQUIPMENT);
+//        }
+//
+//        // 如果是下界合金
+//        if (isNetheriteArmor(newItem)) {
+//            // 检查全身装备
+//            for (EquipmentSlot slotIn : EquipmentSlot.values()) {
+//                if (slot.getType() != EquipmentSlot.Type.ARMOR || slotIn == slot) {
+//                    continue;
+//                }
+//                ItemStack itemBySlot = getItemBySlot(slotIn);
+//                if (!isNetheriteArmor(itemBySlot)) {
+//                    return;
+//                }
+//            }
+//            // 触发事件
+//            if (this.getOwner() instanceof ServerPlayer serverPlayer) {
+//                InitTrigger.MAID_EVENT.trigger(serverPlayer, TriggerType.ALL_NETHERITE_EQUIPMENT);
+//            }
+//        }
+//    }
 
     private boolean isNetheriteArmor(ItemStack stack) {
         if (stack.getItem() instanceof ArmorItem armorItem) {

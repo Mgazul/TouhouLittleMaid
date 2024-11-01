@@ -4,14 +4,17 @@ import com.github.tartaricacid.touhoulittlemaid.compat.aquaculture.client.Aquacu
 import com.github.tartaricacid.touhoulittlemaid.compat.aquaculture.entity.AquacultureFishingHook;
 import com.github.tartaricacid.touhoulittlemaid.compat.aquaculture.entity.AquacultureFishingType;
 import com.github.tartaricacid.touhoulittlemaid.entity.ai.fishing.FishingTypeManager;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLEnvironment;
 import net.minecraftforge.fml.loading.LoadingModList;
 import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegisterEvent;
 
 public class AquacultureCompat {
     private static final String MOD_ID = "aquaculture";
@@ -39,7 +42,9 @@ public class AquacultureCompat {
     }
 
     @SubscribeEvent
-    public void register(RegisterEvent event) {
-        event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> helper.register("aquaculture_fishing_hook", AquacultureFishingHook.TYPE));
+    public void register(RegistryEvent.Register<EntityType<?>> event) {
+//        event.register(ForgeRegistries.Keys.ENTITY_TYPES, helper -> helper.register("aquaculture_fishing_hook", AquacultureFishingHook.TYPE));
+
+        event.getRegistry().register(AquacultureFishingHook.TYPE.setRegistryName("aquaculture_fishing_hook"));
     }
 }

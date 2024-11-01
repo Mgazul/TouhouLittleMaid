@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.Mod;
 public final class InstallChairEvent {
     @SubscribeEvent
     public static void onPlayerEntityInteract(PlayerInteractEvent.EntityInteract event) {
-        Player player = event.getEntity();
+        Player player = (Player) event.getEntity();
         Entity target = event.getTarget();
         ItemStack mainHandItem = player.getMainHandItem();
         if (target instanceof Boat boat && boat.getPassengers().isEmpty() && mainHandItem.is(InitItems.CHAIR.get())) {

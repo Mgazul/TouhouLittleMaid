@@ -4,7 +4,7 @@ import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.controller.Animat
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.keyframe.bone.BoneKeyFrame;
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.molang.context.AnimationContext;
 import com.github.tartaricacid.touhoulittlemaid.molang.runtime.ExpressionEvaluator;
-import org.joml.Vector3f;
+import com.mojang.math.Vector3f;
 
 public class TransitionPoint extends AnimationPoint {
     private final Vector3f offsetPoint;

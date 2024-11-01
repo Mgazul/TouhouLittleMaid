@@ -2,9 +2,7 @@ package com.github.tartaricacid.touhoulittlemaid.entity.misc;
 
 import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import com.mojang.serialization.Codec;
-import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.util.StringRepresentable;
 
 import java.util.Locale;
@@ -14,7 +12,11 @@ public enum MonsterType implements StringRepresentable {
     NEUTRAL,
     HOSTILE;
 
-    public static final Codec<MonsterType> CODEC = StringRepresentable.fromEnum(MonsterType::values);
+    //todo check
+    //不知写的对不对
+    public static final Codec<MonsterType> CODEC = StringRepresentable.fromEnum(MonsterType::values, (s) -> {
+        return MonsterType.valueOf(s.toUpperCase(Locale.ENGLISH));
+    });
 
     private final MutableComponent component;
 

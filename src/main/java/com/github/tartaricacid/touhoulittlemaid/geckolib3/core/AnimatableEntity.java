@@ -119,10 +119,13 @@ public abstract class AnimatableEntity<E extends Entity> {
     }
 
     public double getCurrentTick(AnimationEvent<?> animationEvent) {
+        //todo 访问变压器
+//        Minecraft mc = Minecraft.getInstance();
+//        this.pause ? this.pausePartialTick : this.timer.partialTick
         float partialTick = animationEvent.getPartialTick();
-        if (partialTick == 1.0f && partialTick != Minecraft.getInstance().getPartialTick()) {
-            partialTick = Minecraft.getInstance().getPartialTick();
-        }
+//        if (partialTick == 1.0f && partialTick != Minecraft.getInstance().getPartialTick()) {
+//            partialTick = Minecraft.getInstance().getPartialTick();
+//        }
         return this.entity.tickCount + partialTick;
     }
 

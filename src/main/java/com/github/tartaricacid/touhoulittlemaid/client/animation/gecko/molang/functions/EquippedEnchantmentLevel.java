@@ -5,11 +5,13 @@ import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.molang.function.e
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.util.MolangUtils;
 import com.github.tartaricacid.touhoulittlemaid.molang.runtime.ExecutionContext;
 import com.github.tartaricacid.touhoulittlemaid.util.EquipmentUtil;
+import net.minecraft.nbt.ListTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class EquippedEnchantmentLevel extends LivingEntityFunction {
@@ -35,7 +37,7 @@ public class EquippedEnchantmentLevel extends LivingEntityFunction {
             return 0;
         }
 
-        return itemStack.getEnchantmentLevel(enchantment);
+        return EnchantmentHelper.getItemEnchantmentLevel(enchantment, itemStack);
     }
 
     @Override

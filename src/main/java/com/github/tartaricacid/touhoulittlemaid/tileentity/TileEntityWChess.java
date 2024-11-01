@@ -40,7 +40,7 @@ public class TileEntityWChess extends TileEntityJoy implements IBoardGameEntityB
 
     @Override
     protected void saveAdditional(CompoundTag tag) {
-        CompoundTag data = getPersistentData();
+        CompoundTag data = getTileData();
         data.putString(CHESS_DATA, chessData.toFen());
         data.putInt(CHESS_COUNTER, chessCounter);
         data.putInt(SELECT_CHESS_POINT, selectChessPoint);
@@ -53,7 +53,7 @@ public class TileEntityWChess extends TileEntityJoy implements IBoardGameEntityB
     @Override
     public void load(CompoundTag nbt) {
         super.load(nbt);
-        CompoundTag data = getPersistentData();
+        CompoundTag data = getTileData();
         chessCounter = data.getInt(CHESS_COUNTER);
         selectChessPoint = data.getInt(SELECT_CHESS_POINT);
         chessData.fromFen(data.getString(CHESS_DATA));

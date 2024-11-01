@@ -10,6 +10,7 @@ import com.github.tartaricacid.touhoulittlemaid.inventory.container.AbstractMaid
 import com.github.tartaricacid.touhoulittlemaid.inventory.container.task.DefaultMaidTaskConfigContainer;
 import com.github.tartaricacid.touhoulittlemaid.util.ItemsUtil;
 import com.github.tartaricacid.touhoulittlemaid.util.SoundUtil;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import com.google.common.base.Predicates;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
@@ -110,7 +111,7 @@ public class TaskFeedAnimal implements IAttackTask {
         return new MenuProvider() {
             @Override
             public Component getDisplayName() {
-                return Component.literal("Maid Task Config Container");
+                return TComponent.literal("Maid Task Config Container");
             }
 
             @Override

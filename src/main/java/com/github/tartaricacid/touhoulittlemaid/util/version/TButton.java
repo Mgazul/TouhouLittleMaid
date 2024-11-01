@@ -10,7 +10,7 @@ import java.util.List;
 
 public class TButton extends Button {
     public TButton(Builder builder) {
-        super(builder.x, builder.y, builder.width, builder.height, builder.message, builder.onPress);
+        super(builder.x, builder.y, builder.width, builder.height, builder.message, builder.onPress, builder.onTooltip);
     }
 
     public static Builder builder(Component pMessage, Button.OnPress pOnPress) {
@@ -66,7 +66,9 @@ public class TButton extends Button {
         }
 
         public Builder onTooltip(List<Component> components, AbstractMaidContainerGui.TooltipRender pTooltip) {
-            this.onTooltip = (pButton, pPoseStack, pMouseX, pMouseY) -> pTooltip.renderToolTip(pPoseStack, components, pMouseX, pMouseY);
+            this.onTooltip = (pButton, pPoseStack, pMouseX, pMouseY) -> {
+                pTooltip.renderToolTip(pPoseStack, components, pMouseX, pMouseY);
+            };
             return this;
         }
 

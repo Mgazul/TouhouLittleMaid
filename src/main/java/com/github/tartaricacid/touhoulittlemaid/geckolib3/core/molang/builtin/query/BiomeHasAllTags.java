@@ -15,7 +15,7 @@ public class BiomeHasAllTags extends EntityFunction {
     @Override
     protected Object eval(ExecutionContext<IContext<Entity>> context, ArgumentCollection arguments) {
         Entity entity = context.entity().entity();
-        Holder<Biome> biome = entity.level().getBiome(entity.blockPosition());
+        Holder<Biome> biome = entity.level.getBiome(entity.blockPosition());
 
         for (int i = 0; i < arguments.size(); i++) {
             ResourceLocation id = MolangUtils.parseResourceLocation(context.entity(), arguments.getAsString(context, i));

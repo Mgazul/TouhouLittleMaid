@@ -24,7 +24,7 @@ public class RelativeBlockName extends EntityFunction {
         BlockPos pos = new BlockPos((int) entity.getX() + offsetX,
                 (int) entity.getY() + offsetY,
                 (int) entity.getZ() + offsetZ);
-        BlockState block = ctx.entity().entity().level().getBlockState(pos);
+        BlockState block = ctx.entity().entity().level.getBlockState(pos);
         ResourceLocation blockId = ForgeRegistries.BLOCKS.getKey(block.getBlock());
         if (blockId == null) {
             return null;

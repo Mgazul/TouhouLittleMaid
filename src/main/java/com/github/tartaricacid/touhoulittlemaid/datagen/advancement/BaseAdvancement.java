@@ -9,13 +9,14 @@ import com.github.tartaricacid.touhoulittlemaid.datagen.LootTableGenerator;
 import com.github.tartaricacid.touhoulittlemaid.init.InitEntities;
 import com.github.tartaricacid.touhoulittlemaid.init.InitItems;
 import com.github.tartaricacid.touhoulittlemaid.item.ItemEntityPlaceholder;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.RequirementsStrategy;
 import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.KilledTrigger;
-import net.minecraft.advancements.critereon.RecipeCraftedTrigger;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -31,8 +32,8 @@ public class BaseAdvancement {
     public static void generate(Consumer<Advancement> saver, ExistingFileHelper existingFileHelper) {
         Advancement root = make(InitItems.HAKUREI_GOHEI.get(), "craft_gohei")
                 .requirements(RequirementsStrategy.OR)
-                .addCriterion("craft_hakurei_gohei", RecipeCraftedTrigger.TriggerInstance.craftedItem(id("hakurei_gohei")))
-                .addCriterion("craft_sanae_gohei", RecipeCraftedTrigger.TriggerInstance.craftedItem(id("sanae_gohei")))
+                .addCriterion("craft_hakurei_gohei", RecipeUnlockedTrigger.unlocked(id("hakurei_gohei")))
+                .addCriterion("craft_sanae_gohei", RecipeUnlockedTrigger.unlocked(id("sanae_gohei")))
                 .rewards(AdvancementRewards.Builder.experience(50))
                 .save(saver, id("base/craft_gohei"), existingFileHelper);
 
@@ -45,7 +46,7 @@ public class BaseAdvancement {
 
     private static void generateChair(Consumer<Advancement> saver, ExistingFileHelper existingFileHelper, Advancement root) {
         Advancement chair = make(InitItems.CHAIR.get(), "craft_chair").parent(root)
-                .addCriterion("craft_chair", RecipeCraftedTrigger.TriggerInstance.craftedItem(id("chair")))
+                .addCriterion("craft_chair", RecipeUnlockedTrigger.unlocked(id("chair")))
                 .save(saver, id("base/craft_chair"), existingFileHelper);
 
         make(InitItems.CHANGE_CHAIR_MODEL.get(), "change_chair_model").parent(chair)
@@ -90,8 +91,8 @@ public class BaseAdvancement {
     }
 
     private static Advancement.Builder make(ItemLike item, String key) {
-        MutableComponent title = Component.translatable(String.format("advancements.touhou_little_maid.base.%s.title", key));
-        MutableComponent desc = Component.translatable(String.format("advancements.touhou_little_maid.base.%s.description", key));
+        MutableComponent title = TComponent.translatable(String.format("advancements.touhou_little_maid.base.%s.title", key));
+        MutableComponent desc = TComponent.translatable(String.format("advancements.touhou_little_maid.base.%s.description", key));
 
         LanguageGenerator.addLanguage(title);
         LanguageGenerator.addLanguage(desc);
@@ -102,8 +103,8 @@ public class BaseAdvancement {
     }
 
     private static Advancement.Builder make(ItemStack item, String key) {
-        MutableComponent title = Component.translatable(String.format("advancements.touhou_little_maid.base.%s.title", key));
-        MutableComponent desc = Component.translatable(String.format("advancements.touhou_little_maid.base.%s.description", key));
+        MutableComponent title = TComponent.translatable(String.format("advancements.touhou_little_maid.base.%s.title", key));
+        MutableComponent desc = TComponent.translatable(String.format("advancements.touhou_little_maid.base.%s.description", key));
 
         LanguageGenerator.addLanguage(title);
         LanguageGenerator.addLanguage(desc);
@@ -114,8 +115,8 @@ public class BaseAdvancement {
     }
 
     private static Advancement.Builder makeGoal(ItemLike item, String key) {
-        MutableComponent title = Component.translatable(String.format("advancements.touhou_little_maid.base.%s.title", key));
-        MutableComponent desc = Component.translatable(String.format("advancements.touhou_little_maid.base.%s.description", key));
+        MutableComponent title = TComponent.translatable(String.format("advancements.touhou_little_maid.base.%s.title", key));
+        MutableComponent desc = TComponent.translatable(String.format("advancements.touhou_little_maid.base.%s.description", key));
 
         LanguageGenerator.addLanguage(title);
         LanguageGenerator.addLanguage(desc);

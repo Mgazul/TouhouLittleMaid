@@ -8,6 +8,7 @@ import com.github.tartaricacid.touhoulittlemaid.entity.passive.PickType;
 import com.github.tartaricacid.touhoulittlemaid.inventory.container.config.MaidConfigContainer;
 import com.github.tartaricacid.touhoulittlemaid.network.NetworkHandler;
 import com.github.tartaricacid.touhoulittlemaid.network.message.MaidSubConfigMessage;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.ChatFormatting;

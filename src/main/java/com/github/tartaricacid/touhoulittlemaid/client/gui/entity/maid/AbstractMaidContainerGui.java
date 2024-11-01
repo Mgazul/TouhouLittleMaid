@@ -363,7 +363,7 @@ public abstract class AbstractMaidContainerGui<T extends AbstractMaidContainer> 
 
     private void addTabsButton() {
         MaidTabs<T> maidTabs = new MaidTabs<>(maid.getId(), leftPos, topPos);
-        MaidTabButton[] tabs = maidTabs.getTabs(this);
+        MaidTabButton[] tabs = maidTabs.getTabs(this, this::renderComponentTooltip);
         for (MaidTabButton button : tabs) {
             this.addRenderableWidget(button);
         }

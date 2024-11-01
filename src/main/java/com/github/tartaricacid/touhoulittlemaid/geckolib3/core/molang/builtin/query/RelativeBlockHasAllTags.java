@@ -23,7 +23,7 @@ public class RelativeBlockHasAllTags extends EntityFunction {
             return false;
         }
 
-        BlockState block = ctx.entity().entity().level().getBlockState(entity.blockPosition());
+        BlockState block = ctx.entity().entity().level.getBlockState(entity.blockPosition());
 
         for (int i = 3; i < arguments.size(); i++) {
             ResourceLocation tagId = MolangUtils.parseResourceLocation(ctx.entity(), arguments.getAsString(ctx, i));

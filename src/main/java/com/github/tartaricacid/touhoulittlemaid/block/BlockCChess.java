@@ -16,6 +16,8 @@ import com.github.tartaricacid.touhoulittlemaid.network.message.CChessToClientMe
 import com.github.tartaricacid.touhoulittlemaid.tileentity.TileEntityCChess;
 import com.github.tartaricacid.touhoulittlemaid.tileentity.TileEntityJoy;
 import com.github.tartaricacid.touhoulittlemaid.util.CChessUtil;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
+import net.minecraft.Util;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.Vec3i;
@@ -44,7 +46,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.EnumProperty;
-import net.minecraft.world.level.material.MapColor;
+import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 import net.minecraft.world.phys.shapes.CollisionContext;
@@ -58,7 +60,9 @@ public class BlockCChess extends BlockJoy implements IBoardGameBlock {
     public static final VoxelShape AABB = Block.box(0, 0, 0, 16, 2, 16);
 
     public BlockCChess() {
-        super(BlockBehaviour.Properties.of().mapColor(MapColor.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).forceSolidOn().noOcclusion());
+        // todo
+        // .forceSolidOn().noOcclusion());
+        super(BlockBehaviour.Properties.of(Material.WOOD).sound(SoundType.WOOD).strength(2.0F, 3.0F).noOcclusion());
         this.registerDefaultState(this.stateDefinition.any().setValue(PART, GomokuPart.CENTER).setValue(FACING, Direction.NORTH));
     }
 
@@ -137,7 +141,8 @@ public class BlockCChess extends BlockJoy implements IBoardGameBlock {
             }
             Direction face = state.getValue(FACING).getOpposite();
             Vec3 position = new Vec3(0.5 + face.getStepX() * 2, 0.1, 0.5 + face.getStepZ() * 2);
-            EntitySit newSitEntity = new EntitySit(worldIn, Vec3.atLowerCornerWithOffset(pos, position.x, position.y, position.z), this.getTypeName(), pos);
+            Vec3 sitPos = new Vec3(pos.getX() + position.x, pos.getY() + position.y, pos.getZ() + position.z);
+            EntitySit newSitEntity = new EntitySit(worldIn, sitPos, this.getTypeName(), pos);
             newSitEntity.setYRot(face.getOpposite().toYRot() + this.sitYRot());
             worldIn.addFreshEntity(newSitEntity);
             joy.setSitId(newSitEntity.getUUID());
@@ -207,12 +212,12 @@ public class BlockCChess extends BlockJoy implements IBoardGameBlock {
             // 检查女仆
             Entity sitEntity = serverLevel.getEntity(chess.getSitId());
             if (sitEntity == null || !sitEntity.isAlive() || !(sitEntity.getFirstPassenger() instanceof EntityMaid maid)) {
-                player.sendSystemMessage(TComponent.translatable("message.touhou_little_maid.gomoku.no_maid"));
+                player.sendMessage(TComponent.translatable("message.touhou_little_maid.gomoku.no_maid"), Util.NIL_UUID);
                 return InteractionResult.FAIL;
             }
             // 检查是不是自己的女仆
             if (MaidConfig.MAID_GOMOKU_OWNER_LIMIT.get() && !maid.isOwnedBy(player)) {
-                player.sendSystemMessage(TComponent.translatable("message.touhou_little_maid.gomoku.not_owner"));
+                player.sendMessage(TComponent.translatable("message.touhou_little_maid.gomoku.not_owner"), Util.NIL_UUID);
                 return InteractionResult.FAIL;
             }
 
@@ -298,8 +303,8 @@ public class BlockCChess extends BlockJoy implements IBoardGameBlock {
             }
 
             // 如果将军，那么给予提示
-            player.sendSystemMessage(TComponent.translatable("message.touhou_little_maid.cchess.check"));
-            level.playSound(null, pos, SoundEvents.NOTE_BLOCK_BELL.get(), SoundSource.BLOCKS, 1.0f, 0.8F + level.random.nextFloat() * 0.4F);
+            player.sendMessage(TComponent.translatable("message.touhou_little_maid.cchess.check"), Util.NIL_UUID);
+            level.playSound(null, pos, SoundEvents.NOTE_BLOCK_BELL, SoundSource.BLOCKS, 1.0f, 0.8F + level.random.nextFloat() * 0.4F);
             return InteractionResult.FAIL;
         }
         return InteractionResult.PASS;

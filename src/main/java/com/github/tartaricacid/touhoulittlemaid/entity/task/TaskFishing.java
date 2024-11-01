@@ -11,6 +11,7 @@ import com.mojang.datafixers.util.Pair;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.world.entity.ai.behavior.Behavior;
+import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.ToolActions;
@@ -54,6 +55,6 @@ public class TaskFishing implements IMaidTask {
         //todo check
         //来自FishingHook.shouldStopFishing
         //要不要换成类型判断?
-        return Collections.singletonList(Pair.of("has_fishing_rod", e -> e.getMainHandItem().is(Items.FISHING_ROD)));
+        return Collections.singletonList(Pair.of("has_fishing_rod", e -> e.getMainHandItem().getItem() instanceof FishingRodItem));
     }
 }

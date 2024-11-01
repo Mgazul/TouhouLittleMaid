@@ -22,7 +22,7 @@ public class MaidConfigButton extends Button {
     private Component value;
 
     public MaidConfigButton(int x, int y, Component title, Component value, MaidConfigButton.OnPress onLeftPressIn, MaidConfigButton.OnPress onRightPressIn) {
-        super(x, y, 164, 13, Component.empty(), b -> {
+        super(x, y, 164, 13, title, b -> {
         });
         this.leftPress = onLeftPressIn;
         this.rightPress = onRightPressIn;
@@ -44,7 +44,7 @@ public class MaidConfigButton extends Button {
         } else {
             blit(poseStack, this.x, this.y, 63, 128, this.width, this.height, 256, 256);
         }
-        drawString(poseStack, mc.font, this.getMessage(), this.x + 5, this.y + 3, 0x444444);
+        mc.font.draw(poseStack, this.getMessage(), this.x + 5, this.y + 3, 0x444444);
         drawCenteredStringWithoutShadow(poseStack, mc.font, this.value, this.x + 142, this.y + 3, ChatFormatting.GREEN.getColor());
     }
 

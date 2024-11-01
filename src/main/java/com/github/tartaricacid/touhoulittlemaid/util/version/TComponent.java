@@ -19,6 +19,9 @@ public final class TComponent {
         return new TranslatableComponent(key);
     }
 
+    public static MutableComponent translatable(String key, Object... pArgs) {
+        return new TranslatableComponent(key, pArgs);
+    }
 
     public static MutableComponent literal(String string) {
         return new TextComponent(string);

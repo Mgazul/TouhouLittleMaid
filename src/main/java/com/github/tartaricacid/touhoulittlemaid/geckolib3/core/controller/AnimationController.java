@@ -24,10 +24,10 @@ import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.snapshot.BoneSnap
 import com.github.tartaricacid.touhoulittlemaid.geckolib3.core.snapshot.BoneTopLevelSnapshot;
 import com.github.tartaricacid.touhoulittlemaid.molang.runtime.ExpressionEvaluator;
 import com.mojang.datafixers.util.Pair;
+import com.mojang.math.Vector3f;
 import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ReferenceArrayList;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -37,12 +37,15 @@ import java.util.stream.Collectors;
 
 public class AnimationController<T extends AnimatableEntity<?>> {
     /**
+     * 实体对象
+     */
+    protected final T animatable;
+    /**
      * 动画控制器名称
      */
     private final String name;
     private final Object2ReferenceOpenHashMap<String, BoneAnimationQueue> boneAnimationQueues = new Object2ReferenceOpenHashMap<>();
     private final ReferenceArrayList<BoneAnimationQueue> activeBoneAnimationQueues = new ReferenceArrayList<>();
-    private InstructionKeyFrameExecutor instructionKeyFrameExecutor;
     /**
      * 在动画之间过渡需要多长时间
      */
@@ -55,10 +58,7 @@ public class AnimationController<T extends AnimatableEntity<?>> {
      * 复写此数值将用于全局
      */
     public EasingType easingType = EasingType.LINEAR;
-    /**
-     * 实体对象
-     */
-    protected final T animatable;
+    public boolean shouldResetTick = false;
     /**
      * 动画谓词，每次触发前都会调用一次
      */
@@ -68,9 +68,9 @@ public class AnimationController<T extends AnimatableEntity<?>> {
     protected Animation currentAnimation;
     protected ILoopType currentAnimationLoop;
     protected AnimationBuilder currentAnimationBuilder = new AnimationBuilder();
-    public boolean shouldResetTick = false;
     protected boolean justStartedTransition = false;
     protected boolean needsAnimationReload = false;
+    private InstructionKeyFrameExecutor instructionKeyFrameExecutor;
     /**
      * 播放声音关键帧时触发的 Sound Listener
      */

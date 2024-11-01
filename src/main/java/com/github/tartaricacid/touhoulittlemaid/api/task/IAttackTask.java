@@ -9,6 +9,7 @@ import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
 import com.github.tartaricacid.touhoulittlemaid.init.InitTaskData;
 import com.github.tartaricacid.touhoulittlemaid.inventory.container.AbstractMaidContainer;
 import com.github.tartaricacid.touhoulittlemaid.inventory.container.task.AttackTaskConfigContainer;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.MenuProvider;
@@ -82,7 +83,7 @@ public interface IAttackTask extends IMaidTask {
         return new MenuProvider() {
             @Override
             public Component getDisplayName() {
-                return Component.literal("Maid Attack Config Container");
+                return TComponent.literal("Maid Attack Config Container");
             }
 
             @Override

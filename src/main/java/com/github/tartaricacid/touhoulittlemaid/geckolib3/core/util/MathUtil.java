@@ -1,6 +1,6 @@
 package com.github.tartaricacid.touhoulittlemaid.geckolib3.core.util;
 
-import org.joml.Vector3f;
+import com.mojang.math.Vector3f;
 
 @SuppressWarnings("all")
 public class MathUtil {

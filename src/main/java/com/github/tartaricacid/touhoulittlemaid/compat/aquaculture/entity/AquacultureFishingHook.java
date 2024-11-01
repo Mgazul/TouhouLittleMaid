@@ -116,7 +116,7 @@ public class AquacultureFishingHook extends MaidFishingHook implements IEntityAd
             float bbWidth = this.getBbWidth();
 
             this.setDeltaMovement(motion.x, (-0.4F * Mth.nextFloat(this.random, 0.6F, 1.0F)), motion.z);
-            this.playSound(AquaSounds.BOBBER_LAND_IN_LAVA.get(), 1.00F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
+            this.playSound(AquaSounds.BOBBER_LAND_IN_LAVA, 1.00F, 1.0F + (this.random.nextFloat() - this.random.nextFloat()) * 0.4F);
             level.sendParticles(ParticleTypes.LAVA, this.getX(), boundingBox, this.getZ(), (int) (1.0F + bbWidth * 20.0F), bbWidth, 0.0D, bbWidth, 0.2D);
         }
     }
@@ -173,7 +173,7 @@ public class AquacultureFishingHook extends MaidFishingHook implements IEntityAd
         if (!bait.isEmpty()) {
             if (bait.hurt(1, level.random, null)) {
                 bait.shrink(1);
-                this.playSound(AquaSounds.BOBBER_BAIT_BREAK.get(), 0.7F, 0.2F);
+                this.playSound(AquaSounds.BOBBER_BAIT_BREAK, 0.7F, 0.2F);
             }
             rodHandler.setStackInSlot(1, bait);
         }

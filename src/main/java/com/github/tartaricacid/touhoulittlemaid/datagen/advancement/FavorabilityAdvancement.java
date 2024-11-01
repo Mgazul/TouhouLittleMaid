@@ -5,6 +5,7 @@ import com.github.tartaricacid.touhoulittlemaid.advancements.maid.MaidEventTrigg
 import com.github.tartaricacid.touhoulittlemaid.advancements.maid.TriggerType;
 import com.github.tartaricacid.touhoulittlemaid.datagen.LanguageGenerator;
 import com.github.tartaricacid.touhoulittlemaid.init.InitItems;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
@@ -62,8 +63,8 @@ public class FavorabilityAdvancement {
     }
 
     private static Advancement.Builder make(ItemLike item, String key) {
-        MutableComponent title = Component.translatable(String.format("advancements.touhou_little_maid.favorability.%s.title", key));
-        MutableComponent desc = Component.translatable(String.format("advancements.touhou_little_maid.favorability.%s.description", key));
+        MutableComponent title = TComponent.translatable(String.format("advancements.touhou_little_maid.favorability.%s.title", key));
+        MutableComponent desc = TComponent.translatable(String.format("advancements.touhou_little_maid.favorability.%s.description", key));
 
         LanguageGenerator.addLanguage(title);
         LanguageGenerator.addLanguage(desc);
@@ -74,8 +75,8 @@ public class FavorabilityAdvancement {
     }
 
     private static Advancement.Builder makeGoal(ItemLike item, String key) {
-        MutableComponent title = Component.translatable(String.format("advancements.touhou_little_maid.favorability.%s.title", key));
-        MutableComponent desc = Component.translatable(String.format("advancements.touhou_little_maid.favorability.%s.description", key));
+        MutableComponent title = TComponent.translatable(String.format("advancements.touhou_little_maid.favorability.%s.title", key));
+        MutableComponent desc = TComponent.translatable(String.format("advancements.touhou_little_maid.favorability.%s.description", key));
 
         LanguageGenerator.addLanguage(title);
         LanguageGenerator.addLanguage(desc);

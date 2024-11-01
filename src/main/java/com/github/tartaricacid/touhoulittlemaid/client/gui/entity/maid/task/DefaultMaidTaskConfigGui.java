@@ -2,8 +2,10 @@ package com.github.tartaricacid.touhoulittlemaid.client.gui.entity.maid.task;
 
 import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import com.github.tartaricacid.touhoulittlemaid.inventory.container.task.TaskConfigContainer;
-import net.minecraft.ChatFormatting;
-import net.minecraft.client.gui.GuiGraphics;
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
@@ -25,13 +27,15 @@ public class DefaultMaidTaskConfigGui extends MaidTaskConfigGui<TaskConfigContai
     }
 
     @Override
-    protected void renderBg(GuiGraphics graphics, float partialTicks, int x, int y) {
-        super.renderBg(graphics, partialTicks, x, y);
-        graphics.blit(BG, leftPos + 80, topPos + 28, 0, 0, imageWidth, 137);
+    protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {
+        super.renderBg(poseStack, partialTicks, x, y);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, BG);
+        blit(poseStack, leftPos + 80, topPos + 28, 0, 0, imageWidth, 137);
     }
 
     @Override
-    protected void renderAddition(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        graphics.drawWordWrap(font, Component.translatable("gui.touhou_little_maid.default_task_config.title"), leftPos + 88, topPos + 38, 160, ChatFormatting.DARK_GRAY.getColor());
+    protected void renderAddition(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        font.draw(poseStack, TComponent.translatable("gui.touhou_little_maid.default_task_config.title"), leftPos + 88, topPos + 38, 160);
     }
 }

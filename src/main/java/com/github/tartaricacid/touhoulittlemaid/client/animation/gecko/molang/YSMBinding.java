@@ -36,11 +36,11 @@ public class YSMBinding extends ContextBinding {
         var("head_pitch", ctx -> ctx.data().headPitch);
         var("weather", ctx -> getWeather(ctx.level()));
         var("dimension_name", ctx -> ctx.level().dimension().location().toString());
-        var("fps", ctx -> Minecraft.getInstance().getFps());
+        var("fps", ctx -> Minecraft.fps);
 
         entityVar("is_passenger", ctx -> ctx.entity().isPassenger());
         entityVar("is_sleep", ctx -> ctx.entity().getPose() == Pose.SLEEPING);
-        entityVar("is_sneak", ctx -> ctx.entity().onGround() && ctx.entity().getPose() == Pose.CROUCHING);
+        entityVar("is_sneak", ctx -> ctx.entity().isOnGround() && ctx.entity().getPose() == Pose.CROUCHING);
         entityVar("is_open_air", ctx -> isOpenAir(ctx.entity()));
         entityVar("eye_in_water", ctx -> ctx.entity().isUnderWater());
         entityVar("frozen_ticks", ctx -> ctx.entity().getTicksFrozen());
@@ -69,8 +69,8 @@ public class YSMBinding extends ContextBinding {
         livingEntityVar("knockback_resistance", ctx -> ctx.entity().getAttributeValue(Attributes.KNOCKBACK_RESISTANCE));
         livingEntityVar("luck", ctx -> ctx.entity().getAttributeValue(Attributes.LUCK));
 
-        livingEntityVar("block_reach", ctx -> ctx.entity().getAttributeValue(ForgeMod.BLOCK_REACH.get()));
-        livingEntityVar("entity_reach", ctx -> ctx.entity().getAttributeValue(ForgeMod.ENTITY_REACH.get()));
+        livingEntityVar("block_reach", ctx -> ctx.entity().getAttributeValue(ForgeMod.REACH_DISTANCE.get()));
+        livingEntityVar("entity_reach", ctx -> ctx.entity().getAttributeValue(ForgeMod.ATTACK_RANGE.get()));
         livingEntityVar("swim_speed", ctx -> ctx.entity().getAttributeValue(ForgeMod.SWIM_SPEED.get()));
         livingEntityVar("entity_gravity", ctx -> ctx.entity().getAttributeValue(ForgeMod.ENTITY_GRAVITY.get()));
         livingEntityVar("step_height_addition", ctx -> ctx.entity().getAttributeValue(ForgeMod.STEP_HEIGHT_ADDITION.get()));

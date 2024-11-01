@@ -26,6 +26,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.Projectile;
+import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.Level;
@@ -513,7 +514,8 @@ public class MaidFishingHook extends Projectile {
         //todo check
         //来自FishingHook.shouldStopFishing
         //要不要换成类型判断?
-        boolean hasFishingRod = mainHandItem.is(Items.FISHING_ROD);
+//        boolean hasFishingRod = mainHandItem.is(Items.FISHING_ROD);
+        boolean hasFishingRod = mainHandItem.getItem() instanceof FishingRodItem;
         boolean isFishingTask = maid.getTask() instanceof TaskFishing;
         boolean hasVehicle = maid.getVehicle() != null;
         if (!maid.isRemoved() && maid.isAlive() && hasVehicle && isFishingTask && hasFishingRod && this.distanceToSqr(maid) < 256) {

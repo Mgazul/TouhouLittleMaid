@@ -1,5 +1,6 @@
 package com.github.tartaricacid.touhoulittlemaid.item;
 
+import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
@@ -22,6 +23,6 @@ public class ItemAdvancementIcon extends Item {
 
     @Override
     public void appendHoverText(ItemStack pStack, @Nullable Level pLevel, List<Component> components, TooltipFlag pIsAdvanced) {
-        components.add(Component.translatable("tooltips.touhou_little_maid.advancement_icon.desc").withStyle(ChatFormatting.GRAY));
+        components.add(TComponent.translatable("tooltips.touhou_little_maid.advancement_icon.desc").withStyle(ChatFormatting.GRAY));
     }
 }
