@@ -2,30 +2,25 @@ package com.github.tartaricacid.touhoulittlemaid.client.gui.widget.button;
 
 import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import com.github.tartaricacid.touhoulittlemaid.api.client.gui.ITooltipButton;
+import com.github.tartaricacid.touhoulittlemaid.client.gui.entity.maid.AbstractMaidContainerGui;
 import com.google.common.collect.Lists;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.Font;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 
-import java.util.List;
-
 public class MaidTabButton extends Button implements ITooltipButton {
     private static final ResourceLocation SIDE = new ResourceLocation(TouhouLittleMaid.MOD_ID, "textures/gui/maid_gui_side.png");
     private final int left;
-    private final List<Component> tooltips;
 
-    public MaidTabButton(int x, int y, int left, String key, Button.OnPress onPressIn) {
-        super(x, y, 24, 26, Component.empty(), onPressIn);
-        this.left = left;
-        this.tooltips = Lists.newArrayList(
+    public MaidTabButton(int x, int y, int left, String key, Button.OnPress onPressIn, AbstractMaidContainerGui.TooltipRender pOnTooltip) {
+        super(x, y, 24, 26, Component.empty(), onPressIn, ((pButton, pPoseStack, pMouseX, pMouseY) -> pOnTooltip.renderToolTip(pPoseStack, Lists.newArrayList(
                 Component.translatable("gui.touhou_little_maid.button." + key),
-                Component.translatable("gui.touhou_little_maid.button." + key + ".desc")
-        );
+                Component.translatable("gui.touhou_little_maid.button." + key + ".desc")), pMouseX, pMouseY)));
+        this.left = left;
     }
 
     public void renderButton(PoseStack matrixStack, int mouseX, int mouseY, float partialTicks) {

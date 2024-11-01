@@ -1283,7 +1283,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     @Override
     public void onEquipItem(EquipmentSlot slot, ItemStack oldItem, ItemStack newItem) {
         super.onEquipItem(slot, oldItem, newItem);
-        if (newItem.isEmpty() || this.firstTick || !slot.isArmor()) {
+        if (newItem.isEmpty() || this.firstTick || slot.getType() != EquipmentSlot.Type.ARMOR) {
             return;
         }
 
@@ -1296,7 +1296,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         if (isNetheriteArmor(newItem)) {
             // 检查全身装备
             for (EquipmentSlot slotIn : EquipmentSlot.values()) {
-                if (!slotIn.isArmor() || slotIn == slot) {
+                if (slot.getType() != EquipmentSlot.Type.ARMOR || slotIn == slot) {
                     continue;
                 }
                 ItemStack itemBySlot = getItemBySlot(slotIn);

@@ -2,6 +2,7 @@ package com.github.tartaricacid.touhoulittlemaid.client.gui.widget.button;
 
 import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import com.github.tartaricacid.touhoulittlemaid.api.client.gui.ITooltipButton;
+import com.github.tartaricacid.touhoulittlemaid.client.gui.entity.maid.AbstractMaidContainerGui;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
@@ -18,13 +19,13 @@ import java.util.List;
 public class MaidSideTabButton extends Button implements ITooltipButton {
     private static final ResourceLocation SIDE = new ResourceLocation(TouhouLittleMaid.MOD_ID, "textures/gui/maid_gui_side.png");
     private static final int V_OFFSET = 107;
-    private final List<Component> tooltips;
     private final int top;
 
-    public MaidSideTabButton(int x, int y, int top, OnPress onPressIn, List<Component> tooltips) {
-        super(x, y, 26, 24, Component.empty(), onPressIn, Button::renderToolTip);
+    public MaidSideTabButton(int x, int y, int top, OnPress onPressIn, List<Component> tooltips, AbstractMaidContainerGui.TooltipRender pOnTooltip) {
+        super(x, y, 26, 24, Component.empty(), onPressIn, ((pButton, pPoseStack, pMouseX, pMouseY) -> {
+            pOnTooltip.renderToolTip(pPoseStack, tooltips, pMouseX, pMouseY);
+        }));
         this.top = V_OFFSET + top;
-        this.tooltips = tooltips;
     }
 
     @Override

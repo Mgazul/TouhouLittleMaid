@@ -5,15 +5,20 @@ import com.github.tartaricacid.touhoulittlemaid.datagen.advancement.ChallengeAdv
 import com.github.tartaricacid.touhoulittlemaid.datagen.advancement.FavorabilityAdvancement;
 import com.github.tartaricacid.touhoulittlemaid.datagen.advancement.MaidBaseAdvancement;
 import net.minecraft.advancements.Advancement;
-import net.minecraft.core.HolderLookup;
+import net.minecraft.data.DataGenerator;
+import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.ForgeAdvancementProvider;
 
 import java.util.function.Consumer;
 
-public class AdvancementGenerator implements ForgeAdvancementProvider.AdvancementGenerator {
+public class AdvancementGenerator extends AdvancementProvider {
+
+    public AdvancementGenerator(DataGenerator generatorIn, ExistingFileHelper fileHelperIn) {
+        super(generatorIn, fileHelperIn);
+    }
+
     @Override
-    public void generate(HolderLookup.Provider registries, Consumer<Advancement> saver, ExistingFileHelper existingFileHelper) {
+    protected void registerAdvancements(Consumer<Advancement> saver, ExistingFileHelper existingFileHelper) {
         BaseAdvancement.generate(saver, existingFileHelper);
         MaidBaseAdvancement.generate(saver, existingFileHelper);
         FavorabilityAdvancement.generate(saver, existingFileHelper);

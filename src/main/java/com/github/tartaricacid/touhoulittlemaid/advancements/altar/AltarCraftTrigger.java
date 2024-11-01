@@ -11,9 +11,9 @@ public class AltarCraftTrigger extends SimpleCriterionTrigger<AltarCraftTrigger.
     public static final ResourceLocation ID = new ResourceLocation(TouhouLittleMaid.MOD_ID, "altar/altar_craft");
 
     @Override
-    protected AltarCraftTrigger.Instance createInstance(JsonObject json, ContextAwarePredicate entityPredicate, DeserializationContext conditionsParser) {
+    protected AltarCraftTrigger.Instance createInstance(JsonObject json, EntityPredicate.Composite player, DeserializationContext conditionsParser) {
         ResourceLocation recipeId = new ResourceLocation(GsonHelper.getAsString(json, "recipe_id"));
-        return new AltarCraftTrigger.Instance(entityPredicate, recipeId);
+        return new AltarCraftTrigger.Instance(player, recipeId);
     }
 
     @Override
@@ -28,13 +28,13 @@ public class AltarCraftTrigger extends SimpleCriterionTrigger<AltarCraftTrigger.
     public static class Instance extends AbstractCriterionTriggerInstance {
         private final ResourceLocation recipeId;
 
-        public Instance(ContextAwarePredicate player, ResourceLocation recipeId) {
+        public Instance(EntityPredicate.Composite player, ResourceLocation recipeId) {
             super(ID, player);
             this.recipeId = recipeId;
         }
 
         public static AltarCraftTrigger.Instance recipe(ResourceLocation recipeId) {
-            return new AltarCraftTrigger.Instance(ContextAwarePredicate.ANY, recipeId);
+            return new AltarCraftTrigger.Instance(EntityPredicate.Composite.ANY, recipeId);
         }
 
         public boolean matches(ResourceLocation recipeIdIn) {

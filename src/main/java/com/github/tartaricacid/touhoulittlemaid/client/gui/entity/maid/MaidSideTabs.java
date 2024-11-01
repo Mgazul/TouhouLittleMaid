@@ -30,7 +30,7 @@ public class MaidSideTabs<T extends AbstractMaidContainer> {
         this.topPos = topPos;
     }
 
-    public MaidSideTabButton[] getTabs(AbstractMaidContainerGui<T> screen) {
+    public MaidSideTabButton[] getTabs(AbstractMaidContainerGui<T> screen, AbstractMaidContainerGui.TooltipRender pOnTooltip) {
         // 跳转帕秋莉手册按钮
         MaidSideTabButton taskBook = genSideTabButton(SideTab.TASK_BOOK, (b) -> {
             if (ModList.get().isLoaded(CompatRegistry.PATCHOULI)) {
@@ -41,7 +41,7 @@ public class MaidSideTabs<T extends AbstractMaidContainer> {
             } else {
                 PatchouliWarningScreen.open();
             }
-        });
+        }, pOnTooltip);
 
         // 跳转全局配置按钮
         MaidSideTabButton globalConfig = genSideTabButton(SideTab.GLOBAL_CONFIG, (b) -> {
@@ -50,17 +50,17 @@ public class MaidSideTabs<T extends AbstractMaidContainer> {
             } else {
                 ClothConfigScreen.open();
             }
-        });
+        }, pOnTooltip);
 
         return new MaidSideTabButton[]{taskBook, globalConfig};
     }
 
-    private MaidSideTabButton genSideTabButton(SideTab sideTab, Button.OnPress onPressIn) {
+    private MaidSideTabButton genSideTabButton(SideTab sideTab, Button.OnPress onPressIn, AbstractMaidContainerGui.TooltipRender pOnTooltip) {
         String name = sideTab.name().toLowerCase(Locale.ENGLISH);
         String titleLangKey = String.format("gui.touhou_little_maid.button.%s", name);
         String descLangKey = String.format("gui.touhou_little_maid.button.%s.desc", name);
 
         return new MaidSideTabButton(rightPos, topPos + sideTab.getIndex() * SPACING, sideTab.getIndex() * SPACING, onPressIn,
-                List.of(Component.translatable(titleLangKey), Component.translatable(descLangKey)));
+                List.of(Component.translatable(titleLangKey), Component.translatable(descLangKey)), pOnTooltip);
     }
 }

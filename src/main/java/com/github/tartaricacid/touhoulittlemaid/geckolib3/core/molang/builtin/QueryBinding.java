@@ -55,9 +55,9 @@ public class QueryBinding extends ContextBinding {
         entityVar("is_in_water", ctx -> ctx.entity().isInWater());
         entityVar("is_in_water_or_rain", ctx -> ctx.entity().isInWaterRainOrBubble());
         entityVar("is_on_fire", ctx -> ctx.entity().isOnFire());
-        entityVar("is_on_ground", ctx -> ctx.entity().onGround());
+        entityVar("is_on_ground", ctx -> ctx.entity().isOnGround());
         entityVar("is_riding", ctx -> ctx.entity().isPassenger());
-        entityVar("is_sneaking", ctx -> ctx.entity().onGround() && ctx.entity().getPose() == Pose.CROUCHING);
+        entityVar("is_sneaking", ctx -> ctx.entity().isOnGround() && ctx.entity().getPose() == Pose.CROUCHING);
         entityVar("is_spectator", ctx -> ctx.entity().isSpectator());
         entityVar("is_sprinting", ctx -> ctx.entity().isSprinting());
         entityVar("is_swimming", ctx -> ctx.entity().isSwimming());
@@ -81,14 +81,14 @@ public class QueryBinding extends ContextBinding {
         var("has_cape", ctx -> false);
         var("cape_flap_amount", ctx -> 0);
         maidEntityVar("player_level", ctx -> ctx.entity().getExperience());
-        mobEntityVar("is_jumping", ctx -> !ctx.entity().isPassenger() && !ctx.entity().onGround() && !ctx.entity().isInWater());
+        mobEntityVar("is_jumping", ctx -> !ctx.entity().isPassenger() && !ctx.entity().isOnGround() && !ctx.entity().isInWater());
     }
 
 
     private static int getEquipmentCount(LivingEntity entity) {
         int count = 0;
         for (var slot : EquipmentSlot.values()) {
-            if (!slot.isArmor()) {
+            if (slot.getType() != EquipmentSlot.Type.ARMOR) {
                 continue;
             }
             var stack = EquipmentUtil.getEquippedItem(entity, slot);

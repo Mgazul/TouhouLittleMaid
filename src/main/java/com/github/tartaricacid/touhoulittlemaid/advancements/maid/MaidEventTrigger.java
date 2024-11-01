@@ -15,7 +15,7 @@ public class MaidEventTrigger extends SimpleCriterionTrigger<MaidEventTrigger.In
     }
 
     @Override
-    protected MaidEventTrigger.Instance createInstance(JsonObject json, ContextAwarePredicate entityPredicate, DeserializationContext conditionsParser) {
+    protected Instance createInstance(JsonObject json, EntityPredicate.Composite pPlayer, DeserializationContext conditionsParser) {
         String eventName = GsonHelper.getAsString(json, "event");
         return new MaidEventTrigger.Instance(eventName);
     }
@@ -33,7 +33,7 @@ public class MaidEventTrigger extends SimpleCriterionTrigger<MaidEventTrigger.In
         private final String eventName;
 
         public Instance(String eventName) {
-            super(ID, ContextAwarePredicate.ANY);
+            super(ID, EntityPredicate.Composite.ANY);
             this.eventName = eventName;
         }
 

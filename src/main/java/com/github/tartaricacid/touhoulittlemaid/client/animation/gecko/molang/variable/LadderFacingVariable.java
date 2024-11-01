@@ -15,7 +15,7 @@ public class LadderFacingVariable implements IValueEvaluator<Integer, IContext<L
     public Integer eval(IContext<LivingEntity> ctx) {
         Optional<BlockPos> climbablePos = ctx.entity().getLastClimbablePos();
         if (climbablePos.isPresent()) {
-            BlockState blockState = ctx.entity().level().getBlockState(climbablePos.get());
+            BlockState blockState = ctx.entity().level.getBlockState(climbablePos.get());
             Optional<Direction> optionalValue = blockState.getOptionalValue(HorizontalDirectionalBlock.FACING);
             if (optionalValue.isPresent()) {
                 // 输出数字 0-3，分别对应：南-西-北-东

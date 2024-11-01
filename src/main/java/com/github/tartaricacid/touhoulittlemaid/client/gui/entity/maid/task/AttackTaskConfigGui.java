@@ -8,11 +8,13 @@ import com.github.tartaricacid.touhoulittlemaid.init.InitTaskData;
 import com.github.tartaricacid.touhoulittlemaid.inventory.container.task.TaskConfigContainer;
 import com.github.tartaricacid.touhoulittlemaid.network.NetworkHandler;
 import com.github.tartaricacid.touhoulittlemaid.network.message.SetAttackListMessage;
+import com.mojang.blaze3d.systems.RenderSystem;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.EditBox;
 import net.minecraft.client.gui.components.ImageButton;
+import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
@@ -87,8 +89,7 @@ public class AttackTaskConfigGui extends MaidTaskConfigGui<TaskConfigContainer> 
         this.inputField.setMaxLength(256);
         this.addWidget(this.inputField);
 
-        this.addRenderableWidget(Button.builder(Component.translatable("gui.touhou_little_maid.monster_type.add"), b -> addMonsterType())
-                .pos(startLeft + 119, startTop - 1).size(44, 18).build());
+        this.addRenderableWidget(new Button(startLeft + 119, startTop - 1, 44, 18, Component.translatable("gui.touhou_little_maid.monster_type.add"), b -> addMonsterType()));
 
         this.addRenderableWidget(new ImageButton(startLeft + 121, startTop + 20, 5, 9, 0, 176, 9, BG, b -> {
             this.page = this.page - 1;
@@ -147,12 +148,12 @@ public class AttackTaskConfigGui extends MaidTaskConfigGui<TaskConfigContainer> 
     }
 
     @Override
-    protected void renderAddition(GuiGraphics graphics, int mouseX, int mouseY, float partialTicks) {
-        this.inputField.render(graphics, mouseX, mouseY, partialTicks);
+    protected void renderAddition(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
+        this.inputField.render(poseStack, mouseX, mouseY, partialTicks);
 
         MutableComponent pageText = Component.literal(String.format("%d/%d", this.page + 1, (this.attackGroupsKey.size() - 1) / 7 + 1));
-        graphics.drawCenteredString(font, pageText, leftPos + 228, topPos + 57, 0xFFFFFF);
-        graphics.drawCenteredString(font, Component.translatable("gui.touhou_little_maid.monster_type.title"), leftPos + 147, topPos + 57, 0xFFFFFF);
+        drawCenteredString(poseStack, font, pageText, leftPos + 228, topPos + 57, 0xFFFFFF);
+        drawCenteredString(poseStack, font, Component.translatable("gui.touhou_little_maid.monster_type.title"), leftPos + 147, topPos + 57, 0xFFFFFF);
     }
 
     @Override
@@ -162,9 +163,11 @@ public class AttackTaskConfigGui extends MaidTaskConfigGui<TaskConfigContainer> 
     }
 
     @Override
-    protected void renderBg(GuiGraphics graphics, float partialTicks, int x, int y) {
-        super.renderBg(graphics, partialTicks, x, y);
-        graphics.blit(BG, leftPos + 80, topPos + 28, 0, 0, imageWidth, 137);
+    protected void renderBg(PoseStack poseStack, float partialTicks, int x, int y) {
+        super.renderBg(poseStack, partialTicks, x, y);
+        RenderSystem.setShader(GameRenderer::getPositionTexShader);
+        RenderSystem.setShaderTexture(0, BG);
+        blit(poseStack, leftPos + 80, topPos + 28, 0, 0, imageWidth, 137);
     }
 
     @Override

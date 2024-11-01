@@ -9,7 +9,7 @@ import com.github.tartaricacid.touhoulittlemaid.init.InitItems;
 import com.github.tartaricacid.touhoulittlemaid.item.ItemEntityPlaceholder;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.critereon.ContextAwarePredicate;
+import net.minecraft.advancements.critereon.EntityPredicate;
 import net.minecraft.advancements.critereon.ItemPredicate;
 import net.minecraft.advancements.critereon.PickedUpItemTrigger;
 import net.minecraft.network.chat.Component;
@@ -137,9 +137,9 @@ public class MaidBaseAdvancement {
 
         make(InitItems.GARAGE_KIT.get(), "pickup_garage_kit").parent(statue)
                 .addCriterion("pickup_item", PickedUpItemTrigger.TriggerInstance.thrownItemPickedUpByPlayer(
-                        ContextAwarePredicate.ANY,
+                        EntityPredicate.Composite.ANY,
                         ItemPredicate.Builder.item().of(InitItems.GARAGE_KIT.get()).build(),
-                        ContextAwarePredicate.ANY))
+                        EntityPredicate.Composite.ANY))
                 .save(saver, id("maid_base/pickup_garage_kit"), existingFileHelper);
     }
 

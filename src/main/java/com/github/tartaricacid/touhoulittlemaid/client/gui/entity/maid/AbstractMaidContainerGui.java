@@ -137,6 +137,7 @@ public abstract class AbstractMaidContainerGui<T extends AbstractMaidContainer> 
         super.render(poseStack, mouseX, mouseY, partialTicks);
         this.drawEffectInfo(poseStack);
         this.drawCurrentTaskText(poseStack);
+        this.renderAddition(poseStack, mouseX, mouseY, partialTicks);
         // 确保 Tooltip 是最后渲染的
         this.renderTooltip(poseStack, mouseX, mouseY);
     }
@@ -360,7 +361,7 @@ public abstract class AbstractMaidContainerGui<T extends AbstractMaidContainer> 
 
     private void addTabsButton() {
         MaidTabs<T> maidTabs = new MaidTabs<>(maid.getId(), leftPos, topPos);
-        MaidTabButton[] tabs = maidTabs.getTabs(this);
+        MaidTabButton[] tabs = maidTabs.getTabs(this, this::renderComponentTooltip);
         for (MaidTabButton button : tabs) {
             this.addRenderableWidget(button);
         }
@@ -618,7 +619,7 @@ public abstract class AbstractMaidContainerGui<T extends AbstractMaidContainer> 
     @SuppressWarnings("unchecked")
     private void addSideTabsButton() {
         MaidSideTabs<T> maidTabs = new MaidSideTabs<>(maid.getId(), leftPos + 251, topPos + 28 + 9);
-        MaidSideTabButton[] tabs = maidTabs.getTabs(this);
+        MaidSideTabButton[] tabs = maidTabs.getTabs(this, this::renderComponentTooltip);
         for (MaidSideTabButton button : tabs) {
             this.addRenderableWidget(button);
         }
@@ -629,5 +630,9 @@ public abstract class AbstractMaidContainerGui<T extends AbstractMaidContainer> 
         RenderSystem.setShader(GameRenderer::getPositionTexShader);
         RenderSystem.setShaderTexture(0, SIDE);
         blit(poseStack, leftPos + 251 + 5, topPos + 28 + 9, 235, 107, 21, 50);
+    }
+
+    public interface TooltipRender {
+        void renderToolTip(PoseStack poseStack, List<Component> tooltips, int mouseX, int mouseY);
     }
 }

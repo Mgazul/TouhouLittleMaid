@@ -9,7 +9,7 @@ import com.github.tartaricacid.touhoulittlemaid.tileentity.TileEntityWChess;
 import com.github.tartaricacid.touhoulittlemaid.util.WChessUtil;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Axis;
+import com.mojang.math.Vector3f;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Camera;
 import net.minecraft.client.gui.Font;
@@ -85,13 +85,13 @@ public class TileEntityWChessRenderer implements BlockEntityRenderer<TileEntityW
         float roundTipsWidth = (float) (-this.font.width(roundTips) / 2);
         poseStack.pushPose();
         poseStack.translate(0.5, 0.75, 0.5);
-        poseStack.mulPose(Axis.YN.rotationDegrees(180 + camera.getYRot()));
-        poseStack.mulPose(Axis.XN.rotationDegrees(camera.getXRot()));
+        poseStack.mulPose(Vector3f.YN.rotationDegrees(180 + camera.getYRot()));
+        poseStack.mulPose(Vector3f.XN.rotationDegrees(camera.getXRot()));
         poseStack.scale(0.03F, -0.03F, 0.03F);
-        this.font.drawInBatch(loseTips, loseTipsWidth, -10, 0xFFFFFF, true, poseStack.last().pose(), bufferIn, Font.DisplayMode.POLYGON_OFFSET, 0, combinedLightIn);
+        this.font.drawInBatch(loseTips, loseTipsWidth, -10, 0xFFFFFF, true, poseStack.last().pose(), bufferIn, false, 0, combinedLightIn);
         poseStack.scale(0.5F, 0.5F, 0.5F);
-        this.font.drawInBatch(roundTips, roundTipsWidth, -30, 0xFFFFFF, true, poseStack.last().pose(), bufferIn, Font.DisplayMode.POLYGON_OFFSET, 0, combinedLightIn);
-        this.font.drawInBatch(resetTips, resetTipsWidth, 0, 0xFFFFFF, true, poseStack.last().pose(), bufferIn, Font.DisplayMode.POLYGON_OFFSET, 0, combinedLightIn);
+        this.font.drawInBatch(roundTips, roundTipsWidth, -30, 0xFFFFFF, true, poseStack.last().pose(), bufferIn, false, 0, combinedLightIn);
+        this.font.drawInBatch(resetTips, resetTipsWidth, 0, 0xFFFFFF, true, poseStack.last().pose(), bufferIn, false, 0, combinedLightIn);
         poseStack.popPose();
     }
 
@@ -116,10 +116,10 @@ public class TileEntityWChessRenderer implements BlockEntityRenderer<TileEntityW
                     poseStack.translate(-0.875 + 0.5, 1.625, -0.875 + 0.5);
                     break;
             }
-            poseStack.mulPose(Axis.ZN.rotationDegrees(180));
-            poseStack.mulPose(Axis.YN.rotationDegrees(facing.get2DDataValue() * 90));
+            poseStack.mulPose(Vector3f.ZN.rotationDegrees(180));
+            poseStack.mulPose(Vector3f.YN.rotationDegrees(facing.get2DDataValue() * 90));
             if (facing == Direction.SOUTH || facing == Direction.NORTH) {
-                poseStack.mulPose(Axis.YN.rotationDegrees(180));
+                poseStack.mulPose(Vector3f.YN.rotationDegrees(180));
             }
             for (int y = Position.RANK_TOP; y <= Position.RANK_BOTTOM; y++) {
                 for (int x = Position.FILE_LEFT; x <= Position.FILE_RIGHT; x++) {
@@ -142,10 +142,10 @@ public class TileEntityWChessRenderer implements BlockEntityRenderer<TileEntityW
     private void renderChessboard(PoseStack poseStack, MultiBufferSource bufferIn, int combinedLightIn, int combinedOverlayIn, Direction facing) {
         poseStack.pushPose();
         poseStack.translate(0.5, 1.5, 0.5);
-        poseStack.mulPose(Axis.ZN.rotationDegrees(180));
-        poseStack.mulPose(Axis.YN.rotationDegrees(facing.get2DDataValue() * 90));
+        poseStack.mulPose(Vector3f.ZN.rotationDegrees(180));
+        poseStack.mulPose(Vector3f.YN.rotationDegrees(facing.get2DDataValue() * 90));
         if (facing == Direction.SOUTH || facing == Direction.NORTH) {
-            poseStack.mulPose(Axis.YN.rotationDegrees(180));
+            poseStack.mulPose(Vector3f.YN.rotationDegrees(180));
         }
         VertexConsumer checkerBoardBuff = bufferIn.getBuffer(RenderType.entityCutoutNoCull(TEXTURE));
         chessModel.renderToBuffer(poseStack, checkerBoardBuff, combinedLightIn, combinedOverlayIn, 1.0F, 1.0F, 1.0F, 1.0F);

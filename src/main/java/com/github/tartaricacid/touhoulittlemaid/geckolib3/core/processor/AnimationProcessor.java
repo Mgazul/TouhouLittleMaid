@@ -20,7 +20,7 @@ import it.unimi.dsi.fastutil.objects.Object2ReferenceOpenHashMap;
 import it.unimi.dsi.fastutil.objects.ReferenceArrayList;
 import net.minecraft.client.Minecraft;
 import org.jetbrains.annotations.Nullable;
-import org.joml.Vector3f;
+import com.mojang.math.Vector3f;
 
 import java.util.List;
 import java.util.Map;

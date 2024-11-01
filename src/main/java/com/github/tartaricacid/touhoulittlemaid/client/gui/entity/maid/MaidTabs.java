@@ -20,21 +20,21 @@ public class MaidTabs<T extends AbstractMaidContainer> {
         this.topPos = topPos;
     }
 
-    public MaidTabButton[] getTabs(AbstractMaidContainerGui<T> screen) {
+    public MaidTabButton[] getTabs(AbstractMaidContainerGui<T> screen, AbstractMaidContainerGui.TooltipRender pOnTooltip) {
         MaidTabButton main = new MaidTabButton(leftPos + 94, topPos + 5, 107, "main",
-                (b) -> NetworkHandler.CHANNEL.sendToServer(new ToggleTabMessage(entityId, TabIndex.MAIN)));
+                (b) -> NetworkHandler.CHANNEL.sendToServer(new ToggleTabMessage(entityId, TabIndex.MAIN)), pOnTooltip);
         if (screen instanceof IBackpackContainerScreen) {
             main.active = false;
         }
 
         MaidTabButton taskConfig = new MaidTabButton(leftPos + 119, topPos + 5, 132, "task_config",
-                (b) -> NetworkHandler.CHANNEL.sendToServer(new ToggleTabMessage(entityId, TabIndex.TASK_CONFIG)));
+                (b) -> NetworkHandler.CHANNEL.sendToServer(new ToggleTabMessage(entityId, TabIndex.TASK_CONFIG)), pOnTooltip);
         if (screen instanceof MaidTaskConfigGui<?>) {
             taskConfig.active = false;
         }
 
         MaidTabButton maidConfig = new MaidTabButton(leftPos + 144, topPos + 5, 157, "maid_config",
-                (b) -> NetworkHandler.CHANNEL.sendToServer(new ToggleTabMessage(entityId, TabIndex.MAID_CONFIG)));
+                (b) -> NetworkHandler.CHANNEL.sendToServer(new ToggleTabMessage(entityId, TabIndex.MAID_CONFIG)), pOnTooltip);
         if (screen instanceof MaidConfigContainerGui) {
             maidConfig.active = false;
         }
