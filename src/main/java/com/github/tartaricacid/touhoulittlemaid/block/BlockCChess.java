@@ -235,6 +235,7 @@ public class BlockCChess extends BlockJoy implements IBoardGameBlock {
             if (clickResetArea) {
                 chess.reset();
                 chess.refresh();
+                level.playSound(null, centerPos, InitSounds.GOMOKU_RESET.get(), SoundSource.BLOCKS, 1.0f, 1.0f);
                 maid.getGameRecordManager().resetStatue();
             }
 
