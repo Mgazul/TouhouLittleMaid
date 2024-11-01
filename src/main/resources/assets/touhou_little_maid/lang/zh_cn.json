@@ -678,6 +678,8 @@
   "subtitle.touhou_little_maid.maid.ai.tamed": "女仆：被驯服",
   "subtitle.touhou_little_maid.maid.ai.item_get": "女仆：拾起物件",
   "subtitle.touhou_little_maid.maid.ai.death": "女仆：死亡",
+  "subtitle.touhou_little_maid.maid.ai.game_win": "赢棋",
+  "subtitle.touhou_little_maid.maid.ai.game_lost": "输棋",
   "subtitle.touhou_little_maid.maid.environment.hot": "女仆：热",
   "subtitle.touhou_little_maid.maid.environment.cold": "女仆：冷",
   "subtitle.touhou_little_maid.maid.environment.rain": "女仆：下雨",

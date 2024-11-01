@@ -1,6 +1,7 @@
 package com.github.tartaricacid.touhoulittlemaid.entity.passive;
 
 import com.github.tartaricacid.touhoulittlemaid.entity.item.EntitySit;
+import com.github.tartaricacid.touhoulittlemaid.init.InitSounds;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 
@@ -83,6 +84,11 @@ public class MaidGameRecordManager {
 
     public void markStatue(boolean isWin) {
         this.setGameStatue(isWin ? WIN : LOSE);
+        if (isWin) {
+            maid.playSound(InitSounds.GAME_WIN.get(), 1, 1);
+        } else {
+            maid.playSound(InitSounds.GAME_LOST.get(), 1, 1);
+        }
     }
 
     public void resetStatue() {
