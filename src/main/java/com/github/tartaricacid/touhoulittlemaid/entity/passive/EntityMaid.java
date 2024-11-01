@@ -299,7 +299,6 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         builder.define(BACKPACK_TYPE, EmptyBackpack.ID.toString());
         builder.define(BACKPACK_ITEM_SHOW, ItemStack.EMPTY);
         builder.define(BACKPACK_FLUID, StringUtils.EMPTY);
-        builder.define(GAME_SKILL, new CompoundTag());
         builder.define(TASK_DATA_SYNC, new CompoundTag());
 
         // 父类构造方法调用此类，就会出现这种初始化混乱的问题

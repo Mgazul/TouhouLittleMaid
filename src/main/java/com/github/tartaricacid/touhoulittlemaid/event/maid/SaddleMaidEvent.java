@@ -29,6 +29,9 @@ public class SaddleMaidEvent {
                 if (success && FMLLoader.getDist() == Dist.CLIENT) {
                     SaddleMaidEvent.showTips();
                 }
+                if (maid.isHomeModeEnable()) {
+                    maid.setHomeModeEnable(false);
+                }
                 if (player instanceof ServerPlayer serverPlayer) {
                     InitTrigger.MAID_EVENT.get().trigger(serverPlayer, TriggerType.PICKUP_MAID);
                 }

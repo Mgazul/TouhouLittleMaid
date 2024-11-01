@@ -672,6 +672,8 @@
   "subtitle.touhou_little_maid.maid.ai.tamed": "Maid Tamed Sound",
   "subtitle.touhou_little_maid.maid.ai.item_get": "Maid Get Item Sound",
   "subtitle.touhou_little_maid.maid.ai.death": "Maid Death Sound",
+  "subtitle.touhou_little_maid.maid.ai.game_win": "Game Win Sound",
+  "subtitle.touhou_little_maid.maid.ai.game_lost": "Game Lost Sound",
   "subtitle.touhou_little_maid.maid.environment.hot": "Maid Feel Hot Sound",
   "subtitle.touhou_little_maid.maid.environment.cold": "Maid Feel Cold Sound",
   "subtitle.touhou_little_maid.maid.environment.rain": "Maid Rain Sound",
