@@ -28,6 +28,9 @@ public class SaddleMaidEvent {
             if (player.getPassengers().isEmpty() && maid.getPassengers().isEmpty()) {
                 boolean success = maid.startRiding(player);
                 if (success) {
+                    if (maid.isHomeModeEnable()) {
+                        maid.setHomeModeEnable(false);
+                    }
                     DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> SaddleMaidEvent::showTips);
                     if (player instanceof ServerPlayer serverPlayer) {
                         InitTrigger.MAID_EVENT.trigger(serverPlayer, TriggerType.PICKUP_MAID);
