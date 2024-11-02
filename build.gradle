@@ -108,6 +108,11 @@ repositories {
     }
     maven {
         // location of a maven mirror for JEI files, as a fallback
+        name = "ModMaven"
+        url = "https://modmaven.dev"
+    }
+    maven {
+        // location of a maven mirror for JEI files, as a fallback
         name = "Mod Maven"
         url = "https://modmaven.k-4u.nl"
     }
@@ -174,13 +179,12 @@ dependencies {
     implementation fg.deobf("maven.modrinth:simple-hats:1.18.2-0.3.2-forge")
     implementation fg.deobf("maven.modrinth:curios:1.18.2-5.0.9.2-forge")
 
-    implementation fg.deobf("curse.maven:aquaculture-60028:5320128")
-//    implementation fg.deobf("curse.maven:aquaculture-60028:4501726")
+    implementation fg.deobf("curse.maven:aquaculture-60028:4501726")
 
-//    runtimeOnly fg.deobf("maven.modrinth:better-advancements:0.4.2.10-forge")
+    runtimeOnly fg.deobf("maven.modrinth:better-advancements:0.1.2.125-forge")
 
-    runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.31+mc1.20.1")
-    runtimeOnly fg.deobf('maven.modrinth:oculus:1.20.1-1.7.0')
+    runtimeOnly fg.deobf("maven.modrinth:embeddium:0.3.18+mc1.18.2")
+    runtimeOnly fg.deobf('maven.modrinth:oculus:1.18.2-1.6.4')
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }
