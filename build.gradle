@@ -40,7 +40,7 @@ minecraft {
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                touhoulittlemaid {
+                touhou_little_maid {
                     source sourceSets.main
                 }
             }
@@ -51,7 +51,7 @@ minecraft {
             workingDirectory project.file('run/client_b')
             args '--username', 'tartaric_acid'
             mods {
-                touhoulittlemaid {
+                touhou_little_maid {
                     source sourceSets.main
                 }
             }
@@ -62,11 +62,11 @@ minecraft {
             workingDirectory project.file('run/server')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'forge.enabledGameTestNamespaces', 'touhoulittlemaid'
+            property 'forge.enabledGameTestNamespaces', 'touhou_little_maid'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
             mods {
-                touhoulittlemaid {
+                touhou_little_maid {
                     source sourceSets.main
                 }
             }
@@ -78,9 +78,9 @@ minecraft {
             property 'forge.logging.console.level', 'debug'
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
-            args '--mod', 'touhoulittlemaid', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'touhou_little_maid', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
             mods {
-                touhoulittlemaid {
+                touhou_little_maid {
                     source sourceSets.main
                 }
             }
@@ -169,10 +169,12 @@ dependencies {
 
     runtimeOnly fg.deobf("curse.maven:catalogue-459701:${catalogue_id}")
 
-    implementation fg.deobf('curse.maven:timeless-and-classics-zero-1028108:5529111-sources-5529576')
+    implementation fg.deobf('curse.maven:timeless-and-classics-zero-1028108:5722043')
 
     implementation fg.deobf("maven.modrinth:simple-hats:1.19.2-0.3.2-forge")
     implementation fg.deobf("maven.modrinth:curios:1.19.2-5.1.6.3-forge")
+
+    implementation fg.deobf("curse.maven:aquaculture-60028:5320128")
 
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
 }

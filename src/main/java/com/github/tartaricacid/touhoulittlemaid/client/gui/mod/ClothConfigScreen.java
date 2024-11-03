@@ -25,6 +25,10 @@ public class ClothConfigScreen extends Screen {
         this.lastScreen = lastScreen;
     }
 
+    public static void open() {
+        Minecraft.getInstance().setScreen(new ClothConfigScreen(Minecraft.getInstance().screen));
+    }
+
     @Override
     protected void init() {
         int posX = (this.width - 200) / 2;

@@ -3,6 +3,7 @@ package com.github.tartaricacid.touhoulittlemaid.client.gui.entity.model;
 import com.github.tartaricacid.touhoulittlemaid.client.gui.entity.detail.ChairModelDetailsGui;
 import com.github.tartaricacid.touhoulittlemaid.client.resource.CustomPackLoader;
 import com.github.tartaricacid.touhoulittlemaid.client.resource.pojo.ChairModelInfo;
+import com.github.tartaricacid.touhoulittlemaid.config.subconfig.MiscConfig;
 import com.github.tartaricacid.touhoulittlemaid.entity.item.EntityChair;
 import com.github.tartaricacid.touhoulittlemaid.network.NetworkHandler;
 import com.github.tartaricacid.touhoulittlemaid.network.message.ChairModelMessage;
@@ -40,7 +41,7 @@ public class ChairModelGui extends AbstractModelGui<EntityChair, ChairModelInfo>
     protected void drawRightEntity(PoseStack pPoseStack, int posX, int posY, ChairModelInfo modelItem) {
         ResourceLocation cacheIconId = modelItem.getCacheIconId();
         var allTextures = Minecraft.getInstance().textureManager.byPath;
-        if (allTextures.containsKey(cacheIconId)) {
+        if (MiscConfig.MODEL_ICON_CACHE.get() && allTextures.containsKey(cacheIconId)) {
             int textureSize = 24;
             RenderSystem.setShader(GameRenderer::getPositionTexShader);
             RenderSystem.setShaderTexture(0, cacheIconId);

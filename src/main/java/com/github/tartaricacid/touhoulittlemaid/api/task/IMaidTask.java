@@ -1,12 +1,17 @@
 package com.github.tartaricacid.touhoulittlemaid.api.task;
 
 import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
+import com.github.tartaricacid.touhoulittlemaid.inventory.container.AbstractMaidContainer;
+import com.github.tartaricacid.touhoulittlemaid.inventory.container.task.DefaultMaidTaskConfigContainer;
 import com.google.common.collect.Lists;
 import com.mojang.datafixers.util.Pair;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.MenuProvider;
+import net.minecraft.world.entity.player.Inventory;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.item.ItemStack;
 
@@ -48,6 +53,16 @@ public interface IMaidTask {
     List<Pair<Integer, Behavior<? super EntityMaid>>> createBrainTasks(EntityMaid maid);
 
     /**
+     * 骑乘、待命状态下执行的 AI，注意此时女仆不能移动，只能站桩执行相关 AI
+     *
+     * @param maid 女仆对象
+     * @return 如果什么都不做，请返回空集合
+     */
+    default List<Pair<Integer, Behavior<? super EntityMaid>>> createRideBrainTasks(EntityMaid maid) {
+        return Collections.emptyList();
+    }
+
+    /**
      * 当前 Task 是否可使用
      *
      * @param maid 女仆对象
@@ -63,9 +78,21 @@ public interface IMaidTask {
      * 但是有些需要专心致志的工作模式，这样做反而会带来问题。将其设置为 false 就能禁止这种情况
      *
      * @param maid 女仆对象
-     * @return 禁用四处张望和随机走动 AI
+     * @return 是否禁用四处张望和随机走动 AI
      */
     default boolean enableLookAndRandomWalk(EntityMaid maid) {
+        return true;
+    }
+
+    /**
+     * 是否启用慌乱 AI，默认情况下女仆受伤后会乱跑
+     * <p>
+     * 但是处于攻击模式或者灭火模式时不应当启用
+     *
+     * @param maid 女仆对象
+     * @return 是否禁用慌乱 AI
+     */
+    default boolean enablePanic(EntityMaid maid) {
         return true;
     }
 
@@ -107,5 +134,36 @@ public interface IMaidTask {
     default List<String> getDescription(EntityMaid maid) {
         String key = String.format("task.%s.%s.desc", getUid().getNamespace(), getUid().getPath());
         return Lists.newArrayList(key);
+    }
+
+    /**
+     * 获取女仆当前任务配置的界面
+     *
+     * @param maid 女仆对象
+     * @return MenuProvider
+     */
+    default MenuProvider getTaskConfigGuiProvider(EntityMaid maid) {
+        final int entityId = maid.getId();
+        return new MenuProvider() {
+            @Override
+            public Component getDisplayName() {
+                return Component.literal("Maid Task Config Container");
+            }
+
+            @Override
+            public AbstractMaidContainer createMenu(int index, Inventory playerInventory, Player player) {
+                return new DefaultMaidTaskConfigContainer(index, playerInventory, entityId);
+            }
+        };
+    }
+
+    /**
+     * 获取女仆当前任务信息的界面
+     *
+     * @param maid 女仆对象
+     * @return MenuProvider
+     */
+    default MenuProvider getTaskInfoGuiProvider(EntityMaid maid) {
+        return maid.getMaidBackpackType().getGuiProvider(maid.getId());
     }
 }

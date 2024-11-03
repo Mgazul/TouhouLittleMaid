@@ -1,5 +1,6 @@
 package com.github.tartaricacid.touhoulittlemaid.entity.ai.brain.task;
 
+import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
 import net.minecraft.core.BlockPos;
@@ -59,6 +60,10 @@ public class MaidInteractWithDoor extends Behavior<LivingEntity> {
 
     @Override
     protected void start(ServerLevel serverWorld, LivingEntity entity, long gameTime) {
+        boolean canOpenDoor = entity instanceof EntityMaid maid && maid.getConfigManager().isOpenDoor();
+        boolean canOpenFenceGate = entity instanceof EntityMaid maid && maid.getConfigManager().isOpenFenceGate();
+
+
         Path path = entity.getBrain().getMemory(MemoryModuleType.PATH).get();
         this.lastCheckedNode = path.getNextNode();
         Node previousNode = path.getPreviousNode();
@@ -66,13 +71,13 @@ public class MaidInteractWithDoor extends Behavior<LivingEntity> {
 
         BlockPos previousPos = previousNode.asBlockPos();
         BlockState previousBlockState = serverWorld.getBlockState(previousPos);
-        if (previousBlockState.is(BlockTags.WOODEN_DOORS, (stateBase) -> stateBase.getBlock() instanceof DoorBlock)) {
+        if (canOpenDoor && previousBlockState.is(BlockTags.WOODEN_DOORS, (stateBase) -> stateBase.getBlock() instanceof DoorBlock)) {
             DoorBlock doorblock = (DoorBlock) previousBlockState.getBlock();
             if (!doorblock.isOpen(previousBlockState)) {
                 doorblock.setOpen(entity, serverWorld, previousBlockState, previousPos, true);
             }
             this.rememberDoorToClose(serverWorld, entity, previousPos);
-        } else if (previousBlockState.is(BlockTags.FENCE_GATES, (stateBase) -> stateBase.getBlock() instanceof FenceGateBlock)) {
+        } else if (canOpenFenceGate && previousBlockState.is(BlockTags.FENCE_GATES, (stateBase) -> stateBase.getBlock() instanceof FenceGateBlock)) {
             if (!previousBlockState.getValue(FenceGateBlock.OPEN)) {
                 setFenceGate(entity, serverWorld, previousBlockState, previousPos, true);
             }
@@ -82,13 +87,13 @@ public class MaidInteractWithDoor extends Behavior<LivingEntity> {
 
         BlockPos nextPos = nextNode.asBlockPos();
         BlockState nextBlockState = serverWorld.getBlockState(nextPos);
-        if (nextBlockState.is(BlockTags.WOODEN_DOORS, (stateBase) -> stateBase.getBlock() instanceof DoorBlock)) {
+        if (canOpenDoor && nextBlockState.is(BlockTags.WOODEN_DOORS, (stateBase) -> stateBase.getBlock() instanceof DoorBlock)) {
             DoorBlock doorBlock = (DoorBlock) nextBlockState.getBlock();
             if (!doorBlock.isOpen(nextBlockState)) {
                 doorBlock.setOpen(entity, serverWorld, nextBlockState, nextPos, true);
                 this.rememberDoorToClose(serverWorld, entity, nextPos);
             }
-        } else if (nextBlockState.is(BlockTags.FENCE_GATES, (stateBase) -> stateBase.getBlock() instanceof FenceGateBlock)) {
+        } else if (canOpenFenceGate && nextBlockState.is(BlockTags.FENCE_GATES, (stateBase) -> stateBase.getBlock() instanceof FenceGateBlock)) {
             if (!nextBlockState.getValue(FenceGateBlock.OPEN)) {
                 setFenceGate(entity, serverWorld, nextBlockState, nextPos, true);
                 this.rememberDoorToClose(serverWorld, entity, nextPos);

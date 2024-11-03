@@ -73,6 +73,19 @@ public class TaskGunAttack implements IAttackTask {
     }
 
     @Override
+    public List<Pair<Integer, Behavior<? super EntityMaid>>> createRideBrainTasks(EntityMaid maid) {
+        Behavior<EntityMaid> supplementedTask = new StartAttacking<>(this::mainhandHoldGun, GunBehaviorUtils::findFirstValidAttackTarget);
+        Behavior<EntityMaid> findTargetTask = new StopAttackingIfTargetInvalid<>(target -> !mainhandHoldGun(maid) || farAway(target, maid));
+        Behavior<EntityMaid> gunShootTargetTask = new GunShootTargetTask();
+
+        return Lists.newArrayList(
+                Pair.of(5, supplementedTask),
+                Pair.of(5, findTargetTask),
+                Pair.of(5, gunShootTargetTask)
+        );
+    }
+
+    @Override
     public List<Pair<String, Predicate<EntityMaid>>> getConditionDescription(EntityMaid maid) {
         return Collections.singletonList(Pair.of("has_tacz_gun", this::mainhandHoldGun));
     }
