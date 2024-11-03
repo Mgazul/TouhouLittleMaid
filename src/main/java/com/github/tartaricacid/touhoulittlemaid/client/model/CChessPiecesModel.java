@@ -27,14 +27,6 @@ public class CChessPiecesModel {
     }
 
     public static CChessPiecesModel[] initModel() {
-//        Minecraft.getInstance().getResourceManager().getResource(MODEL).ifPresent(res -> {
-//            try (InputStream stream = res.open()) {
-//                BedrockModelPOJO pojo = CustomPackLoader.GSON.fromJson(new InputStreamReader(stream, StandardCharsets.UTF_8), BedrockModelPOJO.class);
-//                bedrockModel = new BedrockModel<>(pojo, BedrockVersion.NEW);
-//            } catch (IOException ignore) {
-//            }
-//        });
-        // todo check
         ResourceManager manager = Minecraft.getInstance().getResourceManager();
         try (InputStream stream = manager.getResource(MODEL).getInputStream()) {
             BedrockModelPOJO pojo = CustomPackLoader.GSON.fromJson(new InputStreamReader(stream, StandardCharsets.UTF_8), BedrockModelPOJO.class);

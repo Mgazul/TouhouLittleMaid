@@ -1285,8 +1285,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     public void setItemSlot(EquipmentSlot slot, ItemStack stack) {
         super.setItemSlot(slot, stack);
 
-        // todo check
-        // 因为182版本没有onEquipItem方法，故放在这里，调查得知这个方法在MaidEquipEvent之前执行
+        // 因为 1.18.2 版本没有 onEquipItem 方法，故放在这里，调查得知这个方法在 MaidEquipEvent 之前执行
         this.onEquipItem(slot, stack);
 
         if (!this.level.isClientSide) {
@@ -1775,10 +1774,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         setOrderedToSit(inSittingPose);
     }
 
-    public MaidGameRecordManager getGameRecordManager() {
-        return gameRecordManager;
-    }
-
+    // 这个版本没有这个方法,所以将 1.20.1 的搬了过来
     public <T> void forceSyncData(EntityDataAccessor<T> key, T value, boolean force) {
         SynchedEntityData.DataItem<T> dataItem = this.entityData.getItem(key);
         if (force || ObjectUtils.notEqual(value, dataItem.getValue())) {
@@ -1789,13 +1785,14 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         }
     }
 
+    public MaidGameRecordManager getGameRecordManager() {
+        return gameRecordManager;
+    }
+
     private CompoundTag getSyncTaskData() {
         return this.entityData.get(TASK_DATA_SYNC);
     }
 
-    //todo check
-    //版本同步
-    //找不着这个方法
     private void setSyncTaskData(CompoundTag compoundTag) {
         this.forceSyncData(TASK_DATA_SYNC, compoundTag, true);
     }

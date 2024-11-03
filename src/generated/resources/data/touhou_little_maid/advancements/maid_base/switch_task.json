@@ -1,0 +1,31 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:feather"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.maid_base.switch_task.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.maid_base.switch_task.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "maid_event": {
+      "trigger": "touhou_little_maid:maid/tamed_maid",
+      "conditions": {
+        "event": "switch_task"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "maid_event"
+    ]
+  ]
+}

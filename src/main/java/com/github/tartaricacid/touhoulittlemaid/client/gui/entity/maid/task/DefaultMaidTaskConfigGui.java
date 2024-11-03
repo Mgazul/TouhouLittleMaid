@@ -2,16 +2,20 @@ package com.github.tartaricacid.touhoulittlemaid.client.gui.entity.maid.task;
 
 import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
 import com.github.tartaricacid.touhoulittlemaid.inventory.container.task.TaskConfigContainer;
-import com.github.tartaricacid.touhoulittlemaid.util.version.TComponent;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.renderer.GameRenderer;
 import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.FormattedCharSequence;
 import net.minecraft.world.entity.player.Inventory;
 import org.anti_ad.mc.ipn.api.IPNButton;
 import org.anti_ad.mc.ipn.api.IPNGuiHint;
 import org.anti_ad.mc.ipn.api.IPNPlayerSideOnly;
+
+import java.util.List;
 
 @IPNPlayerSideOnly
 @IPNGuiHint(button = IPNButton.SORT, horizontalOffset = -36, bottom = -12)
@@ -36,6 +40,11 @@ public class DefaultMaidTaskConfigGui extends MaidTaskConfigGui<TaskConfigContai
 
     @Override
     protected void renderAddition(PoseStack poseStack, int mouseX, int mouseY, float partialTicks) {
-        font.draw(poseStack, TComponent.translatable("gui.touhou_little_maid.default_task_config.title"), leftPos + 88, topPos + 38, 160);
+        List<FormattedCharSequence> split = font.split(new TranslatableComponent("gui.touhou_little_maid.default_task_config.title"), 160);
+        int yOffset = topPos + 38;
+        for (FormattedCharSequence fs : split) {
+            font.draw(poseStack, fs, leftPos + 88, yOffset, ChatFormatting.DARK_GRAY.getColor());
+            yOffset += font.lineHeight;
+        }
     }
 }

@@ -11,12 +11,10 @@ import net.minecraft.world.level.Level;
 import javax.annotation.Nullable;
 import java.util.List;
 
-import static com.github.tartaricacid.touhoulittlemaid.item.MaidGroup.MAIN_TAB;
-
 @Deprecated(since = "1.1.13")
 public class ItemMonsterList extends Item {
     public ItemMonsterList() {
-        super(new Item.Properties().tab(MAIN_TAB).stacksTo(1));
+        super(new Item.Properties().stacksTo(1));
     }
 
     @Override

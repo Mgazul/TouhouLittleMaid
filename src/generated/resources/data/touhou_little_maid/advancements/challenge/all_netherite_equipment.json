@@ -1,0 +1,35 @@
+{
+  "parent": "touhou_little_maid:challenge/eat_enchanted_golden_apple",
+  "display": {
+    "icon": {
+      "item": "touhou_little_maid:all_netherite_equipment"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.challenge.all_netherite_equipment.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.challenge.all_netherite_equipment.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "rewards": {
+    "experience": 50
+  },
+  "criteria": {
+    "maid_event": {
+      "trigger": "touhou_little_maid:maid/tamed_maid",
+      "conditions": {
+        "event": "all_netherite_equipment"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "maid_event"
+    ]
+  ]
+}

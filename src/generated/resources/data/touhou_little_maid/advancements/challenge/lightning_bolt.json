@@ -1,0 +1,33 @@
+{
+  "parent": "touhou_little_maid:challenge/eat_enchanted_golden_apple",
+  "display": {
+    "icon": {
+      "item": "touhou_little_maid:entity_placeholder",
+      "nbt": "{RecipeId:\"touhou_little_maid:altar/spawn_lightning_bolt\"}"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.challenge.lightning_bolt.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.challenge.lightning_bolt.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "maid_event": {
+      "trigger": "touhou_little_maid:maid/tamed_maid",
+      "conditions": {
+        "event": "lightning_bolt"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "maid_event"
+    ]
+  ]
+}

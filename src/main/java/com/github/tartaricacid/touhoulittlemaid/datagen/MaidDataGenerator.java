@@ -19,7 +19,5 @@ public class MaidDataGenerator {
 
         // Loot Tables
         generator.addProvider(new LootTableGenerator.AdvancementLootTables(generator));
-
-//        generator.addProvider(new LanguageGenerator(generator));
     }
 }

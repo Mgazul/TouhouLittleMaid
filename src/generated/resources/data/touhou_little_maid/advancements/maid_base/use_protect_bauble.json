@@ -1,0 +1,33 @@
+{
+  "parent": "touhou_little_maid:maid_base/switch_task",
+  "display": {
+    "icon": {
+      "item": "touhou_little_maid:fire_protect_bauble",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.maid_base.use_protect_bauble.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.maid_base.use_protect_bauble.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "maid_event": {
+      "trigger": "touhou_little_maid:maid/tamed_maid",
+      "conditions": {
+        "event": "use_protect_bauble"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "maid_event"
+    ]
+  ]
+}

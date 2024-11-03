@@ -1,0 +1,32 @@
+{
+  "parent": "touhou_little_maid:favorability/maid_sit_joy",
+  "display": {
+    "icon": {
+      "item": "touhou_little_maid:favorability_tool_add"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.favorability.favorability_increased.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.favorability.favorability_increased.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "maid_event": {
+      "trigger": "touhou_little_maid:maid/tamed_maid",
+      "conditions": {
+        "event": "favorability_increased"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "maid_event"
+    ]
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "parent": "touhou_little_maid:maid_base/reborn_maid",
+  "display": {
+    "icon": {
+      "item": "touhou_little_maid:shrine"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.maid_base.shrine_reborn_maid.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.maid_base.shrine_reborn_maid.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "maid_event": {
+      "trigger": "touhou_little_maid:maid/tamed_maid",
+      "conditions": {
+        "event": "shrine_reborn_maid"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "maid_event"
+    ]
+  ]
+}

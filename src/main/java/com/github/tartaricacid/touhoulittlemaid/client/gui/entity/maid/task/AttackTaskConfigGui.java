@@ -110,9 +110,6 @@ public class AttackTaskConfigGui extends MaidTaskConfigGui<TaskConfigContainer> 
                 return;
             }
             ResourceLocation id = attackGroupsKey.get(index);
-//            EntityType<?> type = ForgeRegistries.ENTITY_TYPES.getValue(id);
-            //todo check
-            //不知写的不对
             Optional<EntityType<?>> type = EntityType.byString(id.toString());
             if (type.isEmpty()) {
                 continue;
@@ -132,14 +129,6 @@ public class AttackTaskConfigGui extends MaidTaskConfigGui<TaskConfigContainer> 
             return;
         }
         ResourceLocation id = ResourceLocation.tryParse(value);
-
-//        if (ForgeRegistries.ENTITY_TYPES.containsKey(id)) {
-//            this.attackGroups.put(id, MonsterType.NEUTRAL);
-//            this.sortKey();
-//            super.init();
-//            return;}
-        //todo check
-        //不知写的对不对
         Optional<EntityType<?>> entityType = EntityType.byString(value);
         if (entityType.isPresent() && ForgeRegistries.ENTITIES.containsValue(entityType.get())) {
             this.attackGroups.put(id, MonsterType.NEUTRAL);

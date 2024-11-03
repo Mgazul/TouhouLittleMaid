@@ -12,11 +12,7 @@ public enum MonsterType implements StringRepresentable {
     NEUTRAL,
     HOSTILE;
 
-    //todo check
-    //不知写的对不对
-    public static final Codec<MonsterType> CODEC = StringRepresentable.fromEnum(MonsterType::values, (s) -> {
-        return MonsterType.valueOf(s.toUpperCase(Locale.ENGLISH));
-    });
+    public static final Codec<MonsterType> CODEC = StringRepresentable.fromEnum(MonsterType::values, s -> MonsterType.valueOf(s.toUpperCase(Locale.ENGLISH)));
 
     private final MutableComponent component;
 

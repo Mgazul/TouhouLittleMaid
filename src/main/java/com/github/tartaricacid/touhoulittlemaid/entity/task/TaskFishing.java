@@ -14,7 +14,6 @@ import net.minecraft.world.entity.ai.behavior.Behavior;
 import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.minecraftforge.common.ToolActions;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Collections;
@@ -52,9 +51,6 @@ public class TaskFishing implements IMaidTask {
 
     @Override
     public List<Pair<String, Predicate<EntityMaid>>> getConditionDescription(EntityMaid maid) {
-        //todo check
-        //来自FishingHook.shouldStopFishing
-        //要不要换成类型判断?
         return Collections.singletonList(Pair.of("has_fishing_rod", e -> e.getMainHandItem().getItem() instanceof FishingRodItem));
     }
 }

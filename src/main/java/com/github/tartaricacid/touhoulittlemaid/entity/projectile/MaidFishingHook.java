@@ -255,9 +255,7 @@ public class MaidFishingHook extends Projectile {
             if (this.timeUntilHooked > 0) {
                 // 随机给予运动角度
                 this.fishAngle += (float)(this.random.nextGaussian() * 4.0D);
-//                this.fishAngle += (float) this.random.triangle(0.0D, 9.188D);
-                //todo check
-                //来自原版
+                // 来自原版
                 float fishAngleRad = this.fishAngle * ((float) Math.PI / 180F);
                 float sin = Mth.sin(fishAngleRad);
                 float cos = Mth.cos(fishAngleRad);
@@ -510,11 +508,8 @@ public class MaidFishingHook extends Projectile {
 
     private boolean shouldStopFishing(EntityMaid maid) {
         ItemStack mainHandItem = maid.getMainHandItem();
-//        boolean hasFishingRod = mainHandItem.canPerformAction(ToolActions.FISHING_ROD_CAST);
-        //todo check
-        //来自FishingHook.shouldStopFishing
-        //要不要换成类型判断?
-//        boolean hasFishingRod = mainHandItem.is(Items.FISHING_ROD);
+        // 来自 FishingHook.shouldStopFishing
+        // 要不要换成类型判断?
         boolean hasFishingRod = mainHandItem.getItem() instanceof FishingRodItem;
         boolean isFishingTask = maid.getTask() instanceof TaskFishing;
         boolean hasVehicle = maid.getVehicle() != null;
