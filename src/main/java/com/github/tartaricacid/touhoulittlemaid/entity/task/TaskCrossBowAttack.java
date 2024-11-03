@@ -63,6 +63,19 @@ public class TaskCrossBowAttack implements IRangedAttackTask {
     }
 
     @Override
+    public List<Pair<Integer, Behavior<? super EntityMaid>>> createRideBrainTasks(EntityMaid maid) {
+        Behavior<EntityMaid> supplementedTask = new StartAttacking<>(entityMaid -> hasCrossBow(entityMaid) && hasAmmunition(entityMaid), IAttackTask::findFirstValidAttackTarget);
+        Behavior<EntityMaid> findTargetTask = new StopAttackingIfTargetInvalid<>((target) -> !hasCrossBow(maid) || !hasAmmunition(maid) || farAway(target, maid));
+        Behavior<EntityMaid> shootTargetTask = new CrossbowAttack<>();
+
+        return Lists.newArrayList(
+                Pair.of(5, supplementedTask),
+                Pair.of(5, findTargetTask),
+                Pair.of(5, shootTargetTask)
+        );
+    }
+
+    @Override
     public void performRangedAttack(EntityMaid shooter, LivingEntity target, float distanceFactor) {
         shooter.performCrossbowAttack(shooter, 1.6F);
     }

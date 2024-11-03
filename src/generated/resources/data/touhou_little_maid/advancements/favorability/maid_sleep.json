@@ -1,0 +1,32 @@
+{
+  "parent": "touhou_little_maid:favorability/maid_picnic_eat",
+  "display": {
+    "icon": {
+      "item": "touhou_little_maid:maid_bed"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.favorability.maid_sleep.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.favorability.maid_sleep.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "maid_event": {
+      "trigger": "touhou_little_maid:maid/tamed_maid",
+      "conditions": {
+        "event": "maid_sleep"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "maid_event"
+    ]
+  ]
+}

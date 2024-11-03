@@ -1,0 +1,32 @@
+{
+  "parent": "touhou_little_maid:maid_base/pickup_maid",
+  "display": {
+    "icon": {
+      "item": "minecraft:experience_bottle"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.maid_base.take_maid_xp.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.maid_base.take_maid_xp.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "maid_event": {
+      "trigger": "touhou_little_maid:maid/tamed_maid",
+      "conditions": {
+        "event": "take_maid_xp"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "maid_event"
+    ]
+  ]
+}

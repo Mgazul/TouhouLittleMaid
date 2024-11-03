@@ -1,0 +1,32 @@
+{
+  "parent": "touhou_little_maid:favorability/win_cchess",
+  "display": {
+    "icon": {
+      "item": "touhou_little_maid:wchess"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.favorability.win_wchess.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.favorability.win_wchess.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "maid_event": {
+      "trigger": "touhou_little_maid:maid/tamed_maid",
+      "conditions": {
+        "event": "win_wchess"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "maid_event"
+    ]
+  ]
+}

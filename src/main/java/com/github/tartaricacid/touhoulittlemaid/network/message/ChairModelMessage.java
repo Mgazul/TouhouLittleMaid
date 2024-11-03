@@ -1,8 +1,10 @@
 package com.github.tartaricacid.touhoulittlemaid.network.message;
 
+import com.github.tartaricacid.touhoulittlemaid.advancements.maid.TriggerType;
 import com.github.tartaricacid.touhoulittlemaid.config.subconfig.ChairConfig;
 import com.github.tartaricacid.touhoulittlemaid.entity.item.EntityChair;
 import net.minecraft.Util;
+import com.github.tartaricacid.touhoulittlemaid.init.InitTrigger;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.ChatType;
 import net.minecraft.network.chat.TranslatableComponent;
@@ -61,6 +63,7 @@ public class ChairModelMessage {
                         if (!message.tameableCanRide && !chair.getPassengers().isEmpty()) {
                             chair.ejectPassengers();
                         }
+                        InitTrigger.MAID_EVENT.trigger(sender, TriggerType.CHANGE_CHAIR_MODEL);
                     } else {
                         if (sender.isAlive()) {
                             sender.sendMessage(new TranslatableComponent("message.touhou_little_maid.change_model.disabled"),

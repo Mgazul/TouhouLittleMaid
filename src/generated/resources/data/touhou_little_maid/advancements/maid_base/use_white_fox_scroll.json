@@ -1,0 +1,32 @@
+{
+  "parent": "touhou_little_maid:maid_base/use_red_fox_scroll",
+  "display": {
+    "icon": {
+      "item": "touhou_little_maid:white_fox_scroll"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.maid_base.use_white_fox_scroll.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.maid_base.use_white_fox_scroll.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "maid_event": {
+      "trigger": "touhou_little_maid:maid/tamed_maid",
+      "conditions": {
+        "event": "use_white_fox_scroll"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "maid_event"
+    ]
+  ]
+}

@@ -72,6 +72,19 @@ public class TaskDanmakuAttack implements IRangedAttackTask {
     }
 
     @Override
+    public List<Pair<Integer, Behavior<? super EntityMaid>>> createRideBrainTasks(EntityMaid maid) {
+        Behavior<EntityMaid> supplementedTask = new StartAttacking<>(this::hasGohei, IAttackTask::findFirstValidAttackTarget);
+        Behavior<EntityMaid> findTargetTask = new StopAttackingIfTargetInvalid<>((target) -> !hasGohei(maid) || farAway(target, maid));
+        Behavior<EntityMaid> shootTargetTask = new MaidShootTargetTask(2);
+
+        return Lists.newArrayList(
+                Pair.of(5, supplementedTask),
+                Pair.of(5, findTargetTask),
+                Pair.of(5, shootTargetTask)
+        );
+    }
+
+    @Override
     public void performRangedAttack(EntityMaid shooter, LivingEntity target, float distanceFactor) {
         shooter.getBrain().getMemory(MemoryModuleType.NEAREST_LIVING_ENTITIES).ifPresent(livingEntities -> {
             ItemStack mainHandItem = shooter.getMainHandItem();

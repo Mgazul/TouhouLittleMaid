@@ -1,0 +1,40 @@
+{
+  "parent": "touhou_little_maid:base/build_altar",
+  "display": {
+    "icon": {
+      "item": "touhou_little_maid:fairy_spawn_egg"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.base.kill_maid_fairy.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.base.kill_maid_fairy.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "killed_entity": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": [
+          {
+            "condition": "minecraft:entity_properties",
+            "predicate": {
+              "type": "touhou_little_maid:fairy"
+            },
+            "entity": "this"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "killed_entity"
+    ]
+  ]
+}

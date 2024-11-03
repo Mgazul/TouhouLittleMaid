@@ -1,0 +1,33 @@
+{
+  "parent": "touhou_little_maid:maid_base/switch_schedule",
+  "display": {
+    "icon": {
+      "item": "minecraft:iron_hoe",
+      "nbt": "{Damage:0}"
+    },
+    "title": {
+      "translate": "advancements.touhou_little_maid.maid_base.maid_farm.title"
+    },
+    "description": {
+      "translate": "advancements.touhou_little_maid.maid_base.maid_farm.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false,
+    "background": "touhou_little_maid:textures/advancements/backgrounds/stone.png"
+  },
+  "criteria": {
+    "maid_event": {
+      "trigger": "touhou_little_maid:maid/tamed_maid",
+      "conditions": {
+        "event": "maid_farm"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "maid_event"
+    ]
+  ]
+}

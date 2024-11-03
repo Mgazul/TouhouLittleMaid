@@ -1,5 +1,7 @@
 package com.github.tartaricacid.touhoulittlemaid.compat.jade.provider;
 
+import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
+import com.github.tartaricacid.touhoulittlemaid.api.event.AddJadeInfoEvent;
 import com.github.tartaricacid.touhoulittlemaid.api.task.IMaidTask;
 import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
 import mcp.mobius.waila.api.EntityAccessor;
@@ -10,6 +12,7 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.world.entity.schedule.Activity;
+import net.minecraftforge.common.MinecraftForge;
 
 public enum MaidProvider implements IEntityComponentProvider {
     INSTANCE;
@@ -20,6 +23,10 @@ public enum MaidProvider implements IEntityComponentProvider {
             if (maid.isTame()) {
                 IMaidTask task = maid.getTask();
                 iTooltip.add(new TranslatableComponent("top.touhou_little_maid.entity_maid.task").append(task.getName()));
+
+                // 添加于 Mode 之下，用于给 Mode 添加额外的信息
+                MinecraftForge.EVENT_BUS.post(new AddJadeInfoEvent(maid, iTooltip, iPluginConfig));
+
                 iTooltip.add(new TranslatableComponent("top.touhou_little_maid.entity_maid.schedule").append(getActivityTransText(maid)));
                 iTooltip.add(new TranslatableComponent("top.touhou_little_maid.entity_maid.favorability", maid.getFavorabilityManager().getLevel()));
                 iTooltip.add(new TranslatableComponent("top.touhou_little_maid.entity_maid.nex_favorability_point", maid.getFavorabilityManager().nextLevelPoint()));

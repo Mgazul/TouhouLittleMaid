@@ -72,6 +72,19 @@ public class TaskBowAttack implements IRangedAttackTask {
     }
 
     @Override
+    public List<Pair<Integer, Behavior<? super EntityMaid>>> createRideBrainTasks(EntityMaid maid) {
+        Behavior<EntityMaid> supplementedTask = new StartAttacking<>(e -> hasBow(e) && hasArrow(e), IAttackTask::findFirstValidAttackTarget);
+        Behavior<EntityMaid> findTargetTask = new StopAttackingIfTargetInvalid<>((target) -> !hasBow(maid) || !hasArrow(maid) || farAway(target, maid));
+        Behavior<EntityMaid> shootTargetTask = new MaidShootTargetTask(2);
+
+        return Lists.newArrayList(
+                Pair.of(5, supplementedTask),
+                Pair.of(5, findTargetTask),
+                Pair.of(5, shootTargetTask)
+        );
+    }
+
+    @Override
     public void performRangedAttack(EntityMaid shooter, LivingEntity target, float distanceFactor) {
         AbstractArrow entityArrow = getArrow(shooter, distanceFactor);
 

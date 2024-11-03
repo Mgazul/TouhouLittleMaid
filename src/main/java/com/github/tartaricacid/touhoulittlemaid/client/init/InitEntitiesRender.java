@@ -9,6 +9,7 @@ import com.github.tartaricacid.touhoulittlemaid.entity.monster.EntityFairy;
 import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
 import com.github.tartaricacid.touhoulittlemaid.entity.projectile.EntityDanmaku;
 import com.github.tartaricacid.touhoulittlemaid.entity.projectile.EntityThrowPowerPoint;
+import com.github.tartaricacid.touhoulittlemaid.entity.projectile.MaidFishingHook;
 import com.github.tartaricacid.touhoulittlemaid.tileentity.*;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.renderer.entity.EntityRenderers;
@@ -34,6 +35,7 @@ public final class InitEntitiesRender {
         EntityRenderers.register(EntityTombstone.TYPE, EntityTombstoneRenderer::new);
         EntityRenderers.register(EntitySit.TYPE, EntitySitRenderer::new);
         EntityRenderers.register(EntityBroom.TYPE, EntityBroomRender::new);
+        EntityRenderers.register(MaidFishingHook.TYPE, MaidFishingHookRenderer::new);
 
         EntityRenderers.register(EntityType.SLIME, EntityYukkuriSlimeRender::new);
         EntityRenderers.register(EntityType.MAGMA_CUBE, EntityMarisaYukkuriSlimeRender::new);
@@ -43,6 +45,8 @@ public final class InitEntitiesRender {
         BlockEntityRenderers.register(TileEntityStatue.TYPE, TileEntityStatueRenderer::new);
         BlockEntityRenderers.register(TileEntityGarageKit.TYPE, TileEntityGarageKitRenderer::new);
         BlockEntityRenderers.register(TileEntityGomoku.TYPE, TileEntityGomokuRenderer::new);
+        BlockEntityRenderers.register(TileEntityCChess.TYPE, TileEntityCChessRenderer::new);
+        BlockEntityRenderers.register(TileEntityWChess.TYPE, TileEntityWChessRenderer::new);
         BlockEntityRenderers.register(TileEntityKeyboard.TYPE, TileEntityKeyboardRenderer::new);
         BlockEntityRenderers.register(TileEntityBookshelf.TYPE, TileEntityBookshelfRenderer::new);
         BlockEntityRenderers.register(TileEntityComputer.TYPE, TileEntityComputerRenderer::new);
@@ -65,6 +69,8 @@ public final class InitEntitiesRender {
         event.registerLayerDefinition(EntityYukkuriModel.LAYER, EntityYukkuriModel::createBodyLayer);
         event.registerLayerDefinition(EntityMarisaYukkuriModel.LAYER, EntityMarisaYukkuriModel::createBodyLayer);
         event.registerLayerDefinition(GomokuModel.LAYER, GomokuModel::createBodyLayer);
+        event.registerLayerDefinition(CChessModel.LAYER, CChessModel::createBodyLayer);
+        event.registerLayerDefinition(WChessModel.LAYER, WChessModel::createBodyLayer);
         event.registerLayerDefinition(PieceModel.LAYER, PieceModel::createBodyLayer);
         event.registerLayerDefinition(CraftingTableBackpackModel.LAYER, CraftingTableBackpackModel::createBodyLayer);
         event.registerLayerDefinition(EnderChestBackpackModel.LAYER, EnderChestBackpackModel::createBodyLayer);
