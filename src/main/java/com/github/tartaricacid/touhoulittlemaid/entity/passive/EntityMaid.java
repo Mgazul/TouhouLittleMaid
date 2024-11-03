@@ -457,8 +457,8 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
             InteractMaidEvent event = new InteractMaidEvent(playerIn, this, stack);
             // 利用短路原理，逐个触发对应的交互事件
             if (MinecraftForge.EVENT_BUS.post(event)
-                    || stack.interactLivingEntity(playerIn, this, hand).consumesAction()
-                    || openMaidGui(playerIn)) {
+                || stack.interactLivingEntity(playerIn, this, hand).consumesAction()
+                || openMaidGui(playerIn)) {
                 return InteractionResult.SUCCESS;
             }
         } else {
@@ -1768,16 +1768,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         setOrderedToSit(inSittingPose);
     }
 
-    public CompoundTag getGameSkill() {
-        return this.entityData.get(GAME_SKILL);
-    }
-
-    public void setGameSkill(CompoundTag gameSkill) {
-        this.forceSyncData(GAME_SKILL, gameSkill, true);
-    }
-
-    // todo check
-    // 这个版本没有这个方法,所以将1201的搬了过来
+    // 这个版本没有这个方法,所以将 1.20.1 的搬了过来
     public <T> void forceSyncData(EntityDataAccessor<T> key, T value, boolean force) {
         SynchedEntityData.DataItem<T> dataItem = this.entityData.getItem(key);
         if (force || ObjectUtils.notEqual(value, dataItem.getValue())) {
@@ -1788,7 +1779,6 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         }
     }
 
-
     public MaidGameRecordManager getGameRecordManager() {
         return gameRecordManager;
     }
@@ -1798,8 +1788,6 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     }
 
     private void setSyncTaskData(CompoundTag compoundTag) {
-        //todo check
-        //这个版本没有这个方法,所以将1.20.1的移植了过来
         this.forceSyncData(TASK_DATA_SYNC, compoundTag, true);
     }
 

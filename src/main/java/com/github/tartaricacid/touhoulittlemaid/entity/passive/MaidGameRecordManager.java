@@ -45,10 +45,7 @@ public class MaidGameRecordManager {
     }
 
     private void setGameSkill(CompoundTag gameSkill) {
-        //todo check
-        //这个版本没有这个方法,所以将1.20.1的移植了过来
         maid.forceSyncData(GAME_SKILL, gameSkill, true);
-//        maid.getEntityData().set(GAME_SKILL, gameSkill, true);
     }
 
     private byte getGameStatue() {
