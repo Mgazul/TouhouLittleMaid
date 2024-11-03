@@ -119,7 +119,8 @@ public abstract class AnimatableEntity<E extends Entity> {
     }
 
     public double getCurrentTick(AnimationEvent<?> animationEvent) {
-        //todo 访问变压器
+        //todo check 访问变压器?
+        //getPartialTick()在Minecraft.runTick里头用到
 //        Minecraft mc = Minecraft.getInstance();
 //        this.pause ? this.pausePartialTick : this.timer.partialTick
         float partialTick = animationEvent.getPartialTick();

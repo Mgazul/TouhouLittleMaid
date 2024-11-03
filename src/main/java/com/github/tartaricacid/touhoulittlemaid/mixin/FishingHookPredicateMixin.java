@@ -18,11 +18,11 @@ public class FishingHookPredicateMixin {
     @Final
     private boolean inOpenWater;
 
-//    @Inject(method = "matches(Lnet/minecraft/world/entity/Entity;Lnet/minecraft/server/level/ServerLevel;Lnet/minecraft/world/phys/Vec3;)Z", at = @At("RETURN"), cancellable = true)
-//    private void matches(Entity entity, ServerLevel level, Vec3 position, CallbackInfoReturnable<Boolean> cir) {
-//        FishingHookPredicate predicate = (FishingHookPredicate) (Object) this;
-//        if (predicate != FishingHookPredicate.ANY && entity instanceof MaidFishingHook fishingHook) {
-//            cir.setReturnValue(this.inOpenWater == fishingHook.isOpenWaterFishing());
-//        }
-//    }
+    @Inject(method = "matches", at = @At("RETURN"), cancellable = true)
+    private void matches$tlm(Entity entity, CallbackInfoReturnable<Boolean> cir) {
+        FishingHookPredicate predicate = (FishingHookPredicate) (Object) this;
+        if (predicate != FishingHookPredicate.ANY && entity instanceof MaidFishingHook fishingHook) {
+            cir.setReturnValue(this.inOpenWater == fishingHook.isOpenWaterFishing());
+        }
+    }
 }

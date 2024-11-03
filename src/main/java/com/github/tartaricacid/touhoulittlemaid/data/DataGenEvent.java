@@ -9,9 +9,9 @@ import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 public class DataGenEvent {
     @SubscribeEvent
     public static void dataGen(GatherDataEvent event) {
-        event.getGenerator().addProvider(new MaidBlockStateProvider(event.getGenerator(), TouhouLittleMaid.MOD_ID, event.getExistingFileHelper()));
-        event.getGenerator().addProvider(new AltarRecipeProvider(event.getGenerator()));
-        event.getGenerator().addProvider(new MaidRecipeProvider(event.getGenerator()));
-        event.getGenerator().addProvider(new LootModifierProvider(event.getGenerator()));
+//        event.getGenerator().addProvider(new MaidBlockStateProvider(event.getGenerator(), TouhouLittleMaid.MOD_ID, event.getExistingFileHelper()));
+//        event.getGenerator().addProvider(new AltarRecipeProvider(event.getGenerator()));
+//        event.getGenerator().addProvider(new MaidRecipeProvider(event.getGenerator()));
+//        event.getGenerator().addProvider(new LootModifierProvider(event.getGenerator()));
     }
 }

@@ -6,10 +6,13 @@
   "refmap": "touhou_little_maid.refmap.json",
   "mixins": [
     "EntityMixin",
+    "FishingHookPredicateMixin",
     "MixinArrowEntity"
   ],
   "client": [
-    "client.HumanoidModelMixin", "client.ItemPropertiesMixin", "client.LanguageMixin",
+    "client.HumanoidModelMixin",
+    "client.ItemPropertiesMixin",
+    "client.LanguageMixin",
     "client.LivingEntityRendererMixin"
   ],
   "injectors": {

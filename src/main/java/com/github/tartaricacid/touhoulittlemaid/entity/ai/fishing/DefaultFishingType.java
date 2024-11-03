@@ -3,6 +3,7 @@ package com.github.tartaricacid.touhoulittlemaid.entity.ai.fishing;
 import com.github.tartaricacid.touhoulittlemaid.api.entity.fishing.IFishingType;
 import com.github.tartaricacid.touhoulittlemaid.entity.passive.EntityMaid;
 import com.github.tartaricacid.touhoulittlemaid.entity.projectile.MaidFishingHook;
+import net.minecraft.world.item.FishingRodItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -15,7 +16,7 @@ public class DefaultFishingType implements IFishingType {
     public boolean isFishingRod(ItemStack itemStack) {
         // todo check
         // Fishing Rod的子类更好？
-        return itemStack.is(Items.FISHING_ROD);
+        return itemStack.getItem() instanceof FishingRodItem;
 //        return itemStack.canPerformAction(ToolActions.FISHING_ROD_CAST);
     }
 

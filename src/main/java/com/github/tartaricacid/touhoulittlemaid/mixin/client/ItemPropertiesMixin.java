@@ -15,6 +15,8 @@ import javax.annotation.Nullable;
 @SuppressWarnings("all")
 @Mixin(ItemProperties.class)
 public class ItemPropertiesMixin {
+    //todo check
+    //找不着，不知是哪个
 //    @Inject(method = "lambda$static$18(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/client/multiplayer/ClientLevel;Lnet/minecraft/world/entity/LivingEntity;I)F", at = @At("HEAD"), cancellable = true)
 //    private static void onItemRender(ItemStack stack, @Nullable ClientLevel pLevel, @Nullable LivingEntity entity, int pSeed, CallbackInfoReturnable<Float> ci) {
 //        if (entity instanceof EntityMaid maid && maid.getMainHandItem() == stack) {
