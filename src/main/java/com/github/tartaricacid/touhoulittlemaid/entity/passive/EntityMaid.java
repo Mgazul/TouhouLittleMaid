@@ -1301,7 +1301,7 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
         if (isNetheriteArmor(newItem)) {
             // 检查全身装备
             for (EquipmentSlot slotIn : EquipmentSlot.values()) {
-                if (slot.getType() != EquipmentSlot.Type.ARMOR || slotIn == slot) {
+                if (slotIn.getType() != EquipmentSlot.Type.ARMOR || slotIn == slot) {
                     continue;
                 }
                 ItemStack itemBySlot = getItemBySlot(slotIn);
@@ -1798,6 +1798,8 @@ public class EntityMaid extends TamableAnimal implements CrossbowAttackMob, IMai
     }
 
     private void setSyncTaskData(CompoundTag compoundTag) {
+        //todo check
+        //这个版本没有这个方法,所以将1.20.1的移植了过来
         this.forceSyncData(TASK_DATA_SYNC, compoundTag, true);
     }
 
