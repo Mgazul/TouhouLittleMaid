@@ -71,6 +71,8 @@ public final class InitItems {
     public static RegistryObject<Item> PICNIC_BASKET = ITEMS.register("picnic_basket", () -> new ItemPicnicBasket(InitBlocks.PICNIC_MAT.get()));
     public static RegistryObject<Item> SCARECROW = ITEMS.register("scarecrow", () -> new BlockItem(InitBlocks.SCARECROW.get(), new Item.Properties().tab(MAIN_TAB)));
     public static RegistryObject<Item> SERVANT_BELL = ITEMS.register("servant_bell", ItemServantBell::new);
+    public static RegistryObject<Item> ENTITY_ID_COPY = ITEMS.register("entity_id_copy", ItemEntityIdCopy::new);
+    @SuppressWarnings("deprecation")
     public static RegistryObject<Item> MONSTER_LIST = ITEMS.register("monster_list", ItemMonsterList::new);
 
     public static RegistryObject<Item> MAID_SPAWN_EGG = ITEMS.register("maid_spawn_egg", () -> new ForgeSpawnEggItem(() -> EntityMaid.TYPE, 0x4a6195, 0xffffff, new Item.Properties()));

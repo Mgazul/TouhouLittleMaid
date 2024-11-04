@@ -1,0 +1,44 @@
+package com.github.tartaricacid.touhoulittlemaid.event;
+
+import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
+import com.github.tartaricacid.touhoulittlemaid.init.InitItems;
+import net.minecraft.Util;
+import net.minecraft.client.Minecraft;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.loading.FMLEnvironment;
+import net.minecraftforge.registries.ForgeRegistries;
+
+@Mod.EventBusSubscriber(modid = TouhouLittleMaid.MOD_ID)
+public final class CopyEntityIdEvent {
+    @SubscribeEvent
+    public static void copyEntityId(PlayerInteractEvent.EntityInteract event) {
+        Player player = event.getPlayer();
+        InteractionHand hand = event.getHand();
+        Entity target = event.getTarget();
+        if (player.getItemInHand(hand).is(InitItems.ENTITY_ID_COPY.get())) {
+            if (player.level.isClientSide && FMLEnvironment.dist == Dist.CLIENT) {
+                copyEntityId(player, target);
+            }
+            event.setCanceled(true);
+        }
+    }
+
+    @OnlyIn(Dist.CLIENT)
+    private static void copyEntityId(Player player, Entity target) {
+        ResourceLocation key = ForgeRegistries.ENTITIES.getKey(target.getType());
+        if (key == null) {
+            return;
+        }
+        Minecraft.getInstance().keyboardHandler.setClipboard(key.toString());
+        player.sendMessage(new TranslatableComponent("message.touhou_little_maid.entity_id_copy.copy", key.toString()), Util.NIL_UUID);
+    }
+}
