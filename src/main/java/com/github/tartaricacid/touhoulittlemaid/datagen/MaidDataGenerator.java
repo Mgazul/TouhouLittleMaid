@@ -1,6 +1,7 @@
 package com.github.tartaricacid.touhoulittlemaid.datagen;
 
 import com.github.tartaricacid.touhoulittlemaid.TouhouLittleMaid;
+import com.github.tartaricacid.touhoulittlemaid.datagen.tag.EntityTypeGenerator;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -19,5 +20,8 @@ public class MaidDataGenerator {
 
         // Loot Tables
         generator.addProvider(event.includeServer(), new LootTableGenerator.AdvancementLootTables(generator));
+
+        // Tags
+        generator.addProvider(event.includeServer(), new EntityTypeGenerator(generator, event.getExistingFileHelper()));
     }
 }
