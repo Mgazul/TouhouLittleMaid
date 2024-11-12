@@ -49,7 +49,7 @@ public record GomokuServerPackage(BlockPos pos, Point point) implements CustomPa
                     if (level instanceof ServerLevel serverLevel && serverLevel.getEntity(gomoku.getSitId()) instanceof EntitySit sit && sit.getFirstPassenger() instanceof EntityMaid maid) {
                         maid.swing(InteractionHand.MAIN_HAND);
                         if (!gomoku.isInProgress()) {
-                            maid.getGameRecordManager().markStatue(false);
+                            maid.getGameRecordManager().markStatue(true);
                         }
                     }
                     level.playSound(null, message.pos, InitSounds.GOMOKU.get(), SoundSource.BLOCKS, 1.0f, 0.8F + level.random.nextFloat() * 0.4F);

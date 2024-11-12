@@ -273,7 +273,7 @@ public class BlockGomoku extends BlockJoy implements IBoardGameBlock {
                 // 但是和其他人的女仆对弈不加好感哦
                 if (statue == Statue.WIN && maid.isOwnedBy(player)) {
                     maid.getFavorabilityManager().apply(Type.GOMOKU_WIN);
-                    maid.getGameRecordManager().markStatue(true);
+                    maid.getGameRecordManager().markStatue(false);
                     int rankBefore = MaidGomokuAI.getRank(maid);
                     maid.getGameRecordManager().increaseGomokuWinCount();
                     int rankAfter = MaidGomokuAI.getRank(maid);

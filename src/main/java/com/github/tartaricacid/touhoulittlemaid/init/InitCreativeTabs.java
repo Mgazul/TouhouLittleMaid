@@ -86,6 +86,7 @@ public class InitCreativeTabs {
                 output.accept(CHAIR_SHOW.get());
                 output.accept(BROOM.get());
                 output.accept(SCARECROW.get());
+                output.accept(ENTITY_ID_COPY.get());
                 if (FMLEnvironment.dist == Dist.CLIENT) {
                     ItemEntityPlaceholder.fillItemCategory(output);
                 }

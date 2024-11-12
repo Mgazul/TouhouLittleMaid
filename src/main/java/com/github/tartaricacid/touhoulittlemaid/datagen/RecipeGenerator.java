@@ -124,6 +124,22 @@ public class RecipeGenerator extends RecipeProvider {
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .save(recipeOutput);
 
+        AltarRecipeBuilder.shapeless(RecipeCategory.MISC, InitItems.CCHESS)
+                .power(0.1F)
+                .requires(3, ItemTags.PLANKS)
+                .requires(Tags.Items.DYES_BLACK)
+                .requires(Tags.Items.DYES_RED)
+                .requires(Tags.Items.GEMS_DIAMOND)
+                .save(recipeOutput);
+
+        AltarRecipeBuilder.shapeless(RecipeCategory.MISC, InitItems.WCHESS)
+                .power(0.1F)
+                .requires(3, ItemTags.PLANKS)
+                .requires(Tags.Items.DYES_BLACK)
+                .requires(Tags.Items.DYES_WHITE)
+                .requires(Tags.Items.GEMS_EMERALD)
+                .save(recipeOutput);
+
         AltarRecipeBuilder.shapeless(RecipeCategory.MISC, InitItems.HAKUREI_GOHEI)
                 .power(0.15F)
                 .requires(3, Tags.Items.RODS_WOODEN)
@@ -281,13 +297,6 @@ public class RecipeGenerator extends RecipeProvider {
                 .requires(2, Tags.Items.RODS_WOODEN)
                 .save(recipeOutput);
 
-        AltarRecipeBuilder.shapeless(RecipeCategory.MISC, InitItems.MONSTER_LIST)
-                .power(0.2F)
-                .requires(2, Tags.Items.DUSTS_REDSTONE)
-                .requires(2, Tags.Items.NUGGETS_GOLD)
-                .requires(2, Items.BOOK)
-                .save(recipeOutput);
-
         ItemStack entityPlaceholder = new ItemStack(InitItems.ENTITY_PLACEHOLDER.asItem());
         entityPlaceholder.set(InitDataComponent.RECIPES_ID_TAG, "reborn_maid");
         AltarRecipeBuilder.shapeless(RecipeCategory.MISC, entityPlaceholder)
@@ -373,6 +382,12 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('P', ItemTags.PLANKS)
                 .define('R', Tags.Items.DUSTS_REDSTONE)
                 .unlockedBy(getHasName(Items.REDSTONE), has(Tags.Items.DUSTS_REDSTONE))
+                .save(recipeOutput);
+
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, InitItems.ENTITY_ID_COPY)
+                .requires(Tags.Items.LEATHERS)
+                .requires(Items.PAPER)
+                .unlockedBy(getHasName(Items.BOOK), has(Items.BOOK))
                 .save(recipeOutput);
     }
 }

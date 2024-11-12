@@ -31,6 +31,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
+import static com.github.tartaricacid.touhoulittlemaid.util.ResourceLocationUtil.isValidResourceLocation;
+
 @IPNPlayerSideOnly
 @IPNGuiHint(button = IPNButton.SORT, horizontalOffset = -36, bottom = -12)
 @IPNGuiHint(button = IPNButton.SORT_COLUMNS, horizontalOffset = -24, bottom = -24)
@@ -119,7 +121,7 @@ public class AttackTaskConfigGui extends MaidTaskConfigGui<TaskConfigContainer> 
         if (StringUtils.isBlank(value)) {
             return;
         }
-        if (!ResourceLocation.isValidNamespace(value)) {
+        if (!isValidResourceLocation(value)) {
             return;
         }
         ResourceLocation id = ResourceLocation.parse(value);
