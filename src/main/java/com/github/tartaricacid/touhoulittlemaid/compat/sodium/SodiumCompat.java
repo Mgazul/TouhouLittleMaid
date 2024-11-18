@@ -12,12 +12,16 @@ public final class SodiumCompat {
     private static final String SODIUM_ID = "sodium";
     private static final String EMBEDDIUM_ID = "embeddium";
 
+    private static boolean IS_INIT = false;
     private static boolean SODIUM_INSTALLED;
     private static boolean EMBEDDIUM_INSTALLED;
 
     public static void init() {
-        SODIUM_INSTALLED = LoadingModList.get().getModFileById(SODIUM_ID) != null;
-        EMBEDDIUM_INSTALLED = LoadingModList.get().getModFileById(EMBEDDIUM_ID) != null;
+        if (!IS_INIT) {
+            SODIUM_INSTALLED = LoadingModList.get().getModFileById(SODIUM_ID) != null;
+            EMBEDDIUM_INSTALLED = LoadingModList.get().getModFileById(EMBEDDIUM_ID) != null;
+            IS_INIT = true;
+        }
     }
 
     public static RenderLevelStageEvent.Stage getCutoutRenderStage() {
