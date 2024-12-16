@@ -438,6 +438,7 @@
   "patchouli.touhou_little_maid.book.entries.maid.film.name": "Pellicule",
   "patchouli.touhou_little_maid.book.entries.maid.film.pages.0.text": "Une Pellicule est donnée en faisant clic droit sur la tombe d'une Maid, elle peu ensuite être utilisé à un Autel pour ressuscité votre Maid contre quelques PV.$(br2)La Pellicule ne peu pas être détruite par le feu ou la lave.",
   "patchouli.touhou_little_maid.book.entries.maid.gap.name": "Brèche",
+  "patchouli.touhou_little_maid.book.entries.maid.gap.pages.0.text": "Une relique pour Maid permettant de transférer des objets avec un coffre.$(br2)Clic droit dans le vide avec la Brèche en main pour ouvrir son interface. Accroupie + clic droit sur un coffre pour les liés ensembles.$(br2)Placez-le ensuite dans l'inventaire à Relique de la Maid.",
   "patchouli.touhou_little_maid.book.entries.maid.servant_bell.name": "Cloche de Serviteur",
   "patchouli.touhou_little_maid.book.entries.maid.servant_bell.pages.0.text": "La Cloche de Serviteur peut téléporter une de vos Maids à vous. Si la Maid ce trouve sur un chunk non chargé, la cloche vous indiqueras sa position.$(br2)Faites un clic droit sur votre Maid avec l'objet dans votre main pour les lier ensembles ! Vous pourrez alors renommez la cloche comme bon vous semble.",
   "patchouli.touhou_little_maid.book.entries.other.chisel_and_statues.name": "Burin et Statuette",
