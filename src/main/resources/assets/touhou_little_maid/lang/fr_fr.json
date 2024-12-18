@@ -464,6 +464,7 @@
   "patchouli.touhou_little_maid.book.entries.maid.gap.pages.0.text": "Une relique pour Maid permettant de transférer des objets avec un coffre.$(br2)Clic droit dans le vide avec la Brèche en main pour ouvrir son interface. Accroupie + clic droit sur un coffre pour les liés ensembles.$(br2)Placez-le ensuite dans l'inventaire à Relique de la Maid.",
   "patchouli.touhou_little_maid.book.entries.maid.maid_home.pages.1.text": "Vous pouvez utiliser la Boussole Vanilla pour voir les zones de tâches de votre Maid",
   "patchouli.touhou_little_maid.book.entries.maid.kappa_compass.name": "Zone de tâche",
+  "patchouli.touhou_little_maid.book.entries.maid.kappa_compass.pages.0.text": "La Boussole Kappa est un outil permettant de définir les zones de tâches d'une Maid. Vous pouvez l'utiliser pour définir les endroits où votre Maid travaille, se repose et dort.",
   "patchouli.touhou_little_maid.book.entries.maid.servant_bell.name": "Cloche de Serviteur",
   "patchouli.touhou_little_maid.book.entries.maid.servant_bell.pages.0.text": "La Cloche de Serviteur peut téléporter une de vos Maids à vous. Si la Maid ce trouve sur un chunk non chargé, la cloche vous indiqueras sa position.$(br2)Faites un clic droit sur votre Maid avec l'objet dans votre main pour les lier ensembles ! Vous pourrez alors renommez la cloche comme bon vous semble.",
   "patchouli.touhou_little_maid.book.entries.other.chisel_and_statues.name": "Burin et Statuette",
